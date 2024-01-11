@@ -2,7 +2,7 @@ import React from "react";
 
 const Signup = () => {
     return (
-        <div>
+        <div className="signup-container">
             <form action="/signup" method="POST">
                 <input name="email" type="text" placeholder="Email"></input>
                 <input name="password" type="password" placeholder="Password"></input>
