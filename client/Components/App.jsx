@@ -4,7 +4,7 @@ import { Route, Routes, Link } from "react-router-dom";
 import Login from "./Login.jsx"
 import Signup from "./Signup.jsx"
 // import style
-
+<h1>Root page</h1>  
 
 function App() {
 
@@ -13,8 +13,9 @@ function App() {
       <Routes>
         <Route path="/" element={<h1>Root page</h1>} />
         <Route path="/signup" element={<Signup/>} />
-        <Route path="/login" element={<Login/>} />
+        <Route path="/signin" element={<Login/>} />
         <Route path="/home" element={<h1>home page</h1>} />
+        <Route path="/addtrip" element={<h1>add trip page</h1>} />
       </Routes>
 
   )
