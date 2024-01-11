@@ -30,6 +30,15 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
+app.get('/login', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
+
+app.get('/signup', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
 
 
 

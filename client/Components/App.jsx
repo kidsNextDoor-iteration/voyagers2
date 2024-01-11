@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes, Link } from "react-router-dom";
 // import components
-import Login from "./Login"
-import Signup from "./Signup"
+import Login from "./Login.jsx"
+import Signup from "./Signup.jsx"
 // import style
 
 
