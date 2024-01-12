@@ -17,7 +17,19 @@ app.get('/', (req, res) => {
 
 
 // ------------- INTERNAL ROUTING ---------------- //
+app.post('/signin', 
+  // add middleware here,
+  (req, res) => {
+    res.status(200).send('request to signin successful')
+  }
+)
 
+app.post('/signup', 
+  // add middleware here,
+  (req, res) => {
+    res.status(200).send('request to signup successful')
+  }
+)
 
 
 // ----------- DB ROUTING ------------------- //
@@ -30,7 +42,20 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
+app.get('/signin', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
 
+app.get('/signup', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
+
+app.get('/addtrip', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
 
 
 
