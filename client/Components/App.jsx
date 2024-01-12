@@ -3,6 +3,7 @@ import { Route, Routes, Link } from "react-router-dom";
 // import components
 import Signin from "./Signin.jsx"
 import Signup from "./Signup.jsx"
+import HomePage from "./homePage.jsx"
 // import style
 <h1>Root page</h1>  
 
@@ -21,4 +22,4 @@ function App() {
   )
 }
  
-export default App();
+export default App;
