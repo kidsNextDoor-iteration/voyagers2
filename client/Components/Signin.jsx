@@ -1,9 +1,9 @@
 import React from "react";
 
-const Login = () => {
+const Signin = () => {
     return (
-        <div className="login-container">
-            <form action="/login" method="POST">
+        <div>
+            <form action="/signin" method="POST">
                 <input name="email" type="text" placeholder="Email"></input>
                 <input name="password" type="password" placeholder="Password"></input>
                 <input type="submit" value="Login"></input>
@@ -13,4 +13,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Signin;
