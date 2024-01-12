@@ -4,8 +4,10 @@ import { Route, Routes, Link } from "react-router-dom";
 // import components
 import Signin from "./Signin.jsx"
 import Signup from "./Signup.jsx"
+
 import ImageUpload from "./ImageUpload.jsx";
-import HomePage from "./homePage.jsx";
+import HomePage from "./homePage.jsx"
+
 // import style
 
 
