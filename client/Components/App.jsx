@@ -4,13 +4,14 @@ import { Route, Routes, Link } from "react-router-dom";
 import Signin from "./Signin.jsx"
 import Signup from "./Signup.jsx"
 import HomePage from "./homePage.jsx"
+import Header from "./Header.jsx"
 // import style
 <h1>Root page</h1>  
 
 function App() {
 
   return (
-
+    <div>
       <Routes>
         <Route path="/" element={<h1>Root page</h1>} />
         <Route path="/signup" element={<Signup/>} />
@@ -18,7 +19,7 @@ function App() {
         <Route path="/home" element={<HomePage/>} />
         <Route path="/addtrip" element={<h1>add trip page</h1>} />
       </Routes>
-
+      </div>
   )
 }
  
