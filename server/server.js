@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 
 
 // ------------- INTERNAL ROUTING ---------------- //
-app.post('/signin', 
+app.post('/signin', userController.verifyUser,
   // add middleware here,
   (req, res) => {
     res.status(200).send('request to signin successful')
