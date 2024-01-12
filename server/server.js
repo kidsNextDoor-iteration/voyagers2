@@ -5,10 +5,12 @@ const PORT = 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
+const userController = require('./controllers/userController.js')
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
@@ -23,10 +25,10 @@ app.post('/signin',
     res.status(200).send('request to signin successful')
   }
 )
-
-app.post('/signup', 
+app.post('/signup', userController.addUser, 
   // add middleware here,
   (req, res) => {
+    console.log('in /signup');
     res.status(200).send('request to signup successful')
   }
 )
