@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const userController = require('./controllers/userController.js')
+const tripController = require('./controllers/tripController.js')
 
 app.use(cookieParser());
 app.use(express.json());
@@ -30,6 +31,14 @@ app.post('/signup', userController.addUser,
   (req, res) => {
     console.log('in /signup');
     res.status(200).send('request to signup successful')
+  }
+)
+
+app.get('/getTrips', tripController.getTrips, 
+  // add middleware here,
+  (req, res) => {
+    // console.log('in /getTrips');
+    res.status(200).json(res.locals.trips);
   }
 )
 
@@ -74,6 +83,17 @@ app.get('/collaborations', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
+// global error handler
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Error handler caught unknown middleware error',
+    status: 500,
+    message: {err:`An error occurred ${err}`},
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message)
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening on PORT ${PORT}`);
