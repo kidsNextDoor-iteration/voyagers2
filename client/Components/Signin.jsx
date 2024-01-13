@@ -9,7 +9,7 @@ const Signin = () => {
                 <input type="submit" value="Login"></input>
             </form>
             <a href="/signup">Register Now</a>
-        </div>
+      </div>
     )
 }
 
