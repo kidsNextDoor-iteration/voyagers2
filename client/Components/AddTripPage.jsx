@@ -10,13 +10,20 @@ const AddTripPage = ()=>{
     const brand = document.querySelector('#brand').value;
     const description = document.querySelector('#description').value;
 
+    const dateEle = document.getElementsByClassName('react-aria-Input');
+    const startDate = dateEle[0].value;
+    const endDate = dateEle[1].value ;
+
+    
     if(!title | !location | !brand | !description) return alert('Please fill all input fields');
 
     const reqData = await JSON.stringify({
       title,
-      location,
+      city:location,
       brand,
-      description
+      description,
+      startDate,
+      endDate
     })
 
     const req = await fetch(url, {
@@ -26,12 +33,14 @@ const AddTripPage = ()=>{
     })
 
     const respStatus = req.status;
+    if(respStatus == 200) return alert('Success');
+    else{ return alert('Not Success')}
   }
 
   return(
     <div className="addTrip-container">
       <div id="button-container">
-        <button type="button" id='publishButton'>Publish Trip</button>
+        <button type="button" id='publishButton' onClick={addTripFetch}>Publish Trip</button>
       </div>
       
     <div className="content-container">
