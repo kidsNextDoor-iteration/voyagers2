@@ -59,6 +59,20 @@ app.get('/addtrip', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
+app.get('/trips', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
+
+app.get('/moodboard', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
+
+app.get('/collaborations', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
 
 
 app.listen(PORT, () => {

@@ -1,16 +1,24 @@
-// import React, { useEffect, useState} from 'react';
-// import PhotoAlbum from "react-photo-album";
+import React, { useEffect, useState} from 'react';
+import Header from "./Header.jsx";
+// import Login from "./Login.jsx";
 
-// const [photoUrl, setPhotoURL] = useState([]);
+const Trips = () => {
+  const [buttonPopup, setButtonPopup] = useState(false)
 
-// // function to fetch photos from database
-// useEffect(() => {
-//   // set endpoint to align with backend
-//   // QUESTION: how are we storing photos?
-//   fetch('/fetchPhotos')
-//     .then((res) => res.json)
-//     .then((photos) => )
-// }, [])
+  const togglePop = () => {
+    setButtonPopup(!buttonPopup);
+  };
+  
+  return (
+    <div>
+      <Header />
+      <div>
+        <button className="buttonAddTrip" onClick={togglePop}>Add Trip</button>
+        {/* {buttonPopup? <Login toggle={togglePop} /> : null} */}
+      </div>
+    </div>
+  )
+}
 
 
-// export default Trips;
+export default Trips;
