@@ -24,7 +24,8 @@
     "react-dom": "^18.2.0",
     "react-photo-album": "^2.3.0",
     "react-router": "6.21.1",
-    "react-router-dom": "^6.21.1"
+    "react-router-dom": "^6.21.1",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
