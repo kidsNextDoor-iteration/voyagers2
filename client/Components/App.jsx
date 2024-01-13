@@ -6,6 +6,7 @@ import Signup from "./Signup.jsx"
 import HomePage from "./homePage.jsx"
 import Trips from "./Trips.jsx"
 // import style
+
 <h1>Root page</h1>  
 
 function App() {

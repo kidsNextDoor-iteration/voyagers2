@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
+import '../Styles/header.scss'
+
 const Header = () => {
   
   return (
     <div className="header"> 
-      Voyage
-        <Link to="/trips">Trips </Link>
-        <Link to="/moodboard">Moodboard </Link>
-        <Link to="/collaborations">Collaborations </Link>
+      <div className="brand">
+        Voyage
+      </div>
+      <div>
+        <Link to="/trips" className="links">Trips </Link>
+        <Link to="/moodboard" className="links">Moodboard </Link>
+        <Link to="/collaborations" className="links">Collaborations </Link>
+      </div>
     </div>      
   )
 }
