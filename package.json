@@ -22,6 +22,7 @@
     "pg": "^8.5.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.2",
+    "react-aria-components": "^1.0.1",
     "react-dom": "^18.2.0",
     "react-photo-album": "^2.3.0",
     "react-router": "6.21.1",
