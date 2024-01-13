@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300&family=Roboto:wght@300&display=swap');
+$primary-color: #000;
+$background-color: #f7f4f2;
+
+
+body {
+    font-family:'Roboto';
+    background-color:$background-color;
+    margin:0px;
+}
+
+#home {
+    background-image: url('./images/background-1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    .navbar {
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            .logo {
+              font-family: 'Archivo Black';
+              font-size: 1.5rem;
+            }
+            .menu {
+              a {
+                text-decoration: none;
+                color: $primary-color;
+                margin-left: 2rem;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+        }
+    }
+    
+    .hero {
+        position: relative;
+        text-align:center;
+        width:100vw;
+        height:100vh;
+        padding: 0;
+        .content {
+            position:absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width:100%;
+            h1 {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            p {
+                font-size: 1.5rem;
+                margin-bottom: 2.5rem;
+            }
+            
+            button {
+                background-color: $primary-color;
+                color: $background-color;
+                border: none;
+                border-radius: 3rem;
+                padding: 1rem 2rem;
+                font-size: 1rem;
+                cursor: pointer;
+                &:hover {
+                    background-color: darken($primary-color, 10%);
+                }
+            }
+        }
+    }
+}
+
+#about {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem; // This creates some space between the image and the text
+
+    .image {
+        flex: 1; // Takes up 1/2 of the flex container
+        img {
+        width: 100%; // Makes the image responsive
+        height: auto; // Maintains the aspect ratio of the image
+        }
+    }
+
+    .content {
+        flex: 1; // Takes up 1/2 of the flex container
+        h2 {
+        margin-top: 0;
+        }
+    }
+}
