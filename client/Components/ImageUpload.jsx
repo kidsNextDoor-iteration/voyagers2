@@ -1,9 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import PhotoAlbum from "react-photo-album";
 
 function ImageUpload() {
 
   const [file, setFile] = useState();
   const [caption, setCaption] = useState('');
+  const [photos, setPhotos] = useState([]);
+  const [imageReady, setImageReady] = useState(false);
+
+
+
+  const fetchImages = async () => {
+    try{
+      const response = await fetch('/api/getImages')
+      const data = await response.json();
+   
+      setPhotos(data)
+      setImageReady(true);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    if(!imageReady){
+      fetchImages();
+    }
+  },[]);
+
+  console.log('photos: ', photos)
+
+
 
 
   const submit = async event => {
@@ -12,6 +39,7 @@ function ImageUpload() {
     const formData = new FormData();
     formData.append("image", file);
     formData.append("caption", caption);
+    setCaption('')
   
     try {
       const response = await fetch("/api/uploadimage", {
@@ -35,11 +63,6 @@ function ImageUpload() {
   return (
     <>
       <h1>image upload</h1>
-        {/* <form action="/api/uploadimage" method='post' enctype="multipart/form-data">
-        <input type="file" name='image' accept='image/*' />
-        <input type="text" name='caption' placeholder='caption' />
-        <input type="submit" value="Submit"></input>
-      </form> */}
 
       <form onSubmit={submit}>
         <input onChange={e => setFile(e.target.files[0])} type="file" accept='image/*'></input>
@@ -47,6 +70,10 @@ function ImageUpload() {
         <button type='submit'>Submit</button>
       </form>
 
+      <div>
+        <h1>moodboard</h1>
+        <PhotoAlbum layout="masonry" photos={photos} />
+      </div>
     </>
   )
 }

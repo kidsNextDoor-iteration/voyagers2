@@ -4,41 +4,26 @@ const path = require('path');
 const PORT = 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const sharp = require('sharp');
 
 
-const userController = require('./controllers/userController.js')
 
-require('dotenv').config();
+const userController = require('./controllers/userController.js');
+const imageController = require('./controllers/imageController.js');
+
 
 const multer = require('multer')
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
-// const dotenv = require('dotenv');
-// dotenv.config();
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const bucketName = process.env.BUCKET_NAME;
-const bucketRegion = process.env.BUCKET_REGION;
-const accessKey = process.env.ACCESS_KEY;
-const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
-console.log('bucketname: ',bucketName)
 
-const s3 = new S3Client({
-  credentials: {
-    accessKeyId: accessKey,
-    secretAccessKey: secretAccessKey,
-  },
-  region: bucketRegion
-});
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
@@ -61,33 +46,25 @@ app.post('/signup', userController.addUser,
   }
 )
 
-// ------------------- UPLOAD IMAGE ------------------ //
-app.post('/api/uploadimage', 
-  upload.single('image'),
-  async (req, res) => {
-  console.log("req.body: ", req.body)
-  console.log('req.file: ', req.file)
 
-  // RESIZE IMAGE //
-  const buffer = await sharp(req.file.buffer).resize({height: 800, width: 800, fit: "cover"}).toBuffer()
+// --------------- IMAGE ROUTING --------------- //
 
-  const params = {
-    Bucket: bucketName,
-    Key: req.file.originalname,
-    Body: buffer,
-    ContentType: req.file.mimetype,
+app.post('/api/uploadimage',
+upload.single('image'),
+  imageController.uploadSingleImg,
+  (req, res) => {
+    res.status(200).send({})
   }
-  const command = new PutObjectCommand(params)
-
-  await s3.send(command)
-
-  
-
-  res.send(post)
-})
+)
 
 
-
+// ------------------ GET IMAGE ------------------- //
+app.get('/api/getImages', 
+  imageController.getImages,
+  (req, res) => {
+    res.status(200).json(res.locals.imageQueryResults)
+  }
+)
 
 
 // ----------- DB ROUTING ------------------- //
