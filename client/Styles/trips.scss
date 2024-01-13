@@ -1,0 +1,30 @@
+* {
+  background-color: #D8D0C8;
+}
+
+.tile {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+ }
+
+.tile .tileImage {
+  flex: 0 1 33%
+}
+
+ .tileDetails {
+   position: absolute;
+   right: 50%;
+   left: 50%;
+   bottom: 15%;
+ }
+
+ .buttonAddTrip {
+  margin: 5px;
+  padding-top: 200px;
+  box-sizing: border-box;
+  width: 100px;
+  height: 30px;
+  border: none;
+  outline: none;
+ }

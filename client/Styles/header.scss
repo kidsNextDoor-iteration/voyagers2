@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+}
+
+.header {
+    // background-color: #D8D0C8;
+    height: 56px;
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    margin: 0;
+    // padding: 0 10px;
+}
+
+.header .brand {
+  color: #030303;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bolder;
+//   margin-right: 950px;
+}
+
+.header .links {
+  font-size: 16px;
+  color: #030303;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 2px;
+  margin-left: 15px;
+  align-items: center;  
+  display: inline-block;
+}
+
+.header .links:hover {
+    font-weight: bold;
+    cursor: pointer;
+    transition: 1s;
+  }
