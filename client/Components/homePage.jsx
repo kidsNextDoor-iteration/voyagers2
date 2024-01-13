@@ -9,9 +9,9 @@ const HomePage = (props)=>{
       <div id="home">
         <div className="navbar">
           <nav>
-            <div className="logo">Voyager</div>
+            <div className="logo">Voyager.</div>
             <div className="menu">
-              <a>About</a>
+              <a href="#about">About</a>
               <a href="/signin">Login</a>
             </div>
           </nav>
@@ -25,7 +25,11 @@ const HomePage = (props)=>{
         </div>
       </div>
       <div id="about">
-        
+        <div className="image"></div>
+        <div className="content">
+          <h2>About Us</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
       </div>
     </main>
    )
