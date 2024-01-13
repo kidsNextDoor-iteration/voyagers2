@@ -3,9 +3,11 @@ import { Row, Col } from 'react-bootstrap';
 
 //import components
 import Header from "./Header.jsx";
-import Login from "./Login.jsx";
+import AddTripPage from "./AddTripPage.jsx";
+import TripDetails from "./TripDetails.jsx";
 
 import '../Styles/trips.scss';
+import imageAlt from '../Images/trip-alt.jpg'
 
 const Trips = () => {
   // set state for button popup status
@@ -15,6 +17,13 @@ const Trips = () => {
   const togglePop = () => {
     setButtonPopup(!buttonPopup);
   };
+
+  // prevent scrolling of page while popup is active
+  if (buttonPopup) {
+    document.body.classList.add('active-popup');
+  }  else {
+      document.body.classList.remove('active-popup');
+  }
 
   // set state for list of trips
   const [trips, setTrips] = useState([]);
@@ -48,16 +57,46 @@ const Trips = () => {
       })
   }, [])
 
+  // render default image if no trip image is selected
+  const addDefaultImg = (e) => {
+    e.target.src = imageAlt
+  }
+
+  // set state for trip details popup status
+  const [tripPopup, setTripPopup] = useState(false);
+
+  // create functionality where a popup component is rendered when the trip image is clicked
+  const toggleTrip = () => {
+    setTripPopup(!tripPopup)
+  }
+
+  // set state for selected trip
+  const [selectedTrip, setSelectedTrip] = useState('');
+
+  // set functionality for trip
+  const handleImageClick = (tripId) => {
+    // console.log(trip);
+    setTripPopup(true);
+    setSelectedTrip(tripId);
+  }
+
+  const closePopup = () => {
+    setTripPopup(false);
+  }
+
   return (
     <div>
       <Header />
+
       <div>
         <button className="buttonAddTrip" onClick={togglePop}>Add Trip</button>
         {buttonPopup ? 
           <div className="popup">
             <div className="overlay"></div>
-            <div className="poup-content">
-              <Login />
+            <div className="popup-content">
+              <div className="addTrip-container">
+                <AddTripPage />
+              </div>
               <button className="buttonClose" onClick={togglePop}>
                 X
               </button>
@@ -65,33 +104,39 @@ const Trips = () => {
           </div>
         : null}
       </div>
+
       <Row className="tileRow">
       {trips.map((tile, index) => (
         <Col md={4} key={index} className="tileCol">
-       
-                <div>
-                <img
-                  className="tripImage" 
-                  src=""
-                  alt="" 
-                />
-              </div>
-              <div className="tileDetails">
-                {tile.startdate && new Date(tile.startdate).toLocaleDateString('en-US', {
-                  day: '2-digit',
-                  month: 'short',
-                  year: 'numeric',
-                })} - {tile.enddate && new Date(tile.startdate).toLocaleDateString('en-US', {
-                  day: '2-digit',
-                  month: 'short',
-                  year: 'numeric',
-                })}
-                <br />
-                {tile.city}
-              </div>
-            </Col>
-      ))}
-    </Row>
+          <div name={tile.tripid}>
+            <img
+              className="tripImage" 
+              src=""
+              alt=""
+              onError={addDefaultImg}
+              onClick={() => handleImageClick(tile.tripid)}
+            />
+          </div>
+          <div className="tileDetails">
+            {tile.startdate && new Date(tile.startdate).toLocaleDateString('en-US', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })} - {tile.enddate && new Date(tile.startdate).toLocaleDateString('en-US', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })}
+            <br />
+            {tile.city}
+          </div>
+        </Col>
+        ))}
+        </Row>
+
+        {tripPopup && (
+          <TripDetails tripId={selectedTrip} setTrip={setSelectedTrip} closePopup={closePopup} />
+        )}
     </div>
   )
 }

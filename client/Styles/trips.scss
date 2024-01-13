@@ -1,11 +1,17 @@
 * {
-  background-color: #D8D0C8;
   font-family: 'Archivo Black';
-  // overflow-y: hidden;
+  margin: 0
 }
 
+body {
+  background-color: #D8D0C8;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+// display trips as tiles
 .tileRow {
-    margin: 20px -5px;
+    margin: 20px 5px 0 20px;
     display: flex;
     flex-wrap: wrap;
  }
@@ -13,25 +19,41 @@
 .tileCol {
   flex: 0 0 33.33%;
   box-sizing: border-box;
-  padding: 5px;
+  padding: 5px 25px;
+  margin-left: -10px;
 }
 
 .tripImage {
   width: 100%; 
   height: auto;
+  max-width: 100%;
+  max-height: 300px;
 }
 
 .tileDetails {
-  // position: absolute;
   // right: 50%;
   // left: 50%;
   // bottom: 15%;
   text-align: center;
   margin-top: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
  }
 
+ .tileDetails .tripImage {
+  // position: absolute;
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%);
+}
+
+ // button to add trip
  .buttonAddTrip {
-  margin: 100px 5px 5px 20px;
+  margin: 100px 5px 5px 30px;
   box-sizing: border-box;
   width: 100px;
   height: 50px;
@@ -42,6 +64,11 @@
   cursor: pointer;
  }
 
+ // CSS for popup
+  body.active-popup {
+    overflow-y: hidden;
+  }
+ 
  .popup, .overlay {
   width: 100vw;
   height: 100vh;
@@ -58,20 +85,45 @@
 
 .popup-content {
   position: absolute;
+  // z-index: 999;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
-  background: #f1f1f1;
   padding: 14px 28px;
   border-radius: 3px;
   max-width: 600px;
   min-width: 300px;
+  max-height: 80vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  outline: 2px solid #D8D0C8;
+  background-color:#E1D6CB;
+  border-radius: 3px; 
 }
 
+.addTrip-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+// button to close popup
 .buttonClose {
   position: absolute;
   top: 10px;
   right: 10px;
   padding: 5px 7px;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  outline: 1px;
+  font-size: 15px;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
 }

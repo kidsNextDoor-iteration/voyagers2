@@ -42,6 +42,14 @@ app.get('/getTrips', tripController.getTrips,
   }
 )
 
+app.get('/getTripDetails', tripController.getTripDetails, 
+  // add middleware here,
+  (req, res) => {
+    // console.log('in /getTrips');
+    res.status(200).json(res.locals.trip);
+  }
+)
+
 
 // ----------- DB ROUTING ------------------- //
 

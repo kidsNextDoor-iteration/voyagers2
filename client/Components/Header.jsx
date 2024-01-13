@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div className="header"> 
       <div className="brand">
-        Voyage
+        Voyager
       </div>
       <div>
         <Link to="/trips" className="links">Trips </Link>
