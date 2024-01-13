@@ -1,19 +1,10 @@
 import React, { useState } from 'react'
-import axios from 'axios';
 
 function ImageUpload() {
 
   const [file, setFile] = useState();
   const [caption, setCaption] = useState('');
 
-  // const submit = async event => {
-  //   event.preventDefault()
-
-  //   const formData = new FormData();
-  //   formData.append("image", file)
-  //   formData.append("caption", caption)
-  //   await axios.post("/api/uploadimage", formData, { headers: {'Content-Type': 'multipart/form-data'}})
-  // }
 
   const submit = async event => {
     event.preventDefault();
@@ -60,4 +51,4 @@ function ImageUpload() {
   )
 }
 
-export default ImageUpload
+export default ImageUpload;
