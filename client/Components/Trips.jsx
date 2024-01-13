@@ -51,9 +51,11 @@ const Trips = () => {
   return (
     <div>
       <Header />
-      <div><br />
+      <div>
+        <form>
         <button className="buttonAddTrip" onClick={togglePop}>Add Trip</button>
         {buttonPopup? <Login toggle={togglePop} /> : null}
+        </form>
       </div>
       {trips.map((tile, index) => (
         <div key={index} className="tile">
