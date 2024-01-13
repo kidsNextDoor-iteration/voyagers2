@@ -4,6 +4,9 @@ const path = require('path');
 const PORT = 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const sharp = require('sharp');
+const prisma = require('prisma');
+
 
 require('dotenv').config();
 
@@ -63,19 +66,22 @@ app.post('/api/uploadimage',
   console.log("req.body: ", req.body)
   console.log('req.file: ', req.file)
 
-  req.file.buffer
+  // RESIZE IMAGE //
+  const buffer = await sharp(req.file.buffer).resize({height: 800, width: 800, fit: "cover"}).toBuffer()
 
   const params = {
     Bucket: bucketName,
     Key: req.file.originalname,
-    Body: req.file.buffer,
+    Body: buffer,
     ContentType: req.file.mimetype,
   }
   const command = new PutObjectCommand(params)
 
   await s3.send(command)
 
-  res.send({})
+  
+
+  res.send(post)
 })
 
 
