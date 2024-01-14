@@ -35,7 +35,7 @@ const Trips = () => {
       .then(res => res.json())
       .then(data => {
         setTrips(data);
-        console.log('trips from Trips.jsx ', data)
+        // console.log('trips from Trips.jsx ', data)
       }).catch(err => {
         console.log('error in fetching /getTrips in Trips.jsx')
       })
@@ -91,7 +91,7 @@ const Trips = () => {
       <div>
         <button className="buttonAddTrip" onClick={togglePop}>Add Trip</button>
         {buttonPopup ? 
-          <div className="popup">
+          <div className="popup-container">
             <div className="overlay"></div>
             <div className="popup-content">
               <div className="addTrip-container">

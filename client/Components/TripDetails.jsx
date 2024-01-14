@@ -1,42 +1,52 @@
 import React, { useEffect, useState} from 'react';
 
 const TripDetails = ({ tripId, setTrip, closePopup }) => {
-  
-  // fetch trip details when refreshed
-//   useEffect(() => {
-//     fetch(`/getTripDetails?tripId=${tripId}`)
-//       .then(res => res.json())
-//       .then(data => {
-//         setTrip(data);
-//         console.log('fetching trip ', tripId);
-//       }).catch(err => {
-//         console.log('error in fetching /getTripDetails in TripDetails.jsx')
-//       })
-//   }, [])
+  const [fetchedTrip, setFetchedTrip] = useState(null)
 
+// fetch trip details when refreshed
+  useEffect(() => {
+    if (tripId) {
+    // console.log('useEffect ', tripId);
+    fetch(`/getTripDetails?tripId=${tripId}`)
+      .then(res => res.json())
+      .then(data => {
+        setFetchedTrip(data[0]);
+      }).catch(err => {
+        console.log('error in fetching /getTripDetails in TripDetails.jsx')
+      })}
+  }, [tripId])
+
+  if (!fetchedTrip) {
+    return null}
+
+  else {
     return (
       <div className="trip-container">
-        {/* <div className="overlay"></div>
-        <div className="popup-content">
+        <div className="overlay"></div>
+        <div className="trip-content">
             <div className="tripDetails-container">
-                Dates: {tripId.startdate && new Date(tripId.startdate).toLocaleDateString('en-US', {
+                Dates: {fetchedTrip.startdate && new Date(fetchedTrip.startdate).toLocaleDateString('en-US', {
               day: '2-digit',
               month: 'short',
               year: 'numeric',
-            })} - {tripId.enddate && new Date(tripId.startdate).toLocaleDateString('en-US', {
+            })} - {fetchedTrip.enddate && new Date(fetchedTrip.enddate).toLocaleDateString('en-US', {
               day: '2-digit',
               month: 'short',
               year: 'numeric',
-            })} <br />
-            City: {tripId.city}
+            })} <br /><br />
+            City: {fetchedTrip.city} <br /><br />
+            Brand: {fetchedTrip.brand} <br /><br />
+            Description: {fetchedTrip.description} <br /><br />
+            Idea: {fetchedTrip.idea} <br /><br />
+            Status: {fetchedTrip.status}
             </div>
             <button className="buttonClose" onClick={closePopup}>
             X
             </button>
-        </div> */}
+        </div>
       </div>
   )
+  }
 }
-
 
 export default TripDetails;

@@ -69,7 +69,7 @@ body {
     overflow-y: hidden;
   }
  
- .popup, .overlay {
+ .popup-container, .overlay {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -104,6 +104,46 @@ body {
 }
 
 .addTrip-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.trip-container, .overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.trip-content {
+  position: absolute;
+  // z-index: 999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 95vh;
+  min-width: 1200px;
+  max-height: 95vh;
+  min-height: 75vh;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  outline: 2px solid #D8D0C8;
+  background-color:#E1D6CB;
+  border-radius: 3px; 
+}
+
+.tripDetails-container {
   display: flex;
   flex-direction: column;
   align-items: center;
