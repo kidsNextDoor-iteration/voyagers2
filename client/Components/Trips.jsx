@@ -29,8 +29,7 @@ const Trips = () => {
   const [trips, setTrips] = useState([]);
 
   // fetch trips from database when refreshed
-  // NOTE: to create getTrips api
-  useEffect(() => {
+  const fetchTrips = () => {
     fetch('/getTrips')
       .then(res => res.json())
       .then(data => {
@@ -39,14 +38,18 @@ const Trips = () => {
       }).catch(err => {
         console.log('error in fetching /getTrips in Trips.jsx')
       })
+  }
+
+  useEffect(() => {
+    fetchTrips();
+    fetchImages()
   }, [])
 
   // set state for list of images
   const [tripImages, setTripImages] = useState([])
 
   // fetch trip images from database when refreshed
-  // NOTE: to create getTrips api
-  useEffect(() => {
+  const fetchImages = () => {
     fetch('/getImages')
       .then(res => res.json())
       .then(data => {
@@ -55,7 +58,7 @@ const Trips = () => {
       }).catch(err => {
         console.log('error in fetching /getImages in Trips.jsx')
       })
-  }, [])
+  }
 
   // render default image if no trip image is selected
   const addDefaultImg = (e) => {
@@ -81,7 +84,7 @@ const Trips = () => {
   }
 
   const closePopup = () => {
-    setTripPopup(false);
+    setTripPopup(false)
   }
 
   return (
@@ -91,7 +94,7 @@ const Trips = () => {
       <div>
         <button className="buttonAddTrip" onClick={togglePop}>Add Trip</button>
         {buttonPopup ? 
-          <div className="popup">
+          <div className="popup-container">
             <div className="overlay"></div>
             <div className="popup-content">
               <div className="addTrip-container">
@@ -116,6 +119,11 @@ const Trips = () => {
               onError={addDefaultImg}
               onClick={() => handleImageClick(tile.tripid)}
             />
+            <div className="middle">
+              <div className="caption">
+                {tile.city}
+              </div>
+            </div>
           </div>
           <div className="tileDetails">
             {tile.startdate && new Date(tile.startdate).toLocaleDateString('en-US', {
@@ -135,7 +143,7 @@ const Trips = () => {
         </Row>
 
         {tripPopup && (
-          <TripDetails tripId={selectedTrip} setTrip={setSelectedTrip} closePopup={closePopup} />
+          <TripDetails tripId={selectedTrip} setTrip={setSelectedTrip} closePopup={closePopup} fetchTrips={fetchTrips} />
         )}
     </div>
   )
