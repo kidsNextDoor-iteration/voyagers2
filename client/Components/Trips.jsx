@@ -29,13 +29,12 @@ const Trips = () => {
   const [trips, setTrips] = useState([]);
 
   // fetch trips from database when refreshed
-  // NOTE: to create getTrips api
   useEffect(() => {
     fetch('/getTrips')
       .then(res => res.json())
       .then(data => {
         setTrips(data);
-        // console.log('trips from Trips.jsx ', data)
+        console.log('trips from Trips.jsx ', data)
       }).catch(err => {
         console.log('error in fetching /getTrips in Trips.jsx')
       })
@@ -116,6 +115,11 @@ const Trips = () => {
               onError={addDefaultImg}
               onClick={() => handleImageClick(tile.tripid)}
             />
+            <div className="middle">
+              <div className="caption">
+                {tile.city}
+              </div>
+            </div>
           </div>
           <div className="tileDetails">
             {tile.startdate && new Date(tile.startdate).toLocaleDateString('en-US', {

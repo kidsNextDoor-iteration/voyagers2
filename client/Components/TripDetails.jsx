@@ -24,6 +24,10 @@ const TripDetails = ({ tripId, setTrip, closePopup }) => {
       <div className="trip-container">
         <div className="overlay"></div>
         <div className="trip-content">
+            <div className="button-container">
+              <button className="buttonEditTrip">Edit Trip</button>
+              <button className="buttonDeleteTrip">Delete Trip</button>
+            </div>
             <div className="tripDetails-container">
                 Dates: {fetchedTrip.startdate && new Date(fetchedTrip.startdate).toLocaleDateString('en-US', {
               day: '2-digit',
