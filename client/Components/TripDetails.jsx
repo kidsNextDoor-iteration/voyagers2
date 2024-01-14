@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react';
 
-const TripDetails = ({ tripId, setTrip, closePopup }) => {
+const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
   const [fetchedTrip, setFetchedTrip] = useState(null)
 
 // fetch trip details when refreshed
@@ -16,6 +16,27 @@ const TripDetails = ({ tripId, setTrip, closePopup }) => {
       })}
   }, [tripId])
 
+  // functionality when update button is clicked and when delete button is clicked
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (e.nativeEvent.submitter.value === 'delete') {
+      fetch(`/deleteTrip?tripId=${tripId}`,
+        {method: 'DELETE'
+      }).then(res => {
+        if (res.ok) {
+          fetchTrips();
+          closePopup();
+        } else {
+          console.error('Error deleting trip:', res.statusText);
+        }
+      }).catch(err => {
+          console.log('error in fetching /deleteTrip in TripDetails.jsx')
+        })
+    }
+    // include update button here
+  }
+
+  // if fetchedTrip is not falsey (only when a trip image is clicked on and trip fetched, would something be rendered)
   if (!fetchedTrip) {
     return null}
 
@@ -25,8 +46,10 @@ const TripDetails = ({ tripId, setTrip, closePopup }) => {
         <div className="overlay"></div>
         <div className="trip-content">
             <div className="button-container">
-              <button className="buttonEditTrip">Edit Trip</button>
-              <button className="buttonDeleteTrip">Delete Trip</button>
+              <form onSubmit={handleFormSubmit}>
+                <button className="buttonEditTrip" type="submit" name="action" value="update">Edit Trip</button>
+                <button className="buttonDeleteTrip" type="submit" name="action" value="delete">Delete Trip</button>
+              </form>
             </div>
             <div className="tripDetails-container">
                 Dates: {fetchedTrip.startdate && new Date(fetchedTrip.startdate).toLocaleDateString('en-US', {

@@ -29,7 +29,7 @@ const Trips = () => {
   const [trips, setTrips] = useState([]);
 
   // fetch trips from database when refreshed
-  useEffect(() => {
+  const fetchTrips = () => {
     fetch('/getTrips')
       .then(res => res.json())
       .then(data => {
@@ -38,14 +38,18 @@ const Trips = () => {
       }).catch(err => {
         console.log('error in fetching /getTrips in Trips.jsx')
       })
+  }
+
+  useEffect(() => {
+    fetchTrips();
+    fetchImages()
   }, [])
 
   // set state for list of images
   const [tripImages, setTripImages] = useState([])
 
   // fetch trip images from database when refreshed
-  // NOTE: to create getTrips api
-  useEffect(() => {
+  const fetchImages = () => {
     fetch('/getImages')
       .then(res => res.json())
       .then(data => {
@@ -54,7 +58,7 @@ const Trips = () => {
       }).catch(err => {
         console.log('error in fetching /getImages in Trips.jsx')
       })
-  }, [])
+  }
 
   // render default image if no trip image is selected
   const addDefaultImg = (e) => {
@@ -80,7 +84,7 @@ const Trips = () => {
   }
 
   const closePopup = () => {
-    setTripPopup(false);
+    setTripPopup(false)
   }
 
   return (
@@ -139,7 +143,7 @@ const Trips = () => {
         </Row>
 
         {tripPopup && (
-          <TripDetails tripId={selectedTrip} setTrip={setSelectedTrip} closePopup={closePopup} />
+          <TripDetails tripId={selectedTrip} setTrip={setSelectedTrip} closePopup={closePopup} fetchTrips={fetchTrips} />
         )}
     </div>
   )

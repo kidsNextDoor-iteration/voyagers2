@@ -51,4 +51,28 @@ tripController.getTripDetails = (req, res, next) => {
     }
   }
 
+  tripController.editTrip = (req, res, next) => {
+
+  }
+
+  // to delete trip
+  tripController.deleteTrip = (req, res, next) => {
+    const deleteQuery = `DELETE FROM trips WHERE tripId = $1`
+    const value = [req.query.tripId];
+    try {
+      db.query(deleteQuery, value)
+        .then(data => {
+          return next();
+        })
+    }
+    catch (err) {
+      return next({
+        log: 'tripController.deleteTrip - error deleting user trip',
+        status: 500,
+        message: { err: 'tripController.deleteTrip - error deleting user trip'
+        }
+      })
+    }
+  }
+
 module.exports = tripController;
