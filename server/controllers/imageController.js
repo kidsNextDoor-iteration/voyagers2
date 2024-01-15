@@ -58,7 +58,7 @@ imageController.uploadSingleImg = async (req, res, next) => {
     await s3.send(command)
   
     // NEED COLABID IN RES LOCALS vvvvvv
-    const collabID = res.locals.collabID;
+    const tripID = res.locals.tripID;
 
     const getObjectParams = {
       Bucket: bucketName,
@@ -66,10 +66,10 @@ imageController.uploadSingleImg = async (req, res, next) => {
     }
 
     const command2 = new GetObjectCommand(getObjectParams)
-    const imgURL = await getSignedUrl(s3, command2, { expiresIn: 9999 })
+    const imgURL = await getSignedUrl(s3, command2, { expiresIn: 604750 })
 
     // NEED TO INCLUDE COLLAB ID INTO QUERY STRING vvvvvv
-    const querySTR = `INSERT INTO images (imageName, imageUrl, collabid) VALUES ('${req.body.caption}', '${imgURL}', 1);`
+    const querySTR = `INSERT INTO images (imageName, imageUrl, tripid) VALUES ('${req.body.caption}', '${imgURL}', 1);`
 
     await db.query(querySTR);
   
@@ -84,8 +84,8 @@ imageController.uploadSingleImg = async (req, res, next) => {
 imageController.getImages = async (req, res, next) => {
   try{
     // NEED CALLABID VVVVVVV
-    const collabID = 1
-    const querySTR = `SELECT * FROM images WHERE collabid = '${collabID}';`
+    const tripID = 1
+    const querySTR = `SELECT * FROM images WHERE tripid = '${tripID}';`
 
     const imageQueryResults = await db.query(querySTR);
     res.locals.imageQueryResults = imageQueryResults.rows;

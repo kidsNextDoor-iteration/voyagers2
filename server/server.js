@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 
 const userController = require('./controllers/userController.js');
 const imageController = require('./controllers/imageController.js');
+const tripController = require('./controllers/tripController.js')
 
 
 const multer = require('multer')
@@ -47,18 +48,9 @@ app.post('/signup', userController.addUser,
 )
 
 
-// --------------- IMAGE ROUTING --------------- //
+// ----------- DB ROUTING ------------------- //
 
-app.post('/api/uploadimage',
-upload.single('image'),
-  imageController.uploadSingleImg,
-  (req, res) => {
-    res.status(200).send({})
-  }
-)
-
-
-// ------------------ GET IMAGE ------------------- //
+// --------------- IMG API ROUTING ------------- //
 app.get('/api/getImages', 
   imageController.getImages,
   (req, res) => {
@@ -66,10 +58,13 @@ app.get('/api/getImages',
   }
 )
 
-
-// ----------- DB ROUTING ------------------- //
-
-
+app.post('/api/uploadimage',
+  upload.single('image'),
+  imageController.uploadSingleImg,
+  (req, res) => {
+    res.status(200).send({status: 'upload complete'})
+  }
+)
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
@@ -99,7 +94,32 @@ app.get('/imageDemo', (req, res) => {
 
 
 
+app.get('/trips', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
 
+app.get('/moodboard', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
+
+app.get('/collaborations', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+});
+
+// global error handler
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Error handler caught unknown middleware error',
+    status: 500,
+    message: {err:`An error occurred ${err}`},
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message)
+});
 
 app.listen(PORT, () => {
     console.log(`Server listening on PORT ${PORT}`);

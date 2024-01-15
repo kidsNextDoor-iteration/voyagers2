@@ -25,10 +25,11 @@
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.2",
     "pg": "^8.5.1",
-    "prisma": "^5.8.0",
     "react": "^18.2.0",
+    "react-aria-components": "^1.0.1",
+    "react-bootstrap": "^2.9.2",
     "react-dom": "^18.2.0",
-    "react-photo-album": "^2.3.0",
+    "react-grid-gallery": "^1.0.1-alpha.0",
     "react-router": "6.21.1",
     "react-router-dom": "^6.21.1",
     "sharp": "^0.33.2"

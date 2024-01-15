@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PhotoAlbum from "react-photo-album";
+import { Gallery } from "react-grid-gallery";
 
 function ImageUpload() {
 
@@ -8,19 +8,28 @@ function ImageUpload() {
   const [photos, setPhotos] = useState([]);
   const [imageReady, setImageReady] = useState(false);
 
-
+  
 
   const fetchImages = async () => {
     try{
       const response = await fetch('/api/getImages')
       const data = await response.json();
+      console.log('from data: ',data)
    
-      setPhotos(data)
+      const formatPhotoData = [];
+      data.forEach(el => {
+        const elkey = el.imageid;
+        const elurl = el.imageurl;
+        formatPhotoData.push({src: elurl})
+      })
+
+      setPhotos(formatPhotoData)
       setImageReady(true);
     } catch (err) {
       console.log(err);
     }
   }
+
 
   useEffect(() => {
     if(!imageReady){
@@ -72,7 +81,12 @@ function ImageUpload() {
 
       <div>
         <h1>moodboard</h1>
-        <PhotoAlbum layout="masonry" photos={photos} />
+        {/* <div id='moodboard-container' style={{width: '500px', height: '200px'}}>
+          <PhotoAlbum layout="masonry" photos={photos} />
+        </div> */}
+        <div id='moodboard-container' style={{width: '900px', height: '200px'}}>
+          <Gallery images={photos} />
+        </div>
       </div>
     </>
   )
