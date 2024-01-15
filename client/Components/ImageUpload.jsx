@@ -23,7 +23,7 @@ function ImageUpload() {
         formatPhotoData.push({src: elurl})
       })
 
-      setPhotos(formatPhotoData)
+      await setPhotos(formatPhotoData)
       setImageReady(true);
     } catch (err) {
       console.log(err);
@@ -36,6 +36,13 @@ function ImageUpload() {
       fetchImages();
     }
   },[]);
+
+
+
+  // setTimeout(() => {
+  //   window.location.reload();
+  // }, 2000);
+
 
   console.log('photos: ', photos)
 
@@ -62,6 +69,7 @@ function ImageUpload() {
   
       const responseData = await response.json();
       console.log("Upload successful:", responseData);
+      window.location.reload();
     } catch (error) {
       console.error("Error uploading image:", error);
     }
