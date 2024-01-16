@@ -1,9 +1,11 @@
 import React from "react";
+import Image from "../stylesheets/images/background-1.jpg"
 
 const Signup = () => {
     return (
         <div id="signup">
             <div className="image">
+                <img src={Image}></img>
             </div>
             <div className="form">
                 <form action="/signup" method="POST">

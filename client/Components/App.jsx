@@ -7,10 +7,8 @@ import HomePage from "./homePage.jsx"
 import Trips from "./Trips.jsx"
 import AddTripPage from "./AddTripPage.jsx";
 // import style
-import styles from "../stylesheets/styles.scss"
-
-<h1>Root page</h1>  
 import '../Styles/AddTripPage.scss'
+import "../stylesheets/styles.scss"
 
 function App() {
 

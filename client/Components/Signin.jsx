@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "../stylesheets/images/background-1.jpg"
 
 const Signin = () => {
     return (
@@ -12,6 +13,7 @@ const Signin = () => {
                 </form>
             </div>
             <div className="image">
+                <img src={Image}></img>
             </div>
         </div>
     )
