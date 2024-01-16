@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Gallery } from "react-grid-gallery";
+import deleteIcon from '../Images/deleteIcon.png';
 
 function ImageUpload() {
 
@@ -8,7 +9,9 @@ function ImageUpload() {
   const [photos, setPhotos] = useState([]);
   const [imageReady, setImageReady] = useState(false);
 
-  
+  // for moodboard 
+  const [popUp, setPopUp] = useState(false)
+  const [poppedImage, setPoppedImage] = useState()
 
   const fetchImages = async () => {
     try{
@@ -36,12 +39,6 @@ function ImageUpload() {
       fetchImages();
     }
   },[]);
-
-
-
-  // setTimeout(() => {
-  //   window.location.reload();
-  // }, 2000);
 
 
   console.log('photos: ', photos)
@@ -75,6 +72,32 @@ function ImageUpload() {
     }
   };
   
+  const handleClick = (e, { src } ) => {
+    setPoppedImage(src)
+    setPopUp(true)
+  };
+
+  const closeModal = () => {
+    setPopUp(false)
+  }
+
+
+  const deleteImgFunc = async () => {
+    try{
+      const imgSrc = poppedImage;
+      await fetch('/api/deleteImage', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ imgSrc }),
+    })
+    window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 
 
   return (
@@ -93,9 +116,20 @@ function ImageUpload() {
           <PhotoAlbum layout="masonry" photos={photos} />
         </div> */}
         <div id='moodboard-container' style={{width: '900px', height: '200px'}}>
-          <Gallery images={photos} />
+          <Gallery images={photos} onClick={handleClick}/>
         </div>
       </div>
+      {popUp && (
+        <div className='pop-up'>
+          <div className='pop-up-overlay' onClick={closeModal}></div>
+          <div className='pop-up-content'>
+            <img src={poppedImage} alt="" />
+            <button onClick={closeModal}>Close</button>
+            <button onClick={deleteImgFunc}>Delete Img</button>
+          </div>
+        </div>
+      )}
+
     </>
   )
 }

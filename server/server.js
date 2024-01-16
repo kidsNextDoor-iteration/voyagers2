@@ -66,6 +66,13 @@ app.post('/api/uploadimage',
   }
 )
 
+app.delete('/api/deleteImage',
+  imageController.deleteImage,
+  (req, res) => {
+    res.status(200).json({status: 'delete complete'})
+  }
+)
+
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
   console.log('reroute to dist')
