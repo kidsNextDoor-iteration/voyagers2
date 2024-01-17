@@ -56,6 +56,13 @@ app.delete('/deleteTrip', tripController.deleteTrip,
   }
 )
 
+app.post('/addTrip', tripController.addTrip, 
+  // add middleware here,
+  (req, res) => {
+    res.status(200).send('Trip added!')
+  }
+)
+
 
 // ----------- DB ROUTING ------------------- //
 
