@@ -39,8 +39,7 @@ imageController.uploadSingleImg = async (req, res, next) => {
   try {
     console.log("req.body: ", req.body)
     console.log('req.file: ', req.file)
-    // const tripID = res.locals.tripID;
-  
+
     const buffer = await sharp(req.file.buffer).resize({height: 800, width: 800, fit: "cover"}).toBuffer()
   
     const imgName = randomImageName();
@@ -57,8 +56,7 @@ imageController.uploadSingleImg = async (req, res, next) => {
   
     await s3.send(command)
   
-    // NEED COLABID IN RES LOCALS vvvvvv
-    const tripID = res.locals.tripID;
+    const tripID = res.locals.tripId;
 
     const getObjectParams = {
       Bucket: bucketName,
@@ -68,8 +66,7 @@ imageController.uploadSingleImg = async (req, res, next) => {
     const command2 = new GetObjectCommand(getObjectParams)
     const imgURL = await getSignedUrl(s3, command2, { expiresIn: 604750 })
 
-    // NEED TO INCLUDE COLLAB ID INTO QUERY STRING vvvvvv
-    const querySTR = `INSERT INTO images (imageName, imageUrl, tripid) VALUES ('${req.body.caption}', '${imgURL}', 1);`
+    const querySTR = `INSERT INTO images (imageName, imageUrl, tripid) VALUES ('${req.body.caption}', '${imgURL}', '${tripID}');`
 
     await db.query(querySTR);
   
@@ -83,8 +80,9 @@ imageController.uploadSingleImg = async (req, res, next) => {
 // -------------- GET IMAGES ------------- //
 imageController.getImages = async (req, res, next) => {
   try{
-    // NEED CALLABID VVVVVVV
-    const tripID = 1
+    // console.log('res.locals.tripId: ', res.locals.tripId)
+    console.log('req.body: ', req.body)
+    const tripID = req.body.tripId;
     const querySTR = `SELECT * FROM images WHERE tripid = '${tripID}';`
 
     const imageQueryResults = await db.query(querySTR);

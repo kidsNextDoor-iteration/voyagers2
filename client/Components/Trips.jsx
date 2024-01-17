@@ -55,9 +55,10 @@ const Trips = () => {
       .then(data => {
         setTripImages(data);
         console.log(tripImages);
-      }).catch(err => {
-        console.log('error in fetching /getImages in Trips.jsx')
       })
+      // .catch(err => {
+      //   console.log('error in fetching /getImages in Trips.jsx')
+      // })
   }
 
   // render default image if no trip image is selected

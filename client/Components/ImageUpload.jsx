@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Gallery } from "react-grid-gallery";
 import deleteIcon from '../Images/deleteIcon.png';
 
-function ImageUpload() {
+function ImageUpload({ fetchedTripId }) {
 
   const [file, setFile] = useState();
   const [caption, setCaption] = useState('');
@@ -15,7 +15,14 @@ function ImageUpload() {
 
   const fetchImages = async () => {
     try{
-      const response = await fetch('/api/getImages')
+      // need to send fetchedTripId in body,
+      const response = await fetch('/api/getImages', {
+        method: 'POST', 
+        body: JSON.stringify({ tripId: fetchedTripId }), 
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+      })
       const data = await response.json();
       console.log('from data: ',data)
    
@@ -52,6 +59,7 @@ function ImageUpload() {
     const formData = new FormData();
     formData.append("image", file);
     formData.append("caption", caption);
+    formData.append("tripID", fetchedTripId)
     setCaption('')
   
     try {
@@ -79,8 +87,7 @@ function ImageUpload() {
 
   const closeModal = () => {
     setPopUp(false)
-  }
-
+  };
 
   const deleteImgFunc = async () => {
     try{

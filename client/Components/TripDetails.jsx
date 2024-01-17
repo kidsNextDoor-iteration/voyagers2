@@ -1,4 +1,8 @@
 import React, { useEffect, useState} from 'react';
+import { Gallery } from "react-grid-gallery";
+import deleteIcon from '../Images/deleteIcon.png';
+
+import ImageUpload from './ImageUpload.jsx';
 
 const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
   const [fetchedTrip, setFetchedTrip] = useState(null)
@@ -66,11 +70,16 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
             Description: {fetchedTrip.description} <br /><br />
             Idea: {fetchedTrip.idea} <br /><br />
             Status: {fetchedTrip.status}
+            <ImageUpload fetchedTripId={fetchedTrip.tripid}/>  
+
             </div>
             <button className="buttonClose" onClick={closePopup}>
             X
             </button>
         </div>
+  
+
+
       </div>
   )
   }

@@ -9,7 +9,8 @@ const cookieParser = require('cookie-parser');
 
 const userController = require('./controllers/userController.js');
 const imageController = require('./controllers/imageController.js');
-const tripController = require('./controllers/tripController.js')
+const tripController = require('./controllers/tripController.js');
+const cookieController = require('./controllers/cookieController.js')
 
 
 const multer = require('multer')
@@ -39,24 +40,50 @@ app.post('/signin', userController.verifyUser,
     res.status(200).send('request to signin successful')
   }
 )
-app.post('/signup', userController.addUser, 
-  // add middleware here,
+app.post('/signup', 
+  userController.addUser, 
   (req, res) => {
     console.log('in /signup');
     res.status(200).send('request to signup successful')
   }
 )
-app.post('/addTrip', tripController.addTrip, 
-  // add middleware here,
+
+// --------------- TRIP ROUTING ------------- //
+app.post('/addTrip', 
+  tripController.addTrip, 
   (req, res) => {
     res.status(200).send('Trip added!')
   }
 )
 
-// ----------- DB ROUTING ------------------- //
+app.get('/getTrips', tripController.getTrips, 
+  (req, res) => {
+    res.status(200).json(res.locals.trips)
+  }
+)
+
+app.get('/getTripDetails',
+// create a cookie with the tripId
+  cookieController.setTripCookie,
+  tripController.getTripDetails,
+  imageController.getImages, 
+  (req, res) => {
+    console.log('in /getTripDetails ', res.locals.tripId);
+    res.status(200).json(res.locals.trip)
+  }
+)
+
+app.delete('/deleteTrip', tripController.deleteTrip, 
+  (req, res) => {
+    res.status(200).json(res.locals.trip)
+  }
+)
+
+
 
 // --------------- IMG API ROUTING ------------- //
-app.get('/api/getImages', 
+app.post('/api/getImages', 
+  // cookieController.setTripCookie,
   imageController.getImages,
   (req, res) => {
     res.status(200).json(res.locals.imageQueryResults)
@@ -64,6 +91,7 @@ app.get('/api/getImages',
 )
 
 app.post('/api/uploadimage',
+  // get tripid from cookie
   upload.single('image'),
   imageController.uploadSingleImg,
   (req, res) => {
