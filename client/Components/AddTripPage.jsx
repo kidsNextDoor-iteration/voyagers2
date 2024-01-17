@@ -9,6 +9,8 @@ const AddTripPage = ()=>{
     const location = document.querySelector('#location').value;
     const brand = document.querySelector('#brand').value;
     const description = document.querySelector('#description').value;
+    const idea = document.querySelector('#idea').value;
+
 
     const dateEle = document.getElementsByClassName('react-aria-Input');
     const startDate = dateEle[0].value;
@@ -22,11 +24,12 @@ const AddTripPage = ()=>{
       city:location,
       brand,
       description,
+      idea,
       startDate,
       endDate
     })
 
-    const req = await fetch(url, {
+    const req = await fetch('/addTrip', {
       method: 'POST',
       headers: { 'Content-type': 'application/json'},
       body: reqData,
@@ -55,7 +58,10 @@ const AddTripPage = ()=>{
         <input type="text" id="brand"/><br/>
         
         <label htmlFor="description">Description</label><br/>
-        <input type="text" id="description"/><br/>
+        <input type="text" id="description" className="larger-input"/><br/>
+
+        <label htmlFor="idea">Idea</label><br/>
+        <input type="text" id="idea" className="larger-input"/><br/>
 
         <div id="button-container">
         <button type="button" id='publishButton' onClick={addTripFetch}>Publish Trip</button>

@@ -9,30 +9,34 @@ userController.addUser = async (req, res, next) => {
   const hash = await bcrypt.hash(req.body.password, 10)
   const values = [req.body.firstName, req.body.lastName, req.body.email, hash];
   const newUserQuery = `
-    INSERT INTO users (firstName, lastName, email, password)
+    INSERT INTO users (firstName, lastName, email, password) 
     VALUES ($1, $2, $3, $4)
+    RETURNING userid;
     `
-  try {
-    db.query(newUserQuery, values);
-    return next();
-  }
-  catch(err) {
-    return next({
-        log: 'userController.addUser - error creating user',
-        status: 500,
-        message: { err: 'userController.addUser - error creating user'},
-    });
-  }
+  db.query(newUserQuery, values)
+      .then(data => {
+        res.locals.userid = data.rows[0].userid;
+        return next();
+      })
+      .catch(err => {
+        return next({
+          log: 'userController.addUser - error creating user',
+          status: 500,
+          message: { err: 'userController.addUser - error creating user'},
+        });
+      })
 }
 
 // verify user
 userController.verifyUser = (req, res, next) => {
   const loginQuery = `
-    SELECT email, password FROM users WHERE email = $1
+    SELECT email, password, userid FROM users WHERE email = $1;
   `
   db.query(loginQuery, [req.body.email])
     .then(async data => {
       const result = await bcrypt.compare(req.body.password, data.rows[0].password);
+      console.log('VerifyUser data: \n'+data.rows)
+      res.locals.userid = data.rows[0].userid;
       if (result) return next();
       else throw new Error()
     })
@@ -43,6 +47,13 @@ userController.verifyUser = (req, res, next) => {
         message: { err: 'userController.verifyUser - error verifying user'},
     })
   });
+}
+
+userController.userCookie = (req, res, next) => {
+  res.cookie('userid', res.locals.userid, {httpOnly: true})
+  console.log('userCookie userID: \n'+res.locals.userid)
+  console.log('userId cookie created')
+  return next();
 }
 
 

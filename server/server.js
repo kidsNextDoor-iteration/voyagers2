@@ -34,17 +34,16 @@ app.get('/', (req, res) => {
 
 
 // ------------- INTERNAL ROUTING ---------------- //
-app.post('/signin', userController.verifyUser,
+app.post('/signin', userController.verifyUser, userController.userCookie,
   // add middleware here,
   (req, res) => {
-    res.status(200).send('request to signin successful')
+    res.redirect('/trips')
   }
 )
-app.post('/signup', 
-  userController.addUser, 
+app.post('/signup', userController.addUser, userController.userCookie,
+  // add middleware here,
   (req, res) => {
-    console.log('in /signup');
-    res.status(200).send('request to signup successful')
+    res.redirect('/trips')
   }
 )
 
@@ -105,7 +104,6 @@ app.delete('/api/deleteImage',
     res.status(200).json({status: 'delete complete'})
   }
 )
-
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
