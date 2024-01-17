@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Gallery } from "react-grid-gallery";
 import deleteIcon from '../Images/deleteIcon.png';
+import '../Styles/ImageUpload.scss';
+
 
 function ImageUpload({ fetchedTripId }) {
 
@@ -16,13 +18,8 @@ function ImageUpload({ fetchedTripId }) {
   const fetchImages = async () => {
     try{
       // need to send fetchedTripId in body,
-      const response = await fetch('/api/getImages', {
-        method: 'POST', 
-        body: JSON.stringify({ tripId: fetchedTripId }), 
-        headers: {
-          'Content-Type': 'application/json', 
-        },
-      })
+      console.log('fetching tripid in fetch images: ', fetchedTripId)
+      const response = await fetch('/api/getImages')
       const data = await response.json();
       console.log('from data: ',data)
    
@@ -36,6 +33,7 @@ function ImageUpload({ fetchedTripId }) {
       await setPhotos(formatPhotoData)
       setImageReady(true);
     } catch (err) {
+      console.log('i didnt even work')
       console.log(err);
     }
   }
@@ -117,20 +115,24 @@ function ImageUpload({ fetchedTripId }) {
         <button type='submit'>Submit</button>
       </form>
 
+        <h1>Mood Board</h1>
       <div>
-        <h1>moodboard</h1>
 
-        <div id='moodboard-container' style={{width: '900px', height: '200px'}}>
-          <Gallery images={photos} onClick={handleClick}/>
+        <div id='moodboard-container' style={{width: '1000px', height: '200px'}}>
+          <Gallery images={photos} rowHeight={228} margin={9} onClick={handleClick}/>
         </div>
       </div>
       {popUp && (
         <div className='pop-up'>
           <div className='pop-up-overlay' onClick={closeModal}></div>
           <div className='pop-up-content'>
-            <img src={poppedImage} alt="" />
-            <button onClick={closeModal}>Close</button>
-            <button onClick={deleteImgFunc}>Delete Img</button>
+            <div className='pic-btn-container'>
+              <button className='close-btn' onClick={closeModal}>X</button>
+              <button className='delete-btn' onClick={deleteImgFunc}><img className='trash-icon' src={deleteIcon} alt="" /></button>
+            </div>
+            <div className='selected-img-container'>
+              <img className='selected-img' src={poppedImage} alt="" />
+            </div>
           </div>
         </div>
       )}

@@ -37,9 +37,6 @@ const s3 = new S3Client({
 // --------- UPLOAD IMAGE ----------- //
 imageController.uploadSingleImg = async (req, res, next) => {
   try {
-    console.log("req.body: ", req.body)
-    console.log('req.file: ', req.file)
-
     const buffer = await sharp(req.file.buffer).resize({height: 800, width: 800, fit: "cover"}).toBuffer()
   
     const imgName = randomImageName();
@@ -49,14 +46,14 @@ imageController.uploadSingleImg = async (req, res, next) => {
       Key: imgName,
       Body: buffer,
       ContentType: req.file.mimetype,
-      
     }
 
     const command = new PutObjectCommand(params)
   
     await s3.send(command)
   
-    const tripID = res.locals.tripId;
+    console.log('what is my cookie: ', req.cookies.tripId)
+    const tripID = await req.cookies.tripId;
 
     const getObjectParams = {
       Bucket: bucketName,
@@ -82,7 +79,8 @@ imageController.getImages = async (req, res, next) => {
   try{
     // console.log('res.locals.tripId: ', res.locals.tripId)
     console.log('req.body: ', req.body)
-    const tripID = req.body.tripId;
+    console.log('trip cookie: ', req.cookies.tripId)
+    const tripID = await req.cookies.tripId;
     const querySTR = `SELECT * FROM images WHERE tripid = '${tripID}';`
 
     const imageQueryResults = await db.query(querySTR);

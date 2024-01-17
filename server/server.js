@@ -65,9 +65,8 @@ app.get('/getTripDetails',
 // create a cookie with the tripId
   cookieController.setTripCookie,
   tripController.getTripDetails,
-  imageController.getImages, 
   (req, res) => {
-    console.log('in /getTripDetails ', res.locals.tripId);
+    // console.log('in /getTripDetails ', res.locals.tripId);
     res.status(200).json(res.locals.trip)
   }
 )
@@ -81,7 +80,7 @@ app.delete('/deleteTrip', tripController.deleteTrip,
 
 
 // --------------- IMG API ROUTING ------------- //
-app.post('/api/getImages', 
+app.get('/api/getImages', 
   // cookieController.setTripCookie,
   imageController.getImages,
   (req, res) => {
@@ -90,7 +89,6 @@ app.post('/api/getImages',
 )
 
 app.post('/api/uploadimage',
-  // get tripid from cookie
   upload.single('image'),
   imageController.uploadSingleImg,
   (req, res) => {

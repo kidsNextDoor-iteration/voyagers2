@@ -47,7 +47,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
   else {
     return (
       <div className="trip-container">
-        <div className="overlay"></div>
+        <div className="overlay" onClick={closePopup} ></div>
         <div className="trip-content">
             <div className="button-container">
               <form onSubmit={handleFormSubmit}>
