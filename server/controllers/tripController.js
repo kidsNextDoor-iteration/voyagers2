@@ -57,13 +57,14 @@ tripController.getTripDetails = (req, res, next) => {
 
   tripController.addTrip = (req, res, next) => {
     try{
-      const { title, city, brand, description, startDate, endDate} = req.body;
-      const value = [title, city, brand, description, startDate, endDate];
+      const userid = req.cookies.userid;
+      const { title, city, brand, description, startDate, endDate, idea} = req.body;
+      const value = [userid, city, brand, description, startDate, endDate, idea];
       const addQuery = 
       `INSERT INTO trips
-      (userId, title, city, brand, description, startDate, endDate)
+      (userid, city, brand, description, startdate, enddate, idea)
       VALUES 
-      ($1,$2,$3,$4,$5,$6)`;
+      ($1, $2, $3, $4, $5, $6, $7)`;
       
       db.query(addQuery, value)
       .then(data => {
