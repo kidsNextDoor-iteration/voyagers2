@@ -112,9 +112,7 @@ function ImageUpload() {
 
       <div>
         <h1>moodboard</h1>
-        {/* <div id='moodboard-container' style={{width: '500px', height: '200px'}}>
-          <PhotoAlbum layout="masonry" photos={photos} />
-        </div> */}
+
         <div id='moodboard-container' style={{width: '900px', height: '200px'}}>
           <Gallery images={photos} onClick={handleClick}/>
         </div>
