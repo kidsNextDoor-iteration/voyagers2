@@ -80,14 +80,9 @@ imageController.uploadSingleImg = async (req, res, next) => {
 // -------------- GET IMAGES ------------- //
 imageController.getImages = async (req, res, next) => {
   try{
-<<<<<<< HEAD
     // console.log('res.locals.tripId: ', res.locals.tripId)
     console.log('req.body: ', req.body)
     const tripID = req.body.tripId;
-=======
-    // NEED TRIPID VVVVVVV
-    const tripID = 1
->>>>>>> dev
     const querySTR = `SELECT * FROM images WHERE tripid = '${tripID}';`
 
     const imageQueryResults = await db.query(querySTR);
