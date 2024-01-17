@@ -5,13 +5,26 @@ const PORT = 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const userController = require('./controllers/userController.js')
+
+
+const userController = require('./controllers/userController.js');
+const imageController = require('./controllers/imageController.js');
 const tripController = require('./controllers/tripController.js')
+
+
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
+
+
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
@@ -34,32 +47,24 @@ app.post('/signup', userController.addUser,
   }
 )
 
-app.get('/getTrips', tripController.getTrips, 
-  // add middleware here,
-  (req, res) => {
-    // console.log('in /getTrips');
-    res.status(200).json(res.locals.trips);
-  }
-)
-
-app.get('/getTripDetails', tripController.getTripDetails, 
-  // add middleware here,
-  (req, res) => {
-    res.status(200).json(res.locals.trip);
-  }
-)
-
-app.delete('/deleteTrip', tripController.deleteTrip, 
-  // add middleware here,
-  (req, res) => {
-    res.status(200).send('Trip deleted!')
-  }
-)
-
 
 // ----------- DB ROUTING ------------------- //
 
+// --------------- IMG API ROUTING ------------- //
+app.get('/api/getImages', 
+  imageController.getImages,
+  (req, res) => {
+    res.status(200).json(res.locals.imageQueryResults)
+  }
+)
 
+app.post('/api/uploadimage',
+  upload.single('image'),
+  imageController.uploadSingleImg,
+  (req, res) => {
+    res.status(200).send({status: 'upload complete'})
+  }
+)
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
@@ -81,6 +86,13 @@ app.get('/addtrip', (req, res) => {
   console.log('reroute to dist')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
+
+app.get('/imageDemo', (req, res) => {
+  console.log('reroute to dist')
+  res.sendFile(path.join(__dirname, '../dist/index.html'))
+})
+
+
 
 app.get('/trips', (req, res) => {
   console.log('reroute to dist')
@@ -112,3 +124,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Server listening on PORT ${PORT}`);
 });
+
