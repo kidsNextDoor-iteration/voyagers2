@@ -55,6 +55,29 @@ tripController.getTripDetails = (req, res, next) => {
 
   }
 
+  tripController.addTrip = (req, res, next) => {
+    try{
+      const { title, city, brand, description, startDate, endDate} = req.body;
+      const value = [title, city, brand, description, startDate, endDate];
+      const addQuery = 
+      `INSERT INTO trips
+      (userId, title, city, brand, description, startDate, endDate)
+      VALUES 
+      ($1,$2,$3,$4,$5,$6)`;
+      db.query(addQuery, value)
+      .then(data => {
+        return next();
+      })
+    }
+    catch(error){
+      return next({
+        log: 'tripController.addTrip - error adding user trip: '+ error,
+        status: 500,
+        message: { err: 'tripController.addTrip - error deleting user trip'}
+      })
+    }
+  }
+
   // to delete trip
   tripController.deleteTrip = (req, res, next) => {
     const deleteQuery = `DELETE FROM trips WHERE tripId = $1`

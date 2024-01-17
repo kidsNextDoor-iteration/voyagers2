@@ -17,20 +17,59 @@
 
 .content-container {
     display: flex;
+    margin: 2px;
+    gap: 10px;
 }
-#calender-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+form {
+  #description{
+    width: 185px;
+    height: 70px;
+  }
+  input {
+    margin-bottom: 4px;
+  }
+
+  #button-container{
+    margin-top: 16px;
+  }
+}
+
+.react-aria-DateRangePicker{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.date-container{
+  display: flex;
+  justify-content: center;
+  background: white;
+  border-radius: 5px;
+  width: 190px;
+
+  margin-bottom: 8px;
+
+  // box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0,1);
+
+  #calender-header {
+      background-color: whitesmoke;
+
+      margin-bottom: 4px;
+      border-radius: 5px;
+  }
 }
 
 .react-aria-DateInput {
     display: flex;
 }
 
-.react-aria-Group {
+.date-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  // align-items: center;
 }
 
 header {
@@ -39,6 +78,12 @@ header {
 }
 
 .react-aria-RangeCalendar {
+  
+  background: rgb(234, 227, 227);
+  padding: 3px;
+  padding-bottom: 0px;
+  border-radius: 5px;
+
     [slot=start] + span {
         padding: 0 4px;
       }
@@ -47,6 +92,27 @@ header {
         margin-right: 2rem;
         flex: 1;
       }
+      
+      & header {
+        display: flex;
+        align-items: center;
+        margin: 0 4px .5rem 4px;
+    
+        .react-aria-Heading {
+          flex: 1;
+          margin: 0;
+          text-align: center;
+          font-size: 1.375rem;
+        }
+      }
+      td {
+        padding: 2px 0; 
+      }
+      table {
+        border-collapse: collapse; //Controls the spacing between the table's columns
+        margin: 0px 2px 0px 2px;
+      }
+
     .react-aria-CalendarCell {
         width: 2.286rem;
         line-height: 2.286rem;
@@ -72,8 +138,8 @@ header {
         &[data-selected] {
         //   background: var(--highlight-background);
         //   color: var(--highlight-foreground);
-          background: rgb(81, 40, 227);
-          color: whitesmoke;
+          background: rgb(81, 40, 227); //Controls the table cell's background color when selected
+          color: whitesmoke; //Controlls selected 
           border-radius: 0;
     
           &[data-focus-visible] {

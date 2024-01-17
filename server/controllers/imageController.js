@@ -98,6 +98,19 @@ imageController.getImages = async (req, res, next) => {
   }
 }
 
+// ---------------- DELETE IMAGES --------------- //
+imageController.deleteImage = async (req, res, next) => {
+  try{
+    console.log(req.body.imgSrc)
+    const imgURL = req.body.imgSrc;
+    const querySTR = `DELETE FROM images WHERE imageUrl = '${imgURL}';`
+    await db.query(querySTR);
+    return next();
+  } catch (err) {
+    console.log('error in imageController.deleteImage', err)
+    return next();
+  }
+}
 
 
 
