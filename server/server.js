@@ -46,7 +46,12 @@ app.post('/signup', userController.addUser,
     res.status(200).send('request to signup successful')
   }
 )
-
+app.post('/addTrip', tripController.addTrip, 
+  // add middleware here,
+  (req, res) => {
+    res.status(200).send('Trip added!')
+  }
+)
 
 // ----------- DB ROUTING ------------------- //
 
@@ -72,6 +77,7 @@ app.delete('/api/deleteImage',
     res.status(200).json({status: 'delete complete'})
   }
 )
+
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
