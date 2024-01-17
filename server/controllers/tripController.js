@@ -64,6 +64,7 @@ tripController.getTripDetails = (req, res, next) => {
       (userId, title, city, brand, description, startDate, endDate)
       VALUES 
       ($1,$2,$3,$4,$5,$6)`;
+      
       db.query(addQuery, value)
       .then(data => {
         return next();
@@ -73,7 +74,7 @@ tripController.getTripDetails = (req, res, next) => {
       return next({
         log: 'tripController.addTrip - error adding user trip: '+ error,
         status: 500,
-        message: { err: 'tripController.addTrip - error deleting user trip'}
+        message: { err: 'tripController.addTrip - error adding user trip'}
       })
     }
   }

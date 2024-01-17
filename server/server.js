@@ -78,7 +78,6 @@ app.delete('/api/deleteImage',
   }
 )
 
-
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
   console.log('reroute to dist')
