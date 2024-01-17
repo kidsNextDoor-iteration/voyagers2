@@ -39,9 +39,9 @@ const AddTripPage = ()=>{
 
   return(
     <div className="addTrip-container">
-      <div id="button-container">
+      {/* <div id="button-container">
         <button type="button" id='publishButton' onClick={addTripFetch}>Publish Trip</button>
-      </div>
+      </div> */}
       
     <div className="content-container">
       <form action="">
@@ -56,24 +56,29 @@ const AddTripPage = ()=>{
         
         <label htmlFor="description">Description</label><br/>
         <input type="text" id="description"/><br/>
+
+        <div id="button-container">
+        <button type="button" id='publishButton' onClick={addTripFetch}>Publish Trip</button>
+      </div>
       </form>
 
       <div className="calender-container">
         <DateRangePicker>
-          <Group>
+          <div className="date-container">
             <div id="calender-header">
               <span>Start</span>
               <DateInput slot="start">
                 {(segment) => <DateSegment segment={segment} />}
               </DateInput>
             </div>
-            <div>
+            <hr />
+            <div id="calender-header">
               <span>End</span>
               <DateInput slot="end">
                 {(segment) => <DateSegment segment={segment} />}
               </DateInput>
             </div>
-          </Group>
+          </div>
 
           <Dialog>
             <RangeCalendar>
