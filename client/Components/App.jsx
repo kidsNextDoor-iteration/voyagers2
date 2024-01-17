@@ -8,12 +8,6 @@ import ImageUpload from "./ImageUpload.jsx";
 import HomePage from "./homePage.jsx";
 import Trips from "./Trips.jsx"
 import AddTripPage from "./AddTripPage.jsx";
-// import style
-<<<<<<< HEAD
-=======
-
-
->>>>>>> dev
 import '../Styles/AddTripPage.scss'
 import "../stylesheets/styles.scss"
 
