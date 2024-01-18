@@ -100,4 +100,5 @@ tripController.getTripDetails = (req, res, next) => {
     }
   }
 
+
 module.exports = tripController;

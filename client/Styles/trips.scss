@@ -170,6 +170,7 @@ body {
   outline: 2px solid #D8D0C8;
   background-color:#F7F4F2;
   border-radius: 3px; 
+  // overflow:scroll;
 }
 
 .tripDetails-container {
@@ -192,9 +193,14 @@ body {
   height: 30px;
   outline: 1px;
   font-size: 15px;
+  border: 1px black solid;
   border-radius: 15px;
   text-align: center;
   cursor: pointer;
+}
+
+.buttonClose:hover {
+  filter: invert(1);
 }
 
 .button-container {
@@ -213,4 +219,94 @@ body {
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+}
+
+
+
+#moodboard-container {
+  overflow: scroll;
+}
+
+
+.pop-up {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.pop-up-overlay {
+  background-color: rgba(0, 0, 0, 0.346);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  // z-index: 1;
+}
+
+.pop-up-content {
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.selected-img-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selected-img {
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.pic-btn-container {
+  z-index: 5;
+  width: 100%;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+}
+
+.close-btn {
+  z-index: 5;
+  margin-left: 5px;
+  border: none;
+  border-radius: 22px;
+  height: 32px;
+  width: 32px;
+  background-color: rgba(245, 245, 245, 0.798);
+}
+
+.close-btn:hover {
+  height: 34px;
+  width: 34px;
+  filter: invert(1);
+}
+
+.delete-btn {
+  z-index: 5;
+  border: none;
+  background-color: transparent;
+  border-radius: 20px;
+}
+
+.trash-icon {
+  height: 36px;
+  opacity: 84%;
+}
+
+.trash-icon:hover {
+  height: 40px;
+  filter: invert(1);
 }
