@@ -3,8 +3,7 @@ import { Gallery } from "react-grid-gallery";
 import deleteIcon from '../Images/deleteIcon.png';
 
 
-
-function ImageUpload({ fetchedTripId }) {
+function Moodboard({ fetchedTripId }) {
 
   const [file, setFile] = useState();
   const [caption, setCaption] = useState('');
@@ -107,17 +106,30 @@ function ImageUpload({ fetchedTripId }) {
 
   return (
     <>
+       
+ 
 
-      <form onSubmit={submit}>
-        <input className='image-uplaod-choose-file' onChange={e => setFile(e.target.files[0])} type="file" accept='image/*'></input>
-        <input className='image-upload-caption' value={caption} onChange={e => setCaption(e.target.value)} type='text' placeholder='caption' />
-        <button className='image-upload-submit-btn' type='submit'>Submit</button>
-      </form>
-
-
+        <div id='moodboard-container' style={{ height: '90%'}}>
+          <Gallery images={photos} rowHeight={228} margin={9} onClick={handleClick}/>
+        </div>
+    
+      {popUp && (
+        <div className='pop-up'>
+          <div className='pop-up-overlay' onClick={closeModal}></div>
+          <div className='pop-up-content'>
+            <div className='pic-btn-container'>
+              <button className='close-btn' onClick={closeModal}>X</button>
+              <button className='delete-btn' onClick={deleteImgFunc}><img className='trash-icon' src={deleteIcon} alt="" /></button>
+            </div>
+            <div className='selected-img-container'>
+              <img className='selected-img' src={poppedImage} alt="" />
+            </div>
+          </div>
+        </div>
+      )}
 
     </>
   )
 }
 
-export default ImageUpload;
+export default Moodboard;
