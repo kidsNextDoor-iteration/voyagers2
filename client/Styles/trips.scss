@@ -1,3 +1,5 @@
+$text-Dark: #272624;
+
 body {
   background-color: #D8D0C8;
   max-width: 100%;
@@ -96,6 +98,7 @@ body {
       background-color: #E1eef2;
       transform:scale(1.1);
   }
+  font-family: 'Archivo', sans-serif;
  }
 
  // CSS for popup
@@ -156,6 +159,80 @@ body {
   position: fixed;
 }
 
+.trip-content-left-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.trip-content-right-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60%;
+  height: 95%;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.right-top-text-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.td-top-container {
+  // border: 1px solid black;
+  margin-top: 10px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.td-bot-container {
+  // border: 1px solid rgb(255, 0, 0);
+  margin-top: 10px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.td-bot-inner {
+  // width: 30%;
+}
+
+.image-upload-choose-file {
+}
+
+.trip-details-text-header {
+  // font-family: 'Archivo', sans-serif;
+  font-family: 'Archivo Black', sans-serif;
+  letter-spacing: -1px;
+  color: $text-Dark;
+}
+
+.image-upload-text-header {
+  font-family: 'Archivo Black', sans-serif;
+  letter-spacing: -1px;
+  color: $text-Dark;
+}
+
+.trip-details-hr {
+  border: 1px solid #d8d0c8;
+  width: 90%;
+  margin-bottom: 10px;
+}
+
 .trip-content {
   position: absolute;
   // z-index: 999;
@@ -183,22 +260,24 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 90%;
   height: 100%;
+  font-family: 'Archivo', sans-serif;
+
 }
 
 // button to close popup
 .buttonClose {
   position: absolute;
-  top: 5%;
-  right: 3%;
+  top: 1.5%;
+  right: 1.5%;
   padding: 5px 7px;
   box-sizing: border-box;
   width: 30px;
   height: 30px;
   outline: 1px;
   font-size: 15px;
-  border: 1px black solid;
+  border: 1px #d8d0c8 solid;
   border-radius: 15px;
   text-align: center;
   cursor: pointer;
@@ -209,10 +288,10 @@ body {
 }
 
 .button-container {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // position: absolute;
+  // top: 10%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
   padding: 5px 7px;
   box-sizing: border-box;
   width: 200px;
@@ -221,8 +300,9 @@ body {
   font-size: 15px;
   border-radius: 15px;
   text-align: center;
-  display: flex;
-  justify-content: space-between;
+  margin-top: 10px;
+  // display: flex;
+  // justify-content: space-between;
   cursor: pointer;
 }
 
@@ -243,9 +323,11 @@ body {
 }
 
 .pop-up-overlay {
-  background-color: rgba(0, 0, 0, 0.346);
+  background-color: rgba(0, 0, 0, 0.391);
   height: 100%;
   width: 100%;
+  top: 0;
+  left: 0;
   position: fixed;
   // z-index: 1;
 }
@@ -270,7 +352,7 @@ body {
 
 .selected-img {
   width: 100%;
-  border: 2px solid black;
+  border: 2px solid #f7f4f287;
   border-radius: 10px;
 }
 
