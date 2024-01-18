@@ -99,7 +99,7 @@ const Trips = () => {
             <div className="overlay"></div>
             <div className="popup-content">
               <div className="addTrip-container">
-                <AddTripPage />
+                <AddTripPage togglePop={togglePop} fetchImages={fetchImages} fetchTrips={fetchTrips} />
               </div>
               <button className="buttonClose" onClick={togglePop}>
                 X

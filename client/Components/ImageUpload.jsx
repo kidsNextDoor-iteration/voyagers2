@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Gallery } from "react-grid-gallery";
 import deleteIcon from '../Images/deleteIcon.png';
-import '../Styles/ImageUpload.scss';
+
 
 
 function ImageUpload({ fetchedTripId }) {
@@ -107,35 +107,14 @@ function ImageUpload({ fetchedTripId }) {
 
   return (
     <>
-      <h1>image upload</h1>
 
       <form onSubmit={submit}>
-        <input onChange={e => setFile(e.target.files[0])} type="file" accept='image/*'></input>
-        <input value={caption} onChange={e => setCaption(e.target.value)} type='text' placeholder='caption' />
-        <button type='submit'>Submit</button>
+        <input className='image-uplaod-choose-file' onChange={e => setFile(e.target.files[0])} type="file" accept='image/*'></input>
+        <input className='image-upload-caption' value={caption} onChange={e => setCaption(e.target.value)} type='text' placeholder='caption' />
+        <button className='image-upload-submit-btn' type='submit'>Submit</button>
       </form>
 
-        <h1>Mood Board</h1>
-      <div>
 
-        <div id='moodboard-container' style={{width: '1000px', height: '200px'}}>
-          <Gallery images={photos} rowHeight={228} margin={9} onClick={handleClick}/>
-        </div>
-      </div>
-      {popUp && (
-        <div className='pop-up'>
-          <div className='pop-up-overlay' onClick={closeModal}></div>
-          <div className='pop-up-content'>
-            <div className='pic-btn-container'>
-              <button className='close-btn' onClick={closeModal}>X</button>
-              <button className='delete-btn' onClick={deleteImgFunc}><img className='trash-icon' src={deleteIcon} alt="" /></button>
-            </div>
-            <div className='selected-img-container'>
-              <img className='selected-img' src={poppedImage} alt="" />
-            </div>
-          </div>
-        </div>
-      )}
 
     </>
   )

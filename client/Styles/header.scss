@@ -1,39 +1,24 @@
 .header {
-    // background-color: #D8D0C8;
-    height: 56px;
-    width: 100%;
-    display: flex;
-    position: fixed;
-    align-items: center;
-    margin: 0;
-    justify-content: space-between; 
-    // padding: 0 10px;
-}
-
-.header .brand {
-  color: #030303;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: bolder;
-  margin-left: 10px;
-//   margin-right: 950px;
-}
-
-.header .links {
-  font-size: 16px;
-  color: #030303;
-  text-transform: uppercase;
-  text-decoration: none;
-  margin-top: 2px;
-  margin-left: 15px;
-  align-items: center;  
-  display: inline-block;
-  margin-right: 15px;
-}
-
-.header .links:hover {
-    font-weight: bold;
-    cursor: pointer;
-    transition: 1s;
+  nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      .logo {
+        font-family: 'Georgia';
+        font-size: 1.5rem;
+        text-decoration:none;
+        color:black;
+      }
+      .menu {
+          a {
+              text-decoration: none;
+              color: black;
+              margin-left: 2rem;
+              &:hover {
+              text-decoration: underline;
+              }
+          }
+      }
   }
+}

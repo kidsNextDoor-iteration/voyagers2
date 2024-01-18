@@ -8,8 +8,8 @@ tripController.getTrips = (req, res, next) => {
     SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE userId = $1
   `
   // to update value functionality to access current user (through cookies/ sessions)
-//   const value = [req.cookies.]
-  const value = ['1'];
+  const value = [req.cookies.userid];
+  console.log(value);
   try {
     db.query(tripQuery, value)
       .then(data => {
@@ -34,6 +34,7 @@ tripController.getTripDetails = (req, res, next) => {
       SELECT startDate, endDate, city, brand, description, idea, status FROM trips WHERE tripId = $1
     `
     const value = [req.query.tripId];
+    // console.log(value);
     try {
       db.query(tripQuery, value)
         .then(data => {
@@ -52,7 +53,29 @@ tripController.getTripDetails = (req, res, next) => {
   }
 
   tripController.editTrip = (req, res, next) => {
-
+    const editQuery = `
+      UPDATE trips
+      SET startDate = $2, endDate = $3, city = $4, brand = $5, description = $6, idea = $7, status = $8
+      WHERE tripId = $1
+    `
+    const value = [req.query.tripId, req.body.startDate, req.body.endDate, req.body.city, req.body.brand, req.body.description, req.body.idea, req.body.status];
+    console.log('editTrip ', value);
+  try {
+    db.query(editQuery, value)
+      .then(data => {
+        console.log("editTrip data.rows ", data.rows);
+        res.locals.trip = data.rows;
+        return next();
+      })
+  }
+  catch (err) {
+    return next({
+      log: 'tripController.getTripDetails - error getting user trip',
+      status: 500,
+      message: { err: 'tripController.getTripDetails - error getting user trip'
+      }
+    })
+  }
   }
 
   tripController.addTrip = (req, res, next) => {
