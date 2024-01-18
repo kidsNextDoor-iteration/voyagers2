@@ -8,8 +8,8 @@ tripController.getTrips = (req, res, next) => {
     SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE userId = $1
   `
   // to update value functionality to access current user (through cookies/ sessions)
-//   const value = [req.cookies.]
-  const value = ['1'];
+  const value = [req.cookies.userid];
+  console.log(value);
   try {
     db.query(tripQuery, value)
       .then(data => {
@@ -34,6 +34,7 @@ tripController.getTripDetails = (req, res, next) => {
       SELECT startDate, endDate, city, brand, description, idea, status FROM trips WHERE tripId = $1
     `
     const value = [req.query.tripId];
+    // console.log(value);
     try {
       db.query(tripQuery, value)
         .then(data => {
