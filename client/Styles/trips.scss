@@ -82,15 +82,20 @@ body {
 
  // button to add trip
  .buttonAddTrip {
-  margin: 100px 5px 5px 30px;
-  box-sizing: border-box;
-  width: 100px;
-  height: 50px;
-  outline: 1px;
-  font-size: 15px;
-  border-radius: 40px;
-  text-align: center;
+  margin: 3rem 5px 5px 30px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 3rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  transition: color 0.3s, transform 0.2s, background-color 0.5s;
   cursor: pointer;
+  &:hover {
+      color: black;
+      background-color: #E1eef2;
+      transform:scale(1.1);
+  }
  }
 
  // CSS for popup
