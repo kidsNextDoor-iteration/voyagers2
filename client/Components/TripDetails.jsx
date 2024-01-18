@@ -4,22 +4,40 @@ import deleteIcon from '../Images/deleteIcon.png';
 
 import ImageUpload from './ImageUpload.jsx';
 import Moodboard from './Moodboard.jsx';
+import EditTrip from './EditTrip.jsx';
 
 const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
   const [fetchedTrip, setFetchedTrip] = useState(null)
 
 // fetch trip details when refreshed
-  useEffect(() => {
-    if (tripId) {
-    // console.log('useEffect ', tripId);
+  const getTripDetails = () => {
     fetch(`/getTripDetails?tripId=${tripId}`)
       .then(res => res.json())
       .then(data => {
         setFetchedTrip(data[0]);
       }).catch(err => {
         console.log('error in fetching /getTripDetails in TripDetails.jsx')
-      })}
-  }, [tripId])
+      })
+  }
+  
+  useEffect(() => {
+    if (tripId) {
+      getTripDetails()
+    }
+  } , [tripId])
+
+  // to remove if functionality works
+  // useEffect(() => {
+  //   if (tripId) {
+  //   console.log('useEffect TripDetails ', tripId);
+  //   fetch(`/getTripDetails?tripId=${tripId}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setFetchedTrip(data[0]);
+  //     }).catch(err => {
+  //       console.log('error in fetching /getTripDetails in TripDetails.jsx')
+  //     })}
+  // }, [tripId])
 
   // functionality when update button is clicked and when delete button is clicked
   const handleFormSubmit = (e) => {
@@ -39,6 +57,9 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
         })
     }
     // include update button here
+    if (e.nativeEvent.submitter.value === 'update') {
+      return <EditTrip />
+    }
   }
 
   // if fetchedTrip is not falsey (only when a trip image is clicked on and trip fetched, would something be rendered)
