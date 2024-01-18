@@ -2,7 +2,7 @@ import React from "react";
 
 import {Button, CalendarCell, CalendarGrid, CalendarGridBody, CalendarGridHeader, CalendarHeaderCell, DateInput, DateRangePicker, DateSegment, Dialog, FieldError, Group, Heading, Label, Popover, RangeCalendar, Text} from 'react-aria-components';
 
-const AddTripPage = ( {togglePop, buttonPopup} )=>{
+const AddTripPage = ( {togglePop, fetchImages, fetchTrips} )=>{
 
   async function addTripFetch(){
     const title = document.querySelector('#title').value;
@@ -39,6 +39,8 @@ const AddTripPage = ( {togglePop, buttonPopup} )=>{
     if(respStatus == 200) {
       alert('Success');
       togglePop();
+      fetchTrips();
+      fetchImages();
     }
     else { return alert('Not Success')}
   }
