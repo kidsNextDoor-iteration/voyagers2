@@ -56,5 +56,35 @@ userController.userCookie = (req, res, next) => {
   return next();
 }
 
+userController.verifyAuth = (req, res, next) => {
+  try{
+    if(req.cookies.userid) return next();
+    else{ return res.redirect('/home')};
+  }
+  catch (error) {
+    return next({
+      log: 'userController.verifyAuth - issue verifing auth to access page, err:\n '+error,
+      status: 500,
+      message: { err: 'userController.verifyAuth - issue verifing auth to access page'
+      }
+    })
+  }
+}
+
+userController.signout = (req, res, next) =>{
+  try{
+    res.clearCookie('userid');
+    return next();
+  }
+  catch (error) {
+    return next({
+      log: 'userController.signout - issue signing user out, err:\n '+error,
+      status: 500,
+      message: { err: 'userController.signout - issue signing user out'
+      }
+    })
+  }
+}
+
 
 module.exports = userController;

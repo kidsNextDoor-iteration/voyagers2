@@ -15,6 +15,7 @@ const Header = () => {
           <Link to="/trips">TRIPS</Link>
           <Link to="/moodboard">MOODBOARD</Link>
           <Link to="/collaborations">COLLABORATIONS</Link>
+          <a href="/signout" >SIGNOUT</a>
         </div>
       </nav>
     </div>      

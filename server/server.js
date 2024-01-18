@@ -47,6 +47,10 @@ app.post('/signup', userController.addUser, userController.userCookie,
   }
 )
 
+app.get('/signout', userController.signout, (req, res)=>{
+  res.status(200).redirect('/home');
+})
+
 // --------------- TRIP ROUTING ------------- //
 app.post('/addTrip', 
   tripController.addTrip, 
@@ -123,7 +127,7 @@ app.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
-app.get('/addtrip', (req, res) => {
+app.get('/addtrip', userController.verifyAuth, (req, res) => {
   console.log('reroute to dist')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
@@ -135,17 +139,17 @@ app.get('/imageDemo', (req, res) => {
 
 
 
-app.get('/trips', (req, res) => {
+app.get('/trips', userController.verifyAuth, (req, res) => {
   console.log('reroute to dist')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
-app.get('/moodboard', (req, res) => {
+app.get('/moodboard', userController.verifyAuth, (req, res) => {
   console.log('reroute to dist')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
-app.get('/collaborations', (req, res) => {
+app.get('/collaborations', userController.verifyAuth, (req, res) => {
   console.log('reroute to dist')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
