@@ -61,6 +61,10 @@ app.get('/getTrips', tripController.getTrips,
   }
 )
 
+app.post('/editTrip', tripController.editTrip, (req, res) => {
+  res.status(200).json(res.locals.trip)
+})
+
 app.get('/getTripDetails',
 // create a cookie with the tripId
   cookieController.setTripCookie,
