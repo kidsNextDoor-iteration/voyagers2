@@ -10,7 +10,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
 // fetch trip details when refreshed
   useEffect(() => {
     if (tripId) {
-    // console.log('useEffect ', tripId);
+    console.log('useEffect TripDetails ', tripId);
     fetch(`/getTripDetails?tripId=${tripId}`)
       .then(res => res.json())
       .then(data => {
