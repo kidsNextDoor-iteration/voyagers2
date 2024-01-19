@@ -63,10 +63,10 @@ const AddTripPage = ( {togglePop, fetchImages, fetchTrips} )=>{
         <input type="text" id="brand"/><br/>
         
         <label htmlFor="description">Description</label><br/>
-        <input type="text" id="description" className="larger-input"/><br/>
+        <textarea type="text" id="description" className="larger-input"/><br/>
 
         <label htmlFor="idea">Idea</label><br/>
-        <input type="text" id="idea" className="larger-input"/><br/>
+        <textarea type="text" id="idea" className="larger-input"/><br/>
 
         <div id="button-container">
         <button type="button" id='publishButton' onClick={addTripFetch}>Publish Trip</button>
