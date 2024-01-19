@@ -27,11 +27,17 @@ form {
     height: 70px;
   }
   input {
+    width: 185px;
     margin-bottom: 4px;
   }
 
   #button-container{
     margin-top: 16px;
+  }
+
+  textarea {
+    resize: none;
+    font-family: Arial;
   }
 }
 
@@ -55,7 +61,7 @@ form {
   box-shadow: 1px 1px 4px rgba(0, 0, 0,1);
 
   #calender-header {
-      background-color: whitesmoke;
+      background-color: white;
 
       margin-bottom: 4px;
       border-radius: 5px;
