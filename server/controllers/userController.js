@@ -5,26 +5,45 @@ const userController = {};
 
 // controller to add a new user to database
 userController.addUser = async (req, res, next) => {
-  // add bcrypt hashing
-  const hash = await bcrypt.hash(req.body.password, 10)
-  const values = [req.body.firstName, req.body.lastName, req.body.email, hash];
-  const newUserQuery = `
-    INSERT INTO users (firstName, lastName, email, password) 
-    VALUES ($1, $2, $3, $4)
-    RETURNING userid;
-    `
-  db.query(newUserQuery, values)
-      .then(data => {
-        res.locals.userid = data.rows[0].userid;
-        return next();
+  if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password) {
+    return res.status(400).json({err: "Please fill in all empty fields"});
+  }
+  const checkEmailQuery = `
+    SELECT email FROM users WHERE email = $1
+  `
+  db.query(checkEmailQuery, [req.body.email])
+    .then(async data => {
+      if (data.rows[0] !== undefined) {
+        return res.status(400).json({err: "Email already exists"})
+      } else {
+        const hash = await bcrypt.hash(req.body.password, 10)
+        const values = [req.body.firstname, req.body.lastname, req.body.email, hash];
+        const newUserQuery = `
+          INSERT INTO users (firstname, lastname, email, password) 
+          VALUES ($1, $2, $3, $4)
+          RETURNING userid;
+        `
+        db.query(newUserQuery, values)
+            .then(data => {
+              res.locals.userid = data.rows[0].userid;
+              return next();
+            })
+            .catch(err => {
+              return next({
+                log: 'userController.addUser - error creating user',
+                status: 500,
+                message: { err: 'userController.addUser - error creating user'},
+              });
+            })
+      }
+    })
+    .catch(err => {
+      return next({
+        log: 'userController.addUser - error creating user',
+        status: 500,
+        message: { err: 'userController.addUser - error creating user'},
       })
-      .catch(err => {
-        return next({
-          log: 'userController.addUser - error creating user',
-          status: 500,
-          message: { err: 'userController.addUser - error creating user'},
-        });
-      })
+    })
 }
 
 // verify user
