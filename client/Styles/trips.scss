@@ -30,6 +30,7 @@ body {
   display: block;
   transition: .5s ease;
   backface-visibility: hidden;
+  object-fit:cover;
 }
 
 .tripImage:hover {
