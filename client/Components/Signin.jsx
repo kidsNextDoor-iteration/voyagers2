@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "../stylesheets/images/background-1.jpg"
 import { Link, useNavigate } from 'react-router-dom';
+import image2 from '../Images/pexels-cottonbro-studio-2773494.jpg';
+import image3 from '../Images/couple-img3.png';
 
 const Signin = () => {
     let navigate = useNavigate();
@@ -40,7 +42,7 @@ const Signin = () => {
                     </form>
                 </div>
                 <div className="image">
-                    <img src={Image}></img>
+                    <img src={image3}></img>
                 </div>
             </div>
         </div>
