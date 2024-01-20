@@ -42,7 +42,7 @@ const AddTripPage = ( {togglePop, fetchImages, fetchTrips} )=>{
       fetchTrips();
       fetchImages();
     }
-    else { return alert('Not Success')}
+    else { return alert('Unsuccessful')}
   }
 
   return(
@@ -52,7 +52,7 @@ const AddTripPage = ( {togglePop, fetchImages, fetchTrips} )=>{
       </div> */}
       
     <div className="content-container">
-      <form action="">
+      <form action="" className="addtrip-form">
         <label htmlFor="title">What would you like to name this trip?</label><br/>
         <input type="text" id="title"/><br/>
 

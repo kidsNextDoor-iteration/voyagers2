@@ -164,6 +164,10 @@ h1 {
   border-radius: 3px; 
 }
 
+.popup-container {
+  z-index: 2;
+}
+
 .addTrip-container {
   display: flex;
   flex-direction: column;
