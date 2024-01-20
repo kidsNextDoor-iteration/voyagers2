@@ -512,3 +512,16 @@ input[type="file" i] {
   justify-content: center;
   align-items: center;
 }
+
+.no-trips-title-container {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-trips-title {
+  margin-top: -50px;
+  color: #272624;
+  opacity: .9;
+}

@@ -105,7 +105,7 @@ const Trips = () => {
       {trips === null ? (
       <div> <br/> <h1> Loading...</h1></div>
       ) : trips.length === 0 ? (
-        <div><br/><h1>No upcoming trips. Plan one now!</h1></div>
+        <div className='no-trips-title-container'><br/><h1 className='no-trips-title'>No Upcoming Trips. Plan One Now!</h1></div>
       ) : (
       <Row className="tileRow">
       {trips.map((tile, index) => (
