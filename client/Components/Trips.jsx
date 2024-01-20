@@ -131,7 +131,7 @@ const Trips = () => {
               day: '2-digit',
               month: 'short',
               year: 'numeric',
-            })} - {tile.enddate && new Date(tile.startdate).toLocaleDateString('en-US', {
+            })} - {tile.enddate && new Date(tile.enddate).toLocaleDateString('en-US', {
               day: '2-digit',
               month: 'short',
               year: 'numeric',
