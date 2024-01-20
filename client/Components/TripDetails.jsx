@@ -264,7 +264,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
             Brand: {fetchedTrip.brand} <br /><br />
             Description: {fetchedTrip.description} <br /><br />
             Idea: {fetchedTrip.idea} <br /><br />
-            Status: {fetchedTrip.status}
+            {/* Status: {fetchedTrip.status} */}
 
             <div className="button-container">
               <form onSubmit={handleFormSubmit}>
