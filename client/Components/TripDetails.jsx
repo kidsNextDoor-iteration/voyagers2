@@ -141,16 +141,16 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
 
 
 
-      <div className="trip-container">
-      <div className="overlay" onClick={closePopup} ></div>
-      <div className="trip-content">
-        <div className='trip-content-left-container'>
+      // <div className="trip-container">
+      // <div className="overlay" onClick={closePopup} ></div>
+      // <div className="trip-content">
+      //   <div className='trip-content-left-container'>
 
-          <div className='td-top-container'>
-            <h1 className='trip-details-text-header'>Trip Details</h1>
-            <hr className='trip-details-hr'/>
-            <div className="tripDetails-container">
-              {/* {editMode ? (
+      //     <div className='td-top-container'>
+      //       <h1 className='trip-details-text-header'>Trip Details</h1>
+      //       <hr className='trip-details-hr'/>
+      //       <div className="tripDetails-container">
+              /* {editMode ? (
                 <div className="edittripDetails-container">
                 <form onSubmit={handleEditSubmit}>
                   <label>Dates:</label><br /> 
@@ -173,8 +173,8 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
                   year: 'numeric',
                 }) : editedTrip.enddate}
                 onChange={handleInputChange} /> 
-                <br /><br /> */}
-              {/* <div className="calender-container">
+                <br /><br /> */
+              /* <div className="calender-container">
         <DateRangePicker>
           <div className="date-container">
             <div id="calender-header">
@@ -205,8 +205,8 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
             </RangeCalendar>
           </Dialog>
         </DateRangePicker>
-      </div> */}
-            {/* <label>City:</label><br />
+      </div> */
+            /* <label>City:</label><br />
             <input 
               type="text" 
               name="city"
@@ -229,20 +229,28 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
               type="text"
               name="idea"
               value={editedTrip.idea || ''}
-              onChange={handleInputChange} /> <br /><br /> */}
-            {/* <label>Status:</label> 
+              onChange={handleInputChange} /> <br /><br /> */
+            /* <label>Status:</label> 
             <input 
               type="text"
               name="status" 
               value={fetchedTrip.status}
-              onChange={handleInputChange} /> */}
-            {/* <button type="submit">Save Edits</button>
+              onChange={handleInputChange} /> */
+            /* <button type="submit">Save Edits</button>
             <button type="button" onClick={() => setEditMode(false)}>Cancel</button>
           </form>
           </div>
-              ) : ( */}
-                {/* <> */}
-              <div className="tripDetails-container">
+              ) : ( */
+                /* <> */
+      <div className="trip-container">
+      <div className="overlay" onClick={closePopup} ></div>
+      <div className="trip-content">
+        <div className='trip-content-left-container'>
+
+          <div className='td-top-container'>
+            <h1 className='trip-details-text-header'>Trip Details</h1>
+            <hr className='trip-details-hr'/>
+            <div className="tripDetails-container">
                 Dates: {fetchedTrip.startdate && new Date(fetchedTrip.startdate).toLocaleDateString('en-US', {
               day: '2-digit',
               month: 'short',
@@ -256,43 +264,45 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
             Brand: {fetchedTrip.brand} <br /><br />
             Description: {fetchedTrip.description} <br /><br />
             Idea: {fetchedTrip.idea} <br /><br />
-            {/* Status: {fetchedTrip.status} */}
-            </div>
-            {/* </> */}
-          {/* )} */}
-          </div>
-          <div className="button-container">
-            <form onSubmit={handleFormSubmit}>
-              <button className="buttonEditTrip" type="submit" name="action" value="update">Edit Trip</button>
-              <button className="buttonDeleteTrip" type="submit" name="action" value="delete">Delete Trip</button>
-            </form>
-          </div>
-        </div>
-      </div>
+            Status: {fetchedTrip.status}
 
-      <div className='td-bot-container'>
-        <h1 className='image-upload-text-header'>Upload Image</h1>
-        <hr className='trip-details-hr'/>
-        <div className='td-bot-inner'>
-          <ImageUpload fetchedTripId={fetchedTrip.tripid}/>  
+            <div className="button-container">
+              <form onSubmit={handleFormSubmit}>
+                <button className="buttonEditTrip" type="submit" name="action" value="update">Edit Trip</button>
+                <button className="buttonDeleteTrip" type="submit" name="action" value="delete">Delete Trip</button>
+              </form>
+            </div>
+          </div>
         </div>
-      </div>
+
+          <div className='td-bot-container'>
+            <h1 className='image-upload-text-header'>Upload Image</h1>
+            <hr className='trip-details-hr'/>
+            <div className='td-bot-inner'>
+              <ImageUpload fetchedTripId={fetchedTrip.tripid}/>  
+            </div>
+          </div>
 
         
-    </div>
-    <button className="buttonClose" onClick={closePopup}>
-    X
-    </button>
+          </div>
+          <button className="buttonClose" onClick={closePopup}>
+          X
+          </button>
 
-    <div className='trip-content-right-container'>
-      <div className='right-top-text-container'>
-        <h1 className='image-upload-text-header'>Mood Board</h1>
-        <hr className='trip-details-hr'/>
+        <div className='trip-content-right-container'>
+          <div className='right-top-text-container'>
+            <h1 className='image-upload-text-header'>Mood Board</h1>
+            <hr className='trip-details-hr'/>
+          </div>
+          <Moodboard fetchedTripId={fetchedTrip.tripid} />
+        </div>
+
       </div>
-      <Moodboard fetchedTripId={fetchedTrip.tripid} />
-    </div>
 
-  </div>
+
+
+
+    </div>
 
   )
   }
