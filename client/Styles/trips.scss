@@ -6,6 +6,13 @@ body {
   overflow-x: hidden;
 }
 
+h1 {
+  text-align: center;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+}
+
 // display trips as tiles
 .tileRow {
     margin: 20px 5px 0 20px;
@@ -37,30 +44,46 @@ body {
   transition: 1s;
   opacity: 0.3;
   cursor: pointer;
+  // ~ .middle {
+  //   opacity: 1;
+  // }
 }
 
-.middle:hover {
-  // transition: 1s;
-  opacity: 1;
-  // cursor: pointer;
-}
+// .middle:hover {
+//   // transition: 1s;
+//   opacity: 1;
+//   // cursor: pointer;
+// }
 
-.middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
+// .middle {
+//   transition: .5s ease;
+//   opacity: 0;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   -ms-transform: translate(-50%, -50%);
+//   text-align: center;
+//   width: 100%;
 
-.caption {
-  color: black;
-  font-size: 16px;
-  padding: 16px 32px;
-}
+//   .caption {
+//     color: black;
+//     font-size: 16px;
+//     padding: 16px 32px;
+//     background-color: rgba(255, 255, 255, 0.8); // Adjust background color as needed
+//     border-radius: 5px;
+//   }
+  
+//   &:hover .middle {
+//     opacity: 1;
+//   }
+// }
+
+// .caption {
+//   color: black;
+//   font-size: 16px;
+//   padding: 16px 32px;
+// }
 
 .tileDetails {
   // right: 50%;

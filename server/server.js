@@ -65,7 +65,7 @@ app.get('/getTrips', tripController.getTrips,
   }
 )
 
-app.post('/editTrip', tripController.editTrip, (req, res) => {
+app.patch('/editTrip', tripController.editTrip, (req, res) => {
   res.status(200).json(res.locals.trip)
 })
 
