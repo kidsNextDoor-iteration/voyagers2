@@ -6,6 +6,7 @@ const userController = {};
 // controller to add a new user to database
 userController.addUser = async (req, res, next) => {
   if (!req.body.firstname || !req.body.lastname || !req.body.email || !req.body.password) {
+    console.log(req.body)
     return res.status(400).json({err: "Please fill in all empty fields"});
   }
   const checkEmailQuery = `

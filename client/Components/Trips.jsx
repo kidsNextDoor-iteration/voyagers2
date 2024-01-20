@@ -11,7 +11,11 @@ import imageAlt from '../Images/trip-alt.jpg'
 
 const Trips = () => {
   // set state for button popup status
-  const [buttonPopup, setButtonPopup] = useState(false)
+  const [buttonPopup, setButtonPopup] = useState(false);
+  const [trips, setTrips] = useState(null);
+  const [tripImages, setTripImages] = useState([]);
+  const [tripPopup, setTripPopup] = useState(false);
+  const [selectedTrip, setSelectedTrip] = useState('');
 
   // create button functionality where a popup component is rendered when button is clicked
   const togglePop = () => {
@@ -24,9 +28,6 @@ const Trips = () => {
   }  else {
       document.body.classList.remove('active-popup');
   }
-
-  // set state for list of trips
-  const [trips, setTrips] = useState([]);
 
   // fetch trips from database when refreshed
   const fetchTrips = () => {
@@ -44,9 +45,6 @@ const Trips = () => {
     fetchTrips();
     fetchImages()
   }, [])
-
-  // set state for list of images
-  const [tripImages, setTripImages] = useState([])
 
   // fetch trip images from database when refreshed
   const fetchImages = () => {
@@ -66,16 +64,10 @@ const Trips = () => {
     e.target.src = imageAlt
   }
 
-  // set state for trip details popup status
-  const [tripPopup, setTripPopup] = useState(false);
-
   // create functionality where a popup component is rendered when the trip image is clicked
   const toggleTrip = () => {
     setTripPopup(!tripPopup)
   }
-
-  // set state for selected trip
-  const [selectedTrip, setSelectedTrip] = useState('');
 
   // set functionality for trip
   const handleImageClick = (tripId) => {
@@ -107,8 +99,14 @@ const Trips = () => {
             </div>
           </div>
         : null}
-      </div>
 
+      </div>
+      <br/>
+      {trips === null ? (
+      <div> <br/> <h1> Loading...</h1></div>
+      ) : trips.length === 0 ? (
+        <div><br/><h1>No upcoming trips. Plan one now!</h1></div>
+      ) : (
       <Row className="tileRow">
       {trips.map((tile, index) => (
         <Col md={4} key={index} className="tileCol">
@@ -120,18 +118,18 @@ const Trips = () => {
               onError={addDefaultImg}
               onClick={() => handleImageClick(tile.tripid)}
             />
-            <div className="middle">
+            {/* <div className="middle">
               <div className="caption">
                 {tile.city}
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="tileDetails">
             {tile.startdate && new Date(tile.startdate).toLocaleDateString('en-US', {
               day: '2-digit',
               month: 'short',
               year: 'numeric',
-            })} - {tile.enddate && new Date(tile.startdate).toLocaleDateString('en-US', {
+            })} - {tile.enddate && new Date(tile.enddate).toLocaleDateString('en-US', {
               day: '2-digit',
               month: 'short',
               year: 'numeric',
@@ -142,7 +140,8 @@ const Trips = () => {
         </Col>
         ))}
         </Row>
-
+        )}
+      
         {tripPopup && (
           <TripDetails tripId={selectedTrip} setTrip={setSelectedTrip} closePopup={closePopup} fetchTrips={fetchTrips} />
         )}
