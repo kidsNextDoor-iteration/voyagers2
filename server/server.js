@@ -43,7 +43,7 @@ app.post('/signin', userController.verifyUser, userController.userCookie,
 app.post('/signup', userController.addUser, userController.userCookie,
   // add middleware here,
   (req, res) => {
-    res.redirect('/trips')
+    res.redirect('/signin');
   }
 )
 
