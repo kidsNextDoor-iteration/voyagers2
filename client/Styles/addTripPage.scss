@@ -21,14 +21,21 @@
     gap: 10px;
 }
 
-form {
+.addtrip-form {
   .larger-input{
     width: 185px;
     height: 70px;
   }
+
   input {
     width: 185px;
     margin-bottom: 4px;
+    // border-color: #E1D6CB;
+
+  }
+
+  label {
+    font-family: 'Roboto';
   }
 
   #button-container{
@@ -39,6 +46,23 @@ form {
     resize: none;
     font-family: Arial;
   }
+
+  #publishButton {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    transition: color 0.3s, transform 0.2s, background-color 0.5s;
+    cursor: pointer;
+    &:hover {
+        color: black;
+        background-color: #E1eef2;
+        transform:scale(1.1);
+    }
+    font-family: 'Archivo', sans-serif;
+    }
 }
 
 .react-aria-DateRangePicker{
