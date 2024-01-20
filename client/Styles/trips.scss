@@ -212,8 +212,6 @@ body {
   // width: 30%;
 }
 
-.image-upload-choose-file {
-}
 
 .trip-details-text-header {
   // font-family: 'Archivo', sans-serif;
@@ -296,19 +294,55 @@ body {
   // transform: translate(-50%, -50%);
   padding: 5px 7px;
   box-sizing: border-box;
-  width: 200px;
+  width: 300px;
   height: 50px;
   outline: 1px;
   font-size: 15px;
   border-radius: 15px;
   text-align: center;
   margin-top: 10px;
-  // display: flex;
-  // justify-content: space-between;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
   cursor: pointer;
 }
 
+.buttonEditTrip {
+  // margin: 3rem 5px 5px 30px;
+  background-color: #272624;
+  color: white;
+  border: none;
+  border-radius: 3rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  transition: color 0.3s, transform 0.2s, background-color 0.5s;
+  cursor: pointer;
+  &:hover {
+      color: black;
+      background-color: #E1eef2;
+      transform:scale(1.1);
+  }
+  font-family: 'Archivo', sans-serif;
+}
 
+.buttonDeleteTrip {
+  // margin: 3rem 5px 5px 30px;
+  margin-left: 8px;
+  background-color: #272624;
+  color: white;
+  border: none;
+  border-radius: 3rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  transition: color 0.3s, transform 0.2s, background-color 0.5s;
+  cursor: pointer;
+  &:hover {
+      color: black;
+      background-color: #E1eef2;
+      transform:scale(1.1);
+  }
+  font-family: 'Archivo', sans-serif;
+}
 
 #moodboard-container {
   overflow: scroll;
@@ -398,4 +432,56 @@ body {
 .trash-icon:hover {
   height: 40px;
   filter: invert(1);
+}
+
+
+.upload-image-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-upload-submit-btn {
+  margin-top: 20px;
+  background-color: #272624;
+  color: white;
+  border: none;
+  border-radius: 3rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  transition: color 0.3s, transform 0.2s, background-color 0.5s;
+  cursor: pointer;
+  &:hover {
+      color: black;
+      background-color: #E1eef2;
+      transform:scale(1.1);
+  }
+  font-family: 'Archivo', sans-serif;
+}
+
+input[type="file" i] {
+  font-family: 'Archivo', sans-serif;
+  display: flex;
+  justify-content: center;
+  width: 180px;
+  margin-bottom: 18px;
+}
+
+.image-upload-caption {
+  border: 1px solid #d8d0c8;
+  border-radius: 5px;
+  width: 200px;
+  height: 20px;
+}
+
+.image-upload-caption::placeholder {
+  text-align: center;
+}
+
+.image-upload-choose-file {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
