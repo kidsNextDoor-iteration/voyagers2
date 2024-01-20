@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { Gallery } from "react-grid-gallery";
 import deleteIcon from '../Images/deleteIcon.png';
+import {Button, CalendarCell, CalendarGrid, CalendarGridBody, CalendarGridHeader, CalendarHeaderCell, DateInput, DateRangePicker, DateSegment, Dialog, FieldError, Group, Heading, Label, Popover, RangeCalendar, Text} from 'react-aria-components';
 
 import ImageUpload from './ImageUpload.jsx';
 import Moodboard from './Moodboard.jsx';
@@ -149,7 +150,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
             <h1 className='trip-details-text-header'>Trip Details</h1>
             <hr className='trip-details-hr'/>
             <div className="tripDetails-container">
-              {editMode ? (
+              {/* {editMode ? (
                 <div className="edittripDetails-container">
                 <form onSubmit={handleEditSubmit}>
                   <label>Dates:</label><br /> 
@@ -171,8 +172,41 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
                   month: 'short',
                   year: 'numeric',
                 }) : editedTrip.enddate}
-                onChange={handleInputChange} /> <br /><br />
-            <label>City:</label><br />
+                onChange={handleInputChange} /> 
+                <br /><br /> */}
+              {/* <div className="calender-container">
+        <DateRangePicker>
+          <div className="date-container">
+            <div id="calender-header">
+              <span>Start</span>
+              <DateInput slot="start">
+                {(segment) => <DateSegment segment={segment} />}
+              </DateInput>
+            </div>
+            <hr />
+            <div id="calender-header">
+              <span>End</span>
+              <DateInput slot="end">
+                {(segment) => <DateSegment segment={segment} />}
+              </DateInput>
+            </div>
+          </div>
+
+          <Dialog>
+            <RangeCalendar>
+              <header>
+                <Button slot="previous">◀</Button>
+                <Heading />
+                <Button slot="next">▶</Button>
+              </header>
+              <CalendarGrid>
+                {(date) => <CalendarCell date={date} />}
+              </CalendarGrid>
+            </RangeCalendar>
+          </Dialog>
+        </DateRangePicker>
+      </div> */}
+            {/* <label>City:</label><br />
             <input 
               type="text" 
               name="city"
@@ -195,19 +229,19 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
               type="text"
               name="idea"
               value={editedTrip.idea || ''}
-              onChange={handleInputChange} /> <br /><br />
+              onChange={handleInputChange} /> <br /><br /> */}
             {/* <label>Status:</label> 
             <input 
               type="text"
               name="status" 
               value={fetchedTrip.status}
               onChange={handleInputChange} /> */}
-            <button type="submit">Save Edits</button>
+            {/* <button type="submit">Save Edits</button>
             <button type="button" onClick={() => setEditMode(false)}>Cancel</button>
           </form>
           </div>
-              ) : (
-                <>
+              ) : ( */}
+                {/* <> */}
               <div className="tripDetails-container">
                 Dates: {fetchedTrip.startdate && new Date(fetchedTrip.startdate).toLocaleDateString('en-US', {
               day: '2-digit',
@@ -224,8 +258,8 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
             Idea: {fetchedTrip.idea} <br /><br />
             {/* Status: {fetchedTrip.status} */}
             </div>
-            </>
-          )}
+            {/* </> */}
+          {/* )} */}
           </div>
           <div className="button-container">
             <form onSubmit={handleFormSubmit}>
