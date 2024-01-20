@@ -32,8 +32,8 @@ const HomePage = (props)=>{
           <img src={image2}></img>
         </div>
         <div className="content">
-          <h1>Lets Take A Voyage..</h1>
-          <p className="about-blerb">Voyager is an all in one application to plan, organize, and manage upcoming trips through the lens of a Content Creator or Influencer. Voyager allows users to plan upcoming trips and create mood boards to organize and create a all in one creative space to manage their thoughts to insure created content is in line with client expectations. </p>
+          <h1>Let's take a voyage...</h1>
+          <p className="about-blerb">Voyager is an all in one application to plan, organize, and manage upcoming trips through the lens of a Content Creator or Influencer. Voyager allows users to plan upcoming trips and create mood boards as a creative space to manage their thoughts and ensure created content is in line with client expectations. </p>
         </div>
       </div>
     </main>
