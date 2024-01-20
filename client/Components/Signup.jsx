@@ -42,7 +42,7 @@ const Signup = () => {
                     <img src={newImg}></img>
                 </div>
                 <div className="form">
-                    <form action="/signup" method="POST">
+                    <form onSubmit={handleSignup}>
                         <input name="firstName" type="text" placeholder="First Name"></input>
                         <input name="lastName" type="text" placeholder="Last Name"></input>
                         <input name="email" type="text" placeholder="Email"></input>
