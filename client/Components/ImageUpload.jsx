@@ -108,9 +108,9 @@ function ImageUpload({ fetchedTripId }) {
   return (
     <>
 
-      <form onSubmit={submit}>
+      <form className='upload-image-form' onSubmit={submit}>
         <input className='image-uplaod-choose-file' onChange={e => setFile(e.target.files[0])} type="file" accept='image/*'></input>
-        <input className='image-upload-caption' value={caption} onChange={e => setCaption(e.target.value)} type='text' placeholder='caption' />
+        <input className='image-upload-caption' value={caption} onChange={e => setCaption(e.target.value)} type='text' placeholder='Add Caption' />
         <button className='image-upload-submit-btn' type='submit'>Submit</button>
       </form>
 
