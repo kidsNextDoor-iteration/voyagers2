@@ -1,0 +1,25 @@
+.header {
+  background-color:#f7f4f2;
+  nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      .logo {
+        font-family: 'Georgia';
+        font-size: 1.5rem;
+        text-decoration:none;
+        color:black;
+      }
+      .menu {
+          a {
+              text-decoration: none;
+              color: black;
+              margin-left: 2rem;
+              &:hover {
+              text-decoration: underline;
+              }
+          }
+      }
+  }
+}

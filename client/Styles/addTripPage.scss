@@ -1,0 +1,194 @@
+*{
+    margin: 0;
+}
+
+
+.addTrip-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100vw;
+    height: 100vh;
+    margin: 5px 10px 5px 10px ;
+
+}
+
+.content-container {
+    display: flex;
+    margin: 2px;
+    gap: 10px;
+}
+
+.addtrip-form {
+  .larger-input{
+    width: 185px;
+    height: 70px;
+  }
+
+  input {
+    width: 185px;
+    margin-bottom: 4px;
+    // border-color: #E1D6CB;
+
+  }
+
+  label {
+    font-family: 'Roboto';
+  }
+
+  #button-container{
+    margin-top: 16px;
+  }
+
+  textarea {
+    resize: none;
+    font-family: Arial;
+  }
+
+  #publishButton {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 3rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    transition: color 0.3s, transform 0.2s, background-color 0.5s;
+    cursor: pointer;
+    &:hover {
+        color: black;
+        background-color: #E1eef2;
+        transform:scale(1.1);
+    }
+    font-family: 'Archivo', sans-serif;
+    }
+}
+
+.react-aria-DateRangePicker{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.date-container{
+  display: flex;
+  justify-content: center;
+  background: white;
+  border-radius: 5px;
+  width: 190px;
+
+  margin-bottom: 8px;
+
+  // box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0,1);
+
+  #calender-header {
+      background-color: white;
+
+      margin-bottom: 4px;
+      border-radius: 5px;
+  }
+}
+
+.react-aria-DateInput {
+    display: flex;
+}
+
+.date-container {
+  display: flex;
+  justify-content: space-evenly;
+  // align-items: center;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+}
+
+.react-aria-RangeCalendar {
+  
+  background: rgb(234, 227, 227);
+  padding: 3px;
+  padding-bottom: 0px;
+  border-radius: 5px;
+
+    [slot=start] + span {
+        padding: 0 4px;
+      }
+    
+      [slot=end] {
+        margin-right: 2rem;
+        flex: 1;
+      }
+      
+      & header {
+        display: flex;
+        align-items: center;
+        margin: 0 4px .5rem 4px;
+    
+        .react-aria-Heading {
+          flex: 1;
+          margin: 0;
+          text-align: center;
+          font-size: 1.375rem;
+        }
+      }
+      td {
+        padding: 2px 0; 
+      }
+      table {
+        border-collapse: collapse; //Controls the spacing between the table's columns
+        margin: 0px 2px 0px 2px;
+      }
+
+    .react-aria-CalendarCell {
+        width: 2.286rem;
+        line-height: 2.286rem;
+        text-align: center;
+        border-radius: 6px;
+        cursor: default;
+        outline: none;
+        forced-color-adjust: none;
+    
+        &[data-outside-month] {
+          display: none;
+        }
+    
+        &[data-pressed] {
+          background: var(--gray-100);
+        }
+    
+        &[data-focus-visible] {
+          outline: 2px solid rgb(81, 40, 227);
+          outline-offset: -2px;
+        }
+    
+        &[data-selected] {
+        //   background: var(--highlight-background);
+        //   color: var(--highlight-foreground);
+          background: rgb(81, 40, 227); //Controls the table cell's background color when selected
+          color: whitesmoke; //Controlls selected 
+          border-radius: 0;
+    
+          &[data-focus-visible] {
+            // outline-color: var(--highlight-foreground);
+            outline-color: whitesmoke;
+            outline-offset: -3px;
+          }
+        }
+    
+        &[data-selection-start] {
+          border-start-start-radius: 6px;
+          border-end-start-radius: 6px;
+        }
+    
+        &[data-selection-end] {
+          border-start-end-radius: 6px;
+          border-end-end-radius: 6px;
+        }
+      }
+
+}
+
