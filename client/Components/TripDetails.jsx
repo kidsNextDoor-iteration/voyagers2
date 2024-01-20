@@ -1,13 +1,15 @@
 import React, { useEffect, useState} from 'react';
 import { Gallery } from "react-grid-gallery";
 import deleteIcon from '../Images/deleteIcon.png';
+import {Button, CalendarCell, CalendarGrid, CalendarGridBody, CalendarGridHeader, CalendarHeaderCell, DateInput, DateRangePicker, DateSegment, Dialog, FieldError, Group, Heading, Label, Popover, RangeCalendar, Text} from 'react-aria-components';
 
 import ImageUpload from './ImageUpload.jsx';
 import Moodboard from './Moodboard.jsx';
-import EditTrip from './EditTrip.jsx';
 
 const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
-  const [fetchedTrip, setFetchedTrip] = useState(null)
+  const [fetchedTrip, setFetchedTrip] = useState(null);
+  const [editedTrip, setEditedTrip] = useState(null);
+  const [editMode, setEditMode] = useState(false);
 
 // fetch trip details when refreshed
   const getTripDetails = () => {
@@ -15,6 +17,10 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
       .then(res => res.json())
       .then(data => {
         setFetchedTrip(data[0]);
+        setEditedTrip(data[0]);
+        console.log('fetched trip ', fetchedTrip)
+        console.log('edited trip ', editedTrip)
+        setEditMode(false);
       }).catch(err => {
         console.log('error in fetching /getTripDetails in TripDetails.jsx')
       })
@@ -25,19 +31,6 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
       getTripDetails()
     }
   } , [tripId])
-
-  // to remove if functionality works
-  // useEffect(() => {
-  //   if (tripId) {
-  //   console.log('useEffect TripDetails ', tripId);
-  //   fetch(`/getTripDetails?tripId=${tripId}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setFetchedTrip(data[0]);
-  //     }).catch(err => {
-  //       console.log('error in fetching /getTripDetails in TripDetails.jsx')
-  //     })}
-  // }, [tripId])
 
   // functionality when update button is clicked and when delete button is clicked
   const handleFormSubmit = (e) => {
@@ -56,10 +49,53 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
           console.log('error in fetching /deleteTrip in TripDetails.jsx')
         })
     }
-    // include update button here
     if (e.nativeEvent.submitter.value === 'update') {
-      return <EditTrip />
+      handleEditButton(e);
     }
+  }
+
+  // event handler to set editMode when edit button is clicked
+  const handleEditButton = (e) => {
+    e.preventDefault();
+    console.log('Edit Button Clicked!')
+    setEditMode(!editMode);
+    if (! editMode) {
+      setEditedTrip(fetchedTrip)
+    }
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedTrip(prevTrip => ({
+      ...prevTrip,
+      [name]: name.includes('Date') ? new Date(value) : value,
+    }));
+  };
+
+  const editTrip = () => {     
+    fetch(`/editTrip?tripId=${tripId}`,
+    { method: 'PATCH',
+      body: JSON.stringify(editedTrip),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(res => {
+      if (res.ok) {
+        console.log('in Edit Trip React jsx')
+        getTripDetails();
+      } else {
+        console.error('Error editing trip:', res.statusText);
+      }
+    }).catch(err => {
+      console.log('error in /editTrip in TripDetails.jsx')
+    })
+  }
+
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    editTrip();
+    getTripDetails();
+    setEditMode(false);
   }
 
   // if fetchedTrip is not falsey (only when a trip image is clicked on and trip fetched, would something be rendered)
@@ -105,6 +141,107 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
 
 
 
+      // <div className="trip-container">
+      // <div className="overlay" onClick={closePopup} ></div>
+      // <div className="trip-content">
+      //   <div className='trip-content-left-container'>
+
+      //     <div className='td-top-container'>
+      //       <h1 className='trip-details-text-header'>Trip Details</h1>
+      //       <hr className='trip-details-hr'/>
+      //       <div className="tripDetails-container">
+              /* {editMode ? (
+                <div className="edittripDetails-container">
+                <form onSubmit={handleEditSubmit}>
+                  <label>Dates:</label><br /> 
+                  <input 
+                    type="text"
+                    name="startDate"
+                    value={editedTrip.startdate instanceof Date ? editedTrip.startdate.toLocaleDateString('en-US', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric',
+                    }) : editedTrip.startdate}
+                    onChange={handleInputChange} /> 
+              - 
+              <input 
+                type="text"
+                name="endDate"
+                value={ editedTrip.enddate instanceof Date ? editedTrip.enddate.toLocaleDateString('en-US', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric',
+                }) : editedTrip.enddate}
+                onChange={handleInputChange} /> 
+                <br /><br /> */
+              /* <div className="calender-container">
+        <DateRangePicker>
+          <div className="date-container">
+            <div id="calender-header">
+              <span>Start</span>
+              <DateInput slot="start">
+                {(segment) => <DateSegment segment={segment} />}
+              </DateInput>
+            </div>
+            <hr />
+            <div id="calender-header">
+              <span>End</span>
+              <DateInput slot="end">
+                {(segment) => <DateSegment segment={segment} />}
+              </DateInput>
+            </div>
+          </div>
+
+          <Dialog>
+            <RangeCalendar>
+              <header>
+                <Button slot="previous">◀</Button>
+                <Heading />
+                <Button slot="next">▶</Button>
+              </header>
+              <CalendarGrid>
+                {(date) => <CalendarCell date={date} />}
+              </CalendarGrid>
+            </RangeCalendar>
+          </Dialog>
+        </DateRangePicker>
+      </div> */
+            /* <label>City:</label><br />
+            <input 
+              type="text" 
+              name="city"
+              value={editedTrip.city || ''}
+              onChange={handleInputChange} /><br /><br />
+            <label>Brand:</label><br /> 
+            <input 
+              type="text"
+              name="brand" 
+              value={editedTrip.brand || ''}
+              onChange={handleInputChange} /> <br /><br />
+            <label>Description:</label><br />
+            <input 
+              type="text"
+              name="description" 
+              value={editedTrip.description || ''}
+              onChange={handleInputChange} /> <br /><br />
+            <label>Idea:</label><br />
+            <input 
+              type="text"
+              name="idea"
+              value={editedTrip.idea || ''}
+              onChange={handleInputChange} /> <br /><br /> */
+            /* <label>Status:</label> 
+            <input 
+              type="text"
+              name="status" 
+              value={fetchedTrip.status}
+              onChange={handleInputChange} /> */
+            /* <button type="submit">Save Edits</button>
+            <button type="button" onClick={() => setEditMode(false)}>Cancel</button>
+          </form>
+          </div>
+              ) : ( */
+                /* <> */
       <div className="trip-container">
       <div className="overlay" onClick={closePopup} ></div>
       <div className="trip-content">
@@ -127,7 +264,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
             Brand: {fetchedTrip.brand} <br /><br />
             Description: {fetchedTrip.description} <br /><br />
             Idea: {fetchedTrip.idea} <br /><br />
-            Status: {fetchedTrip.status}
+            {/* Status: {fetchedTrip.status} */}
 
             <div className="button-container">
               <form onSubmit={handleFormSubmit}>
