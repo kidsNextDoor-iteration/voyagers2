@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { Link } from 'react-router-dom';
-import Image from "../stylesheets/images/background-1.jpg"
+import Image from "../stylesheets/images/background-1.jpg";
+import image2 from '../Images/landingImg2.png';
 
 
 const HomePage = (props)=>{
@@ -28,12 +29,11 @@ const HomePage = (props)=>{
       </div>
       <div id="about">
         <div className="image">
-          <img src={Image}></img>
+          <img src={image2}></img>
         </div>
         <div className="content">
-          <h1>More about us</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <h1>Lets Take A Voyage..</h1>
+          <p className="about-blerb">Voyager is an all in one application to plan, organize, and manage upcoming trips through the lens of a Content Creator or Influencer. Voyager allows users to plan upcoming trips and create mood boards to organize and create a all in one creative space to manage their thoughts to insure created content is in line with client expectations. </p>
         </div>
       </div>
     </main>
