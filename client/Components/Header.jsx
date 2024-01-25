@@ -15,7 +15,7 @@ const Header = () => {
           <Link to="/trips">TRIPS</Link>
           <Link to="/moodboard">MOOD BOARDS</Link>
           <Link to="/collaborations">COLLABORATIONS</Link>
-          <a href="/signout" >SIGNOUT</a>
+          <a href="/internal/signout" >SIGNOUT</a>
         </div>
       </nav>
     </div>      

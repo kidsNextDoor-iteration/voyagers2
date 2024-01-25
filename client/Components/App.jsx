@@ -18,12 +18,12 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/internal/signup" element={<Signup />} />
+        <Route path="/internal/signin" element={<Signin />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/imageDemo" element={<ImageUpload />} />
         <Route path="/trips" element={<Trips />} />
-        <Route path="/addtrip" element={<AddTripPage/>} />
+        <Route path="/trip/addtrip" element={<AddTripPage/>} />
         <Route path="/moodboard" element={<UnderConstruction />} />
         <Route path="/collaborations" element={<UnderConstruction />} />
       </Routes>

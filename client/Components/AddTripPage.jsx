@@ -29,7 +29,7 @@ const AddTripPage = ( {togglePop, fetchImages, fetchTrips} )=>{
       endDate
     })
 
-    const req = await fetch('/addTrip', {
+    const req = await fetch('/trip/addTrip', {
       method: 'POST',
       headers: { 'Content-type': 'application/json'},
       body: reqData,

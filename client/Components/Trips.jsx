@@ -31,7 +31,7 @@ const Trips = () => {
 
   // fetch trips from database when refreshed
   const fetchTrips = () => {
-    fetch('/getTrips')
+    fetch('/trip/getTrips')
       .then(res => res.json())
       .then(data => {
         setTrips(data);
@@ -48,7 +48,7 @@ const Trips = () => {
 
   // fetch trip images from database when refreshed
   const fetchImages = () => {
-    fetch('/getImages')
+    fetch('/api/getImages')
       .then(res => res.json())
       .then(data => {
         setTripImages(data);

@@ -15,7 +15,7 @@ const HomePage = (props)=>{
             <a href="/" className="logo">Voyager</a>
             <div className="menu">
               <a href="#about">ABOUT</a>
-              <Link to="/signin">LOGIN</Link>
+              <Link to="/internal/signin">LOGIN</Link>
             </div>
           </nav>
         </div>
@@ -23,7 +23,7 @@ const HomePage = (props)=>{
           <div className="content">
             <h1>Welcome to Voyager</h1>
             <p>Travel planning made easy</p>
-            <button onClick={() => navigate('/signup')}>Get Started</button>
+            <button onClick={() => navigate('/internal/signup')}>Get Started</button>
           </div>
         </div>
       </div>

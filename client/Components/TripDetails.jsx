@@ -13,7 +13,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
 
 // fetch trip details when refreshed
   const getTripDetails = () => {
-    fetch(`/getTripDetails?tripId=${tripId}`)
+    fetch(`/trip/getTripDetails?tripId=${tripId}`)
       .then(res => res.json())
       .then(data => {
         setFetchedTrip(data[0]);
@@ -36,7 +36,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (e.nativeEvent.submitter.value === 'delete') {
-      fetch(`/deleteTrip?tripId=${tripId}`,
+      fetch(`/trip/deleteTrip?tripId=${tripId}`,
         {method: 'DELETE'
       }).then(res => {
         if (res.ok) {
@@ -73,7 +73,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
   };
 
   const editTrip = () => {     
-    fetch(`/editTrip?tripId=${tripId}`,
+    fetch(`/trip/editTrip?tripId=${tripId}`,
     { method: 'PATCH',
       body: JSON.stringify(editedTrip),
       headers: {
