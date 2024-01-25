@@ -34,7 +34,8 @@
     "react-grid-gallery": "^1.0.1-alpha.0",
     "react-router": "6.21.1",
     "react-router-dom": "^6.21.1",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.2",
+    "supertest": "^6.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
