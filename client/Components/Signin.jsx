@@ -11,7 +11,7 @@ const Signin = () => {
         const email = event.target.email.value;
         const password = event.target.password.value;
         try {
-            const response = await fetch('/signin', {
+            const response = await fetch('/internal/signin', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const Signin = () => {
                         <input name="email" type="text" placeholder="Email"></input>
                         <input name="password" type="password" placeholder="Password"></input>
                         <input type="submit" value="Login"></input>
-                        <Link to="/signup">Register Now</Link>
+                        <Link to="/internal/signup">Register Now</Link>
                     </form>
                 </div>
                 <div className="image">
