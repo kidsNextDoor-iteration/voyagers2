@@ -48,7 +48,7 @@ describe('Server Route Testing via Supertest', () => {
 
         });
 
-        describe("test: app.post('/signin')", () => {
+        describe("test: app.post('/internal/signin')", () => {
 
             const failData = JSON.stringify({ email: 'hello@test.com', password: 'password' })
 
@@ -64,12 +64,12 @@ describe('Server Route Testing via Supertest', () => {
 
         });
 
-        describe("test: app.post('/signup')", () => {
+        describe("test: app.post('/internal/signup')", () => {
 
 
         });
 
-        describe("test: app.get('/signout')", () => {
+        describe("test: app.get('/internal/signout')", () => {
 
 
         });
