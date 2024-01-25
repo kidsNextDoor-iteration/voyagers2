@@ -38,86 +38,11 @@ app.get('/', (req, res) => {
 // ------------- INTERNAL ROUTING ---------------- //
 app.use('/internal', internalRouter);
 
-// app.post('/signin', userController.verifyUser, userController.userCookie,
-//   // add middleware here,
-//   (req, res) => {
-//     res.redirect('/trips')
-//   }
-// )
-// app.post('/signup', userController.addUser, userController.userCookie,
-//   // add middleware here,
-//   (req, res) => {
-//     res.redirect('/signin');
-//   }
-// )
-
-// app.get('/signout', userController.signout, (req, res)=>{
-//   res.status(200).redirect('/home');
-// })
-
 // --------------- TRIP ROUTING ------------- //
 app.use('/trip', tripRouter);
 
-// app.post('/addTrip', 
-//   tripController.addTrip, 
-//   (req, res) => {
-//     res.status(200).send('Trip added!')
-//   }
-// )
-
-// app.get('/getTrips', tripController.getTrips, 
-//   (req, res) => {
-//     res.status(200).json(res.locals.trips)
-//   }
-// )
-
-// app.patch('/editTrip', tripController.editTrip, (req, res) => {
-//   res.status(200).json(res.locals.trip)
-// })
-
-// app.get('/getTripDetails',
-// // create a cookie with the tripId
-//   cookieController.setTripCookie,
-//   tripController.getTripDetails,
-//   (req, res) => {
-//     // console.log('in /getTripDetails ', res.locals.tripId);
-//     res.status(200).json(res.locals.trip)
-//   }
-// )
-
-// app.delete('/deleteTrip', tripController.deleteTrip, 
-//   (req, res) => {
-//     res.status(200).json(res.locals.trip)
-//   }
-// )
-
-
-
 // --------------- IMG API ROUTING ------------- //
 app.use('/api', imgAPiRouter);
-
-// app.get('/api/getImages', 
-//   // cookieController.setTripCookie,
-//   imageController.getImages,
-//   (req, res) => {
-//     res.status(200).json(res.locals.imageQueryResults)
-//   }
-// )
-
-// app.post('/api/uploadimage',
-//   upload.single('image'),
-//   imageController.uploadSingleImg,
-//   (req, res) => {
-//     res.status(200).send({status: 'upload complete'})
-//   }
-// )
-
-// app.delete('/api/deleteImage',
-//   imageController.deleteImage,
-//   (req, res) => {
-//     res.status(200).json({status: 'delete complete'})
-//   }
-// )
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
