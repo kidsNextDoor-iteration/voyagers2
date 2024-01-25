@@ -13,7 +13,7 @@ const Signup = () => {
         const email = event.target.email.value;
         const password = event.target.password.value;
         try {
-            const response = await fetch('/signup', {
+            const response = await fetch('/internal/signup', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const Signup = () => {
                 body: JSON.stringify({firstname, lastname, email, password})
             });
             if (response.redirected) {
-                navigate('/signin')
+                navigate('/internal/signin')
             } else {
                 const data = await response.json();
                 if (data.err) {
@@ -48,7 +48,7 @@ const Signup = () => {
                         <input name="email" type="text" placeholder="Email"></input>
                         <input name="password" type="password" placeholder="Password"></input>
                         <input type="submit" value="Signup"></input>
-                        <Link to="/signin">Already have an account? Login here</Link>
+                        <Link to="/internal/signin">Already have an account? Login here</Link>
                     </form>
                 </div>
             </div>

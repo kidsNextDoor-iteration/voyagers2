@@ -5,12 +5,14 @@ const PORT = 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-
+const internalRouter = require('./routes/internalRouter');
+const tripRouter = require('./routes/tripRoute');
+const imgAPiRouter = require('./routes/imgApiRoute');
 
 const userController = require('./controllers/userController.js');
-const imageController = require('./controllers/imageController.js');
-const tripController = require('./controllers/tripController.js');
-const cookieController = require('./controllers/cookieController.js')
+// const imageController = require('./controllers/imageController.js');
+// const tripController = require('./controllers/tripController.js');
+// const cookieController = require('./controllers/cookieController.js')
 
 
 const multer = require('multer')
@@ -34,82 +36,13 @@ app.get('/', (req, res) => {
 
 
 // ------------- INTERNAL ROUTING ---------------- //
-app.post('/signin', userController.verifyUser, userController.userCookie,
-  // add middleware here,
-  (req, res) => {
-    res.redirect('/trips')
-  }
-)
-app.post('/signup', userController.addUser, userController.userCookie,
-  // add middleware here,
-  (req, res) => {
-    res.redirect('/signin');
-  }
-)
-
-app.get('/signout', userController.signout, (req, res)=>{
-  res.status(200).redirect('/home');
-})
+app.use('/internal', internalRouter);
 
 // --------------- TRIP ROUTING ------------- //
-app.post('/addTrip', 
-  tripController.addTrip, 
-  (req, res) => {
-    res.status(200).send('Trip added!')
-  }
-)
-
-app.get('/getTrips', tripController.getTrips, 
-  (req, res) => {
-    res.status(200).json(res.locals.trips)
-  }
-)
-
-app.patch('/editTrip', tripController.editTrip, (req, res) => {
-  res.status(200).json(res.locals.trip)
-})
-
-app.get('/getTripDetails',
-// create a cookie with the tripId
-  cookieController.setTripCookie,
-  tripController.getTripDetails,
-  (req, res) => {
-    // console.log('in /getTripDetails ', res.locals.tripId);
-    res.status(200).json(res.locals.trip)
-  }
-)
-
-app.delete('/deleteTrip', tripController.deleteTrip, 
-  (req, res) => {
-    res.status(200).json(res.locals.trip)
-  }
-)
-
-
+app.use('/trip', tripRouter);
 
 // --------------- IMG API ROUTING ------------- //
-app.get('/api/getImages', 
-  // cookieController.setTripCookie,
-  imageController.getImages,
-  (req, res) => {
-    res.status(200).json(res.locals.imageQueryResults)
-  }
-)
-
-app.post('/api/uploadimage',
-  upload.single('image'),
-  imageController.uploadSingleImg,
-  (req, res) => {
-    res.status(200).send({status: 'upload complete'})
-  }
-)
-
-app.delete('/api/deleteImage',
-  imageController.deleteImage,
-  (req, res) => {
-    res.status(200).json({status: 'delete complete'})
-  }
-)
+app.use('/api', imgAPiRouter);
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
