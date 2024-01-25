@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const internalRouter = require('./routes/internalRouter');
 const tripRouter = require('./routes/tripRoute');
 const imgAPiRouter = require('./routes/imgApiRoute');
+const googleRouter = require('./routes/googleRouter')
 
 const userController = require('./controllers/userController.js');
 // const imageController = require('./controllers/imageController.js');
@@ -87,12 +88,22 @@ app.get('/collaborations', userController.verifyAuth, (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
+
+//--------------- OAUTH ROUTING -------------//
+
+app.use('/google', googleRouter)
+
+
+
+
+
+
 // global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Error handler caught unknown middleware error',
     status: 500,
-    message: {err:`An error occurred ${err}`},
+    message: { err: `An error occurred ${err}` },
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);
@@ -100,6 +111,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server listening on PORT ${PORT}`);
+  console.log(`Server listening on PORT ${PORT}`);
 });
 

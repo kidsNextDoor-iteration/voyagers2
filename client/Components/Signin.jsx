@@ -3,6 +3,7 @@ import Image from "../stylesheets/images/background-1.jpg"
 import { Link, useNavigate } from 'react-router-dom';
 import image2 from '../Images/pexels-cottonbro-studio-2773494.jpg';
 import image3 from '../Images/couple-img3.png';
+import googleAuthLink from './Utilities/getGoogleOAuthURL.jsx'
 
 const Signin = () => {
     let navigate = useNavigate();
@@ -16,7 +17,7 @@ const Signin = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({email, password})
+                body: JSON.stringify({ email, password })
             });
             if (response.redirected) {
                 navigate('/trips')
@@ -33,6 +34,7 @@ const Signin = () => {
                 <a href="/" className="logo">Voyager</a>
             </nav>
             <div className="content">
+                <a href={googleAuthLink()}>Login with Google</a>
                 <div className="form">
                     <form onSubmit={handleSubmit}>
                         <input name="email" type="text" placeholder="Email"></input>
