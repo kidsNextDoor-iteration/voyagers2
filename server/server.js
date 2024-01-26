@@ -10,7 +10,8 @@ const cookieParser = require('cookie-parser');
 const userController = require('./controllers/userController.js');
 const imageController = require('./controllers/imageController.js');
 const tripController = require('./controllers/tripController.js');
-const cookieController = require('./controllers/cookieController.js')
+const cookieController = require('./controllers/cookieController.js');
+const passageController = require('./controllers/passageController.js');
 
 
 const multer = require('multer')
@@ -40,6 +41,9 @@ app.post('/signin', userController.verifyUser, userController.userCookie,
     res.redirect('/trips')
   }
 )
+
+app.post('/signin', passageController.verifyUser, (req, res) => res.status(200).json('Passage verify user complete'))
+
 app.post('/signup', userController.addUser, userController.userCookie,
   // add middleware here,
   (req, res) => {
@@ -52,14 +56,14 @@ app.get('/signout', userController.signout, (req, res)=>{
 })
 
 // --------------- TRIP ROUTING ------------- //
-app.post('/addTrip', 
-  tripController.addTrip, 
+app.post('/addTrip',
+  tripController.addTrip,
   (req, res) => {
     res.status(200).send('Trip added!')
   }
 )
 
-app.get('/getTrips', tripController.getTrips, 
+app.get('/getTrips', tripController.getTrips,
   (req, res) => {
     res.status(200).json(res.locals.trips)
   }
@@ -79,7 +83,7 @@ app.get('/getTripDetails',
   }
 )
 
-app.delete('/deleteTrip', tripController.deleteTrip, 
+app.delete('/deleteTrip', tripController.deleteTrip,
   (req, res) => {
     res.status(200).json(res.locals.trip)
   }
@@ -88,7 +92,7 @@ app.delete('/deleteTrip', tripController.deleteTrip,
 
 
 // --------------- IMG API ROUTING ------------- //
-app.get('/api/getImages', 
+app.get('/api/getImages',
   // cookieController.setTripCookie,
   imageController.getImages,
   (req, res) => {
@@ -170,3 +174,9 @@ app.listen(PORT, () => {
     console.log(`Server listening on PORT ${PORT}`);
 });
 
+//---------Passkey(Passage) Routes----------------
+app.get('/authenticatedRoute', passageController.passageAuthMiddleware, async(req, res) => {
+  let userID = res.userID
+  res.json('Authenticated');
+  // do authenticated things...
+});

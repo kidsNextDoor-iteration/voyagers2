@@ -10,8 +10,13 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.490.0",
     "@aws-sdk/s3-request-presigner": "^3.490.0",
+    "@passageidentity/passage-elements": "^1.20.0",
+    "@passageidentity/passage-node": "^2.9.0",
     "@primer/css": "17.0.1",
     "@reduxjs/toolkit": "^2.0.1",
+    "@simplewebauthn/server": "^9.0.0",
+    "@types/express-session": "^1.17.10",
+    "@types/uuid": "^9.0.7",
     "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
@@ -19,10 +24,12 @@
     "css-loader": "^6.9.0",
     "dotenv": "^16.3.1",
     "express": "^4.13.4",
+    "express-session": "^1.17.3",
     "js-cookie": "^3.0.5",
     "mongodb": "^6.3.0",
     "mongoose": "^6.12.3",
     "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.8.0",
     "nodemon": "^3.0.2",
     "pg": "^8.5.1",
     "react": "^18.2.0",
@@ -33,7 +40,8 @@
     "react-grid-gallery": "^1.0.1-alpha.0",
     "react-router": "6.21.1",
     "react-router-dom": "^6.21.1",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.2",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",

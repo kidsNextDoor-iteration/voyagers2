@@ -9,6 +9,7 @@ import HomePage from "./homePage.jsx";
 import Trips from "./Trips.jsx"
 import AddTripPage from "./AddTripPage.jsx";
 import UnderConstruction from "./UnderConstruction.jsx";
+import PasskeyLogin from "./PasskeyLogin.jsx";
 import '../Styles/AddTripPage.scss'
 import "../stylesheets/styles.scss"
 
@@ -19,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin" element={<PasskeyLogin />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/imageDemo" element={<ImageUpload />} />
         <Route path="/trips" element={<Trips />} />
@@ -30,5 +31,5 @@ function App() {
       </div>
   )
 }
- 
+
 export default App;
