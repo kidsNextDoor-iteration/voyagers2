@@ -12,7 +12,7 @@ userController.addUser = async (req, res, next) => {
   const checkEmailQuery = `
     SELECT email FROM users WHERE email = $1
   `
-  db.query(checkEmailQuery, [req.body.email])
+  db.query(checkEmailQuery, [req.body.email]) 
     .then(async data => {
       if (data.rows[0] !== undefined) {
         return res.status(400).json({err: "Email already exists"})
@@ -49,8 +49,14 @@ userController.addUser = async (req, res, next) => {
 
 // verify user
 userController.verifyUser = (req, res, next) => {
+
+
+  //serach for type in database based on email
+
+  
   const loginQuery = `
     SELECT email, password, userid FROM users WHERE email = $1;
+    
   `
   db.query(loginQuery, [req.body.email])
     .then(async data => {

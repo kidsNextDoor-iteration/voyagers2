@@ -1,11 +1,13 @@
 const express = require('express');
+const googleController = require('../controllers/googleController')
 
 const router = express.Router();
 
 require('dotenv').config();
 
-router.get('/sessions', (req, res) => {
+router.get('/sessions', googleController.getTokens, googleController.nextStep, (req, res) => {
 
+    res.send({})
 
 
 })
