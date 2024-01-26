@@ -4,6 +4,7 @@ const path = require('path');
 const PORT = 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const proxy = require('express-http-proxy');
 
 const internalRouter = require('./routes/internalRouter');
 const tripRouter = require('./routes/tripRoute');
@@ -26,6 +27,12 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use('/return', proxy('http://localhost:8080', {
+//   proxyReqPathResolver: function (req) {
+//     return req.url;
+//   }
+// }));
 
 
 
