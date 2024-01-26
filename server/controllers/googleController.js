@@ -32,58 +32,59 @@ googleController.getTokens = async (req, res, next) => {
             body: qs.stringify(values)
         }
 
-        // res.locals.id_token = 1;
-        // res.locals.access_token = 2;
+
 
         //fetch tokens from google
 
-        fetch(url, requestOptions)
-            .then(response => response.json())
-            .then(data => {
+        const response = await fetch(url, requestOptions);
+        const data = await response.json();
+
+        const { id_token, access_token } = data;
+
+        res.locals.id_token = id_token;
+        res.locals.access_token = access_token;
 
 
-                // res.locals.id_token = 1;
-                // res.locals.access_token = 2;
-
-                console.log('response: ', data)
-
-                const { id_token, access_token } = data;
-
-                //decode the recieved id_token to get user info encrypted in token
-                const googleUser = jwt.decode(id_token);
-
-                console.log('google user/id token decoded: ', googleUser);
-
-                const { given_name, family_name, email, picture } = googleUser;
+        // .then(response => response.json())
+        // .then(data => {
 
 
-                //-------ADJUST PASSWORD TO REMOVE 'NOT NULL' IN DATABASE, ADD COLUMN 'AUTH'
-                const dbValues = [given_name, family_name, email, 'google']
-                const dbText = 'INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4)'
+        //     // res.locals.id_token = 1;
+        //     // res.locals.access_token = 2;
 
-                db.query(dbText, dbValues)
-                    .then(
-                        console.log('done')
+        //     console.log('response: ', data)
+
+        //     const { id_token, access_token } = data;
+
+        //     //decode the recieved id_token to get user info encrypted in token
+        //     const googleUser = jwt.decode(id_token);
+
+        //     console.log('google user/id token decoded: ', googleUser);
+
+        //     const { given_name, family_name, email, picture } = googleUser;
 
 
+        //     //-------ADJUST PASSWORD TO REMOVE 'NOT NULL' IN DATABASE, ADD COLUMN 'AUTH'
+        //     const dbValues = [given_name, family_name, email, 'google']
+        //     const dbText = 'INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4)'
 
-                    )
-
-
+        //     db.query(dbText, dbValues)
+        //         .then(
+        //             console.log('done')
 
 
 
+        //         )
 
-                //session?
 
 
-            })
-        // .then(() => {
-        //     res.locals.id_token = 1
-        //     res.locals.access_token = 2;
-        // }
 
-        // )
+
+
+        //     //session?
+
+
+        // })
 
 
 
@@ -111,11 +112,41 @@ googleController.getTokens = async (req, res, next) => {
     }
 }
 
-googleController.nextStep = async (req, res, next) => {
+googleController.storeUser = async (req, res, next) => {
     try {
 
-        console.log('ID TOKEN:', res.locals.id_token);
-        console.log('ACCESS TOKEN:', res.locals.access_token)
+        const id_token = res.locals.id_token;
+        const access_token = res.locals.access_token;
+
+        const googleUser = jwt.decode(id_token);
+
+        console.log('google user/id token decoded: ', googleUser);
+
+        const { given_name, family_name, email, picture } = googleUser;
+
+        const returned = await db.query(`SELECT * FROM users WHERE email = '${email}'`)
+
+        let queryValues;
+        let queryText;
+
+        if (returned.rows.length > 0) {
+
+            await db.query(`UPDATE users SET google = true WHERE email = '${email}'`);
+        } else {
+
+            queryValues = [given_name, family_name, email, true];
+            queryText = 'INSERT INTO users (firstname, lastname, email, google) VALUES ($1, $2, $3, $4)';
+            await db.query(queryText, queryValues);
+        }
+
+        const userid = await db.query(`SELECT userid FROM users WHERE email = '${email}'`);
+
+        console.log("userid: ", userid.rows[0].userid);
+
+        res.locals.userid = userid.rows[0].userid;
+
+
+
 
         return next()
     } catch (error) {
