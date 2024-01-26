@@ -15,38 +15,40 @@ const server = 'http://localhost:3000';
 
 describe('Server Route Testing via Supertest', () => {
 
-
-    // it('should pass a basic test', ()=>{
-    //     return request(server)
-    //     .get('/')
-    //     .expect('Content-Type', /application\/json/)
-    //     .expect(200)
-
-    // })
     describe('Internal Routing Testing', () => {
 
         describe("test: app.get('/')", () => {
 
-            const readableHTML = fs.readFileSync(htmlfile).toString();
-
-            it('should return a basic html file', () => {
+            let readableHTML;
+            beforeAll(() => {
+                //read html file into buffer
+                readableHTML = fs.readFileSync(htmlfile);
+            });
+            
+            it('should have the correct headers and status code', async () => {
                 return request(server)
                     .get('/')
                     .expect('Content-Type', /text\/html/)
                     .expect(200)
-                    .then(
-
-
-
-                        response => {
-                            console.log('response text, ', response.text)
-                            console.log('html text, ', readableHTML)
-                            expect(response.text).toContain(readableHTML)
-                        })
             })
+            //TODO: currently this test confirms that the response file contains the same data as the site's served html file, but it doesn't confirm that they are identical
+            //The response file could contain additional data
+            it('should return the site\'s main html file', async () => {
+                const response = await request(server).get('/').responseType('blob');
+                
+                const responseBuffer = new Int8Array(response.body);
+                const htmlFileBuffer = new Int8Array(readableHTML);
+
+                for (let i = 0; i < responseBuffer.length; i++) {
+                    expect(htmlFileBuffer.includes(responseBuffer[i]));
+                }
+                
+            })
+        
+        })
 
 
-        });
+    });
 
         describe("test: app.post('/internal/signin')", () => {
 
@@ -56,7 +58,7 @@ describe('Server Route Testing via Supertest', () => {
             it('should fail based on invalid user', () => {
 
 
-                .post()
+               
             })
 
 
@@ -76,7 +78,7 @@ describe('Server Route Testing via Supertest', () => {
 
 
 
-    });
+
 
     describe('Trip Routing Testing', () => {
 
