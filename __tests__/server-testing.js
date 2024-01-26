@@ -15,15 +15,9 @@ const server = 'http://localhost:3000';
 
 describe('Server Route Testing via Supertest', () => {
 
-    describe('Internal Routing Testing', () => {
+    describe('Root path fetch', () => {
 
         describe("test: app.get('/')", () => {
-
-            let readableHTML;
-            beforeAll(() => {
-                //read html file into buffer
-                readableHTML = fs.readFileSync(htmlfile);
-            });
             
             it('should have the correct headers and status code', async () => {
                 return request(server)
@@ -34,6 +28,9 @@ describe('Server Route Testing via Supertest', () => {
             //TODO: currently this test confirms that the response file contains the same data as the site's served html file, but it doesn't confirm that they are identical
             //The response file could contain additional data
             it('should return the site\'s main html file', async () => {
+                //read html file into buffer
+                const readableHTML = fs.readFileSync(htmlfile);
+
                 const response = await request(server).get('/').responseType('blob');
                 
                 const responseBuffer = new Int8Array(response.body);
@@ -44,16 +41,27 @@ describe('Server Route Testing via Supertest', () => {
                 }
                 
             })
-        
         })
-
 
     });
 
+    describe('Internal Routing Testing', () => {
+
+        describe("test: app.post('/internal/signup')", () => {
+          //user passes in firstname, lastname, email password
+          //should throw error and return status 400 if any of those are missing
+          //should throw error and return status 400 if email already exists in db
+          //should not return status 500
+          //should redirect to '/signin'
+          //should add cookie (key = userid) with created userId
+
+
+        });
+
         describe("test: app.post('/internal/signin')", () => {
-
+  
             const failData = JSON.stringify({ email: 'hello@test.com', password: 'password' })
-
+        
 
             it('should fail based on invalid user', () => {
 
@@ -66,15 +74,14 @@ describe('Server Route Testing via Supertest', () => {
 
         });
 
-        describe("test: app.post('/internal/signup')", () => {
 
-
-        });
 
         describe("test: app.get('/internal/signout')", () => {
 
 
         });
+
+    })
 
 
 
