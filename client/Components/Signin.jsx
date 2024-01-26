@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import image2 from '../Images/pexels-cottonbro-studio-2773494.jpg';
 import image3 from '../Images/couple-img3.png';
 import googleAuthLink from './Utilities/getGoogleOAuthURL.jsx'
+import googleImg from '../Images/google.png'
 
 const Signin = () => {
     let navigate = useNavigate();
@@ -34,13 +35,21 @@ const Signin = () => {
                 <a href="/" className="logo">Voyager</a>
             </nav>
             <div className="content">
-                <a href={googleAuthLink()}>Login with Google</a>
+
                 <div className="form">
                     <form onSubmit={handleSubmit}>
                         <input name="email" type="text" placeholder="Email"></input>
                         <input name="password" type="password" placeholder="Password"></input>
                         <input type="submit" value="Login"></input>
                         <Link to="/internal/signup">Register Now</Link>
+
+                        <div className="OAuthButton"><a href={googleAuthLink()}>
+                            <img src={googleImg}></img>
+                            <div>Login with Google</div>
+                        </a>
+                        </div>
+
+                        {/* <a href={googleAuthLink()}>Login with Google</a> */}
                     </form>
                 </div>
                 <div className="image">
