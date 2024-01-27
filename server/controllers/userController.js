@@ -76,7 +76,7 @@ userController.verifyUser = (req, res, next) => {
 }
 
 userController.userCookie = (req, res, next) => {
-  res.cookie('userid', res.locals.userid, { httpOnly: true })
+  res.cookie('userid', res.locals.userid, { httpOnly: true, maxAge: 60000 })
   console.log('userCookie userID: \n' + res.locals.userid)
   console.log('userId cookie created')
   return next();
