@@ -18,7 +18,7 @@ const Signup = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({firstname, lastname, email, password})
+                body: JSON.stringify({ firstname, lastname, email, password })
             });
             if (response.redirected) {
                 navigate('/internal/signin')

@@ -4,10 +4,12 @@ const path = require('path');
 const PORT = 3000;
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const proxy = require('express-http-proxy');
 
 const internalRouter = require('./routes/internalRouter');
 const tripRouter = require('./routes/tripRoute');
 const imgAPiRouter = require('./routes/imgApiRoute');
+const googleRouter = require('./routes/googleRouter')
 
 const userController = require('./controllers/userController.js');
 // const imageController = require('./controllers/imageController.js');
@@ -25,6 +27,12 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use('/return', proxy('http://localhost:8080', {
+//   proxyReqPathResolver: function (req) {
+//     return req.url;
+//   }
+// }));
 
 
 
@@ -87,12 +95,36 @@ app.get('/collaborations', userController.verifyAuth, (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
+
+//--------------- OAUTH ROUTING -------------//
+
+app.use('/google', googleRouter)
+
+
+
+//--------- CHECK COOKIE ---------//
+
+app.get('/checkCookie', (req, res) => {
+  const cookie = req.cookies.userid;
+  console.log("cookie data: ", cookie);
+  if (cookie) {
+    res.status(200).json(true)
+  } else {
+    res.status(500).json(false)
+  }
+
+})
+
+
+
+
+
 // global error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Error handler caught unknown middleware error',
     status: 500,
-    message: {err:`An error occurred ${err}`},
+    message: { err: `An error occurred ${err}` },
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);
@@ -100,6 +132,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server listening on PORT ${PORT}`);
+  console.log(`Server listening on PORT ${PORT}`);
 });
 
