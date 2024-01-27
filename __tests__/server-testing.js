@@ -126,17 +126,39 @@ describe('Server Route Testing via Supertest', () => {
         });
 
         describe("test: app.post('/internal/signin')", () => {
-  
-            const failData = JSON.stringify({ email: 'hello@test.com', password: 'password' })
-        
 
-            it('should fail based on invalid user', () => {
+            let goodResult;
+            beforeAll(async () => {
+                goodResult = await request(server).post('/internal/signin').send(passingBody);
+            });
 
-
-               
+            it('should not throw an error based on valid user', () => {
+                expect(goodResult.error).toBe(false);
             })
 
+            it('should return 302 status code', () => {
+                expect(goodResult.statusCode).toBe(302);
+            })
+            
+            it('should redirect to /trips', () => {
+                expect(goodResult.res.headers.location).toBe('/trips');
+            })
 
+            it('should set cookie with userid, Path, and HttpOnly', async () => {
+                expect(goodResult.res.headers['set-cookie'][0]).toBe(`userid=${goodDbResult.rows[0].userid}; Path=/; HttpOnly`);                
+            })
+
+            it('should return 500 status code and error based on invalid user', async () => {
+                const invalidUser = {
+                    firstname: 'invalidUserFirstName',
+                    lastname: 'inValidUserLastName',
+                    email: 'invalidUser@test.com',
+                    password: 'invalidUserP@ssword1!' 
+                };
+                const invalidUserResponse = await request(server).post('/internal/signin').send(invalidUser);
+                expect(invalidUserResponse.statusCode).toBe(500);
+                expect(invalidUserResponse.serverError).toBe(true);
+            })
 
 
         });
