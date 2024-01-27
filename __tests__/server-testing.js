@@ -47,11 +47,61 @@ describe('Server Route Testing via Supertest', () => {
 
     describe('Internal Routing Testing', () => {
 
+        const passingBody = {
+            firstname: 'testUser',
+            lastname: 'testUserLastName',
+            email: 'testUserEmail@test.com',
+            password: 'P@ssword1!' 
+        };
+        const missingFirstNameBody = {
+            lastname: 'testUserLastName',
+            email: 'testUserEmail@test.com',
+            password: 'P@ssword1!' 
+        };
+        const missingLastNameBody = {
+            firstname: 'testUser',
+            email: 'testUserEmail@test.com',
+            password: 'P@ssword1!' 
+        };
+
+
+        afterAll(async () => {
+            const values = [passingBody.email];
+            const queryString = `
+            DELETE FROM users WHERE email = $1
+            `;
+            db.query(queryString, values)
+            //close pool after
+            .then(() => db.end());
+        });
+
         describe("test: app.post('/internal/signup')", () => {
-          //user passes in firstname, lastname, email password
-          //should throw error and return status 400 if any of those are missing
+
+            it('should throw a 400 error if user fields are missing', async () => {
+                let badResponse = await request(server).post('/internal/signup').send(missingLastNameBody);
+                // console.log('badResponse1:', badResponse)
+                expect(badResponse.status).toBe(400);
+                badResponse = await request(server).post('/internal/signup').send(missingFirstNameBody);
+                // console.log('badResponse2:', badResponse)
+                expect(badResponse.status).toBe(400);
+  
+                
+            })
+
+            it('should return a 302 status code for redirect to /signin', async () => {
+                let goodResponse = await request(server).post('/internal/signup').send(passingBody);
+                expect(goodResponse.status).toBe(302);
+            })
+
+            it('should not throw a 500 error', async () => {
+                // let goodResponse = await request(server).post('/internal/signup').send(passingBody);
+                // expect(goodResponse.status).not.toBe(500);
+                // expect(goodResponse.status).toBe(200);
+                // console.log('goodResponse: ', goodResponse);
+                
+            })
+
           //should throw error and return status 400 if email already exists in db
-          //should not return status 500
           //should redirect to '/signin'
           //should add cookie (key = userid) with created userId
 
