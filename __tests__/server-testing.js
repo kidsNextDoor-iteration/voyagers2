@@ -193,15 +193,17 @@ describe('Server Route Testing via Supertest', () => {
 
     describe('Trip Routing Testing', () => {
 
-        const date = new Date();
+        const startDate = new Date();
+        const endDate = new Date ();
+        //make end date 1 month later
+        endDate.setMonth(endDate.getMonth() + 1);
 
         const validTrip = {
-            title: 'test trip',
             city: 'test city',
             brand: 'test brand',
             description: 'test description',
-            startDate: new Date().toLocaleDateString(),
-            endDate: new Date().toLocaleDateString() + 1,
+            startDate: startDate.toLocaleDateString(),
+            endDate: endDate.toLocaleDateString(),
             idea: 'test idea'
         };
 
@@ -210,19 +212,43 @@ describe('Server Route Testing via Supertest', () => {
             response = await request(server).post('/trip/addTrip').send(validTrip);
         });
 
+        let deleteResponse;
+        afterAll(async () => {
+            const addedTripId = response.body[0].tripid;
+            const values = [addedTripId];
+            const queryString = `
+            DELETE FROM trips WHERE tripid = $1
+            `;
+            deleteResponse = await db.query(queryString, values);
+        });
+
         describe("test: app.post('/addTrip')", () => {
 
             it('should return 200 status code', () => {
                 expect(response.status).toBe(200);
             });
-            
 
-            //should return added trip
             it('should return added trip', () => {
-                console.log('response', response)
+                //date comes back from db as Z strings, so convert back to same format as input. this will maintain the actual date for valid comparison
+                const responseStartDate = new Date(response.body[0].startdate);
+                const responseEndDate = new Date(response.body[0].enddate);
+                const validResponse = {...response.body[0], startdate: responseStartDate.toLocaleDateString(), enddate: responseEndDate.toLocaleDateString()};
+                //passing in startDate and endDate in camel case, but db returns without camel case. removing camel case from input keys to match db structure.
+                const validInput = {
+                    city: validTrip.city,
+                    brand: validTrip.brand,
+                    description: validTrip.description,
+                    startdate: validTrip.startDate,
+                    enddate: validTrip.endDate,
+                    idea: validTrip.idea
+                };
+                console.log('testing: ', expect.objectContaining(validInput));
+                expect(validResponse).toEqual(expect.objectContaining(validInput));
             });
 
-            //should only return one added trip
+            it('should only return one added trip', () => {
+                expect(response.body.length).toBe(1);
+            });
             
 
         });

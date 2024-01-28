@@ -87,10 +87,12 @@ tripController.getTripDetails = (req, res, next) => {
       `INSERT INTO trips
       (userid, city, brand, description, startdate, enddate, idea)
       VALUES 
-      ($1, $2, $3, $4, $5, $6, $7)`;
+      ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING tripid, userid, city, brand, description, startdate, enddate, idea`;
       
       db.query(addQuery, value)
       .then(data => {
+        res.locals.addedTrip = data.rows;
         return next();
       })
     }

@@ -9,7 +9,8 @@ const router = express.Router();
 router.post('/addTrip', 
   tripController.addTrip, 
   (req, res) => {
-    res.status(200).send('Trip added!')
+    //send back added trip
+    res.status(200).json(res.locals.addedTrip)
   }
 );
 
