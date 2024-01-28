@@ -80,19 +80,32 @@ tripController.getTripDetails = (req, res, next) => {
 
   tripController.addTrip = (req, res, next) => {
     try{
+      // Add the trip data to the trips table, returning the tripid
       const userid = req.cookies.userid;
       const { title, city, brand, description, startDate, endDate, idea} = req.body;
-      const value = [userid, city, brand, description, startDate, endDate, idea];
-      const addQuery = 
+      const valuesOne = [city, brand, description, startDate, endDate, idea];
+      const queryOne = 
       `INSERT INTO trips
-      (userid, city, brand, description, startdate, enddate, idea)
+      (city, brand, description, startdate, enddate, idea)
       VALUES 
-      ($1, $2, $3, $4, $5, $6, $7)`;
+      ($1, $2, $3, $4, $5, $6)
+      RETURNING
+      tripid`;
       
-      db.query(addQuery, value)
-      .then(data => {
-        return next();
-      })
+      db.query(queryOne, valuesOne)
+        .then(data => {
+          // Insert the tripid and userid to the joining table
+          const valuesThree = [userid, data.rows[0].tripid];
+          const queryThree =  `
+          INSERT INTO users_trips
+          (userid, tripid)
+          VALUES
+          ($1, $2)`;
+          db.query(queryThree, valuesThree)
+          .then(finished => {
+            return next();
+          });
+        });
     }
     catch(error){
       return next({
