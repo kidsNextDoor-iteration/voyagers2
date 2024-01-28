@@ -45,52 +45,52 @@ describe('Server Route Testing via Supertest', () => {
 
     });
 
-    describe('Internal Routing Testing', () => {
+    const passingBody = {
+        firstname: 'testUser',
+        lastname: 'testUserLastName',
+        email: 'testUserEmail@test.com',
+        password: 'P@ssword1!' 
+    };
+    const missingFirstNameBody = {
+        lastname: 'testUserLastName',
+        email: 'testUserEmail@test.com',
+        password: 'P@ssword1!' 
+    };
+    const missingLastNameBody = {
+        firstname: 'testUser',
+        email: 'testUserEmail@test.com',
+        password: 'P@ssword1!' 
+    };
 
-        const passingBody = {
-            firstname: 'testUser',
-            lastname: 'testUserLastName',
-            email: 'testUserEmail@test.com',
-            password: 'P@ssword1!' 
-        };
-        const missingFirstNameBody = {
-            lastname: 'testUserLastName',
-            email: 'testUserEmail@test.com',
-            password: 'P@ssword1!' 
-        };
-        const missingLastNameBody = {
-            firstname: 'testUser',
-            email: 'testUserEmail@test.com',
-            password: 'P@ssword1!' 
-        };
+    let goodResponse;
+    let goodDbResult;
+    let testEmail;
+    let testFirstName;
+    let testLastName;
+    beforeAll(async () => {
+        goodResponse = await request(server).post('/internal/signup').send(passingBody);
 
-        let goodResponse;
-        let goodDbResult;
-        let testEmail;
-        let testFirstName;
-        let testLastName;
-        beforeAll(async () => {
-            goodResponse = await request(server).post('/internal/signup').send(passingBody);
+        testEmail = passingBody.email;
+        testFirstName = passingBody.firstname;
+        testLastName = passingBody.lastname;
+        let values = [testEmail];
+        let queryString = `
+        SELECT * FROM users WHERE email = $1;
+        `;
+        goodDbResult = await db.query(queryString, values);
+    });
 
-            testEmail = passingBody.email;
-            testFirstName = passingBody.firstname;
-            testLastName = passingBody.lastname;
-            let values = [testEmail];
-            let queryString = `
-            SELECT * FROM users WHERE email = $1;
-            `;
-            goodDbResult = await db.query(queryString, values);
-        });
+    afterAll(async () => {
+        const values = [passingBody.email];
+        const queryString = `
+        DELETE FROM users WHERE email = $1;
+        `;
+        db.query(queryString, values)
+        //close pool after
+        .then(() => db.end());
+    });
 
-        afterAll(async () => {
-            const values = [passingBody.email];
-            const queryString = `
-            DELETE FROM users WHERE email = $1;
-            `;
-            db.query(queryString, values)
-            //close pool after
-            .then(() => db.end());
-        });
+    describe('Internal Route Testing', () => {
 
         describe("test: app.post('/internal/signup')", () => {
 
@@ -188,16 +188,42 @@ describe('Server Route Testing via Supertest', () => {
 
         });
 
-    })
-
-
-
+    });
 
 
     describe('Trip Routing Testing', () => {
 
-        describe("test: app.post('/addTrips')", () => {
+        const date = new Date();
 
+        const validTrip = {
+            title: 'test trip',
+            city: 'test city',
+            brand: 'test brand',
+            description: 'test description',
+            startDate: new Date().toLocaleDateString(),
+            endDate: new Date().toLocaleDateString() + 1,
+            idea: 'test idea'
+        };
+
+        let response;
+        beforeAll(async () => {
+            response = await request(server).post('/trip/addTrip').send(validTrip);
+        });
+
+        describe("test: app.post('/addTrip')", () => {
+
+            it('should return 200 status code', () => {
+                expect(response.status).toBe(200);
+            });
+            
+
+            //should return added trip
+            it('should return added trip', () => {
+                console.log('response', response)
+            });
+
+            //should only return one added trip
+            
 
         });
 
