@@ -12,8 +12,8 @@ import imageAlt from '../Images/trip-alt.jpg'
 const Trips = () => {
   // set state for button popup status
   const [buttonPopup, setButtonPopup] = useState(false);
-  const [trips, setTrips] = useState([]);
-  const [tripImages, setTripImages] = useState([]);
+  const [trips, setTrips] = useState(null);
+  // const [tripImages, setTripImages] = useState([]);
   const [tripPopup, setTripPopup] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState('');
 
@@ -43,21 +43,22 @@ const Trips = () => {
 
   useEffect(() => {
     fetchTrips();
-    fetchImages()
+    // fetchImages()
   }, [])
 
+  //WE SHOULDN'T BE FETCHING IMAGES HERE. WE'RE NOT USING IT HERE AND IT'S CAUSING AN ERROR
   // fetch trip images from database when refreshed
-  const fetchImages = () => {
-    fetch('/api/getImages')
-      .then(res => res.json())
-      .then(data => {
-        setTripImages(data);
-        console.log(tripImages);
-      })
+  // const fetchImages = () => {
+  //   fetch('/api/getImages')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setTripImages(data);
+  //       console.log(tripImages);
+  //     })
     // .catch(err => {
     //   console.log('error in fetching /getImages in Trips.jsx')
     // })
-  }
+  // }
 
   // render default image if no trip image is selected
   const addDefaultImg = (e) => {
