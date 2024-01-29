@@ -59,25 +59,25 @@ tripController.getTripDetails = (req, res, next) => {
       UPDATE trips
       SET startDate = $2, endDate = $3, city = $4, brand = $5, description = $6, idea = $7, status = $8
       WHERE tripId = $1
-    `
+      RETURNING tripid, userid, city, brand, description, startDate, endDate, idea, status`;
+
     const value = [req.query.tripId, req.body.startDate, req.body.endDate, req.body.city, req.body.brand, req.body.description, req.body.idea, req.body.status];
-    console.log('editTrip ', value);
-  try {
-    db.query(editQuery, value)
-      .then(data => {
-        console.log("editTrip data.rows ", data.rows);
-        res.locals.trip = data.rows;
-        return next();
+    try {
+      db.query(editQuery, value)
+        .then(data => {
+          console.log("editTrip data.rows ", data.rows);
+          res.locals.trip = data.rows;
+          return next();
+        })
+    }
+    catch (err) {
+      return next({
+        log: 'tripController.getTripDetails - error getting user trip',
+        status: 500,
+        message: { err: 'tripController.getTripDetails - error getting user trip'
+        }
       })
-  }
-  catch (err) {
-    return next({
-      log: 'tripController.getTripDetails - error getting user trip',
-      status: 500,
-      message: { err: 'tripController.getTripDetails - error getting user trip'
-      }
-    })
-  }
+    }
   }
 
   tripController.addTrip = (req, res, next) => {

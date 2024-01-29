@@ -208,8 +208,10 @@ describe('Server Route Testing via Supertest', () => {
         };
 
         let response;
+        let testTripId;
         beforeAll(async () => {
             response = await request(server).post('/trip/addTrip').set('Cookie', [`userid=${goodDbResult.rows[0].userid}`]).send(validTrip);
+            testTripId = response.body[0].tripid;
         });
 
         let deleteResponse;
@@ -223,7 +225,7 @@ describe('Server Route Testing via Supertest', () => {
             deleteResponse = await db.query(queryString, values);
         });
 
-        describe("test: app.post('/addTrip')", () => {
+        describe("test: app.post('/trip/addTrip')", () => {
 
             it('should return 200 status code', () => {
                 expect(response.status).toBe(200);
@@ -253,7 +255,7 @@ describe('Server Route Testing via Supertest', () => {
 
         });
 
-        describe("test: app.get('/getTrips')", () => {
+        describe("test: app.get('/trip/getTrips')", () => {
 
             let response;
             let dbResponse;
@@ -284,18 +286,81 @@ describe('Server Route Testing via Supertest', () => {
 
         });
 
-        describe("test: app.patch('/editTrip')", () => {
+        describe("test: app.patch('/trip/editTrip')", () => {
+
+            const startDate = new Date();
+            //set startDate to 6 months later
+            startDate.setMonth(startDate.getMonth() + 6);
+            const endDate = new Date ();
+            //set endDate to 1 year later
+            endDate.setFullYear(endDate.getFullYear() + 1);
+
+            let editDetails = {
+                startDate: startDate.toLocaleDateString(),
+                endDate: endDate.toLocaleDateString(),
+                city: 'Philadelphia',
+                brand: 'testEditBrand',
+                description: 'testEditDescription',
+                idea: 'damnGoodEditIdea',
+                status: 'editStatus'
+            };
+
+            let response;
+            let dbResponse;
+            beforeAll(async () => {
+                const values = [testTripId];
+                const queryString = `
+                SELECT userid, tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE tripId = $1
+                `;
+                dbResponse = await db.query(queryString, values);
+
+                response = await request(server).patch(`/trip/editTrip?tripId=${testTripId}`).send(editDetails);
+
+                dbResponse = await db.query(queryString, values);
+            });
+
+            it('should return 200 status code', () => {
+                expect(response.statusCode).toBe(200);
+            });
+
+            it('should return 1 trip', () => {
+                expect(response.body.length).toBe(1);
+            });
+
+            it('should return edited trip', () => {
+                 //date comes back from db as Z strings, so convert back to same format as input. this will maintain the actual date for valid comparison
+                const validResponse = {...response.body[0], startdate: new Date(response.body[0].startdate).toLocaleDateString(), enddate: new Date(response.body[0].enddate).toLocaleDateString()};
+                //passing in startDate and endDate in camel case, but db returns without camel case. removing camel case from input keys to match db structure.
+                editDetails = {
+                    startdate: editDetails.startDate,
+                    enddate: editDetails.endDate,
+                    city: editDetails.city,
+                    brand: editDetails.brand,
+                    description: editDetails.description,
+                    idea: editDetails.idea,
+                    status: editDetails.status
+                };
+                expect(validResponse).toEqual(expect.objectContaining(editDetails));
+            });
+
+            it('should return array', () => {
+                expect(Array.isArray(response.body)).toBe(true);
+            });
 
 
         });
 
         describe("test: app.get('/getTripDetails')", () => {
-
+            //should return 200 status
+            //should return correct trip and details
+            //should return array
 
         });
 
         describe("test: app.delete('/deleteTrip')", () => {
-
+            //shold return 200 status
+            //should delete trip
+            //should return deleted trip??? doesn't seem to do this now, but we should add it
 
         });
 
