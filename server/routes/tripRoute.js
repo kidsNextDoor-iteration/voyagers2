@@ -28,16 +28,16 @@ router.patch('/editTrip', tripController.editTrip, (req, res) => {
 
 //route for getting trip details
 router.get('/getTripDetails',
-// create a cookie with the tripId
+  // create a cookie with the tripId
   cookieController.setTripCookie,
   tripController.getTripDetails,
   (req, res) => {
-    // console.log('in /getTripDetails ', res.locals.tripId);
     res.status(200).json(res.locals.trip)
   }
 );
 
 //route for deleting trips
+//res.locals.trip is not being set in tripController, so why are we sending it back when it's undefined?
 router.delete('/deleteTrip', tripController.deleteTrip, 
   (req, res) => {
     res.status(200).json(res.locals.trip)

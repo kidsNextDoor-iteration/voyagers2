@@ -36,7 +36,6 @@ tripController.getTripDetails = (req, res, next) => {
       SELECT startDate, endDate, city, brand, description, idea, status FROM trips WHERE tripId = $1
     `
     const value = [req.query.tripId];
-    // console.log(value);
     try {
       db.query(tripQuery, value)
         .then(data => {
@@ -65,7 +64,6 @@ tripController.getTripDetails = (req, res, next) => {
     try {
       db.query(editQuery, value)
         .then(data => {
-          console.log("editTrip data.rows ", data.rows);
           res.locals.trip = data.rows;
           return next();
         })

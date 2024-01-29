@@ -214,16 +214,7 @@ describe('Server Route Testing via Supertest', () => {
             testTripId = response.body[0].tripid;
         });
 
-        let deleteResponse;
-        afterAll(async () => {
-            const addedTripId = response.body[0].tripid;
-            const values = [addedTripId];
-            const queryString = `
-            DELETE FROM trips WHERE tripid = $1
-            `;
-            //TODO: confirm this is deleting the right trip
-            deleteResponse = await db.query(queryString, values);
-        });
+        //deleting the added test trip where we test the delete trip route below
 
         describe("test: app.post('/trip/addTrip')", () => {
 
@@ -258,13 +249,13 @@ describe('Server Route Testing via Supertest', () => {
         describe("test: app.get('/trip/getTrips')", () => {
 
             let response;
-            let dbResponse;
+            // let dbResponse;
             beforeAll(async () => {
-                const values = [goodDbResult.rows[0].userid];
-                const queryString = `
-                SELECT userid, tripId, startdate, enddate, city, brand, description, idea, status FROM trips WHERE userId = $1
-                `;
-                dbResponse = await db.query(queryString, values);
+                // const values = [goodDbResult.rows[0].userid];
+                // const queryString = `
+                // SELECT userid, tripId, startdate, enddate, city, brand, description, idea, status FROM trips WHERE userId = $1
+                // `;
+                // dbResponse = await db.query(queryString, values);
 
                 response = await request(server).get('/trip/getTrips').set('Cookie', [`userid=${goodDbResult.rows[0].userid}`]);
             });
@@ -306,17 +297,15 @@ describe('Server Route Testing via Supertest', () => {
             };
 
             let response;
-            let dbResponse;
+            // let dbResponse;
             beforeAll(async () => {
-                const values = [testTripId];
-                const queryString = `
-                SELECT userid, tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE tripId = $1
-                `;
-                dbResponse = await db.query(queryString, values);
+                // const values = [testTripId];
+                // const queryString = `
+                // SELECT userid, tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE tripId = $1
+                // `;
+                // dbResponse = await db.query(queryString, values);
 
                 response = await request(server).patch(`/trip/editTrip?tripId=${testTripId}`).send(editDetails);
-
-                dbResponse = await db.query(queryString, values);
             });
 
             it('should return 200 status code', () => {
@@ -350,17 +339,69 @@ describe('Server Route Testing via Supertest', () => {
 
         });
 
-        describe("test: app.get('/getTripDetails')", () => {
-            //should return 200 status
-            //should return correct trip and details
-            //should return array
+        describe("test: app.get('/trip/getTripDetails')", () => {
 
+            let response;
+            // let dbResponse;
+            beforeAll(async () => {
+                // const values = [testTripId];
+                // const queryString = `
+                // SELECT startDate, endDate, city, brand, description, idea, status FROM trips WHERE tripId = $1
+                // `;
+                // dbResponse = await db.query(queryString, values);
+
+                response = await request(server).get(`/trip/getTripDetails?tripId=${testTripId}`);
+            });
+
+            it('should return 200 status code', () => {
+                expect(response.statusCode).toBe(200);
+            });
+
+            //TODO: check that details are for correct tripId; however, right now the response doesn't seem to contain the tripId. front end seems
+            //to be using the tripId, but I can't find where it's pulling it from
+            it('should return correct trip and details', () => {
+                expect(Object.keys(response.body[0])).toEqual(['startdate', 'enddate', 'city', 'brand', 'description', 'idea', 'status']);
+            });
+
+            it('should return 1 trip', () => {
+                expect(response.body.length).toBe(1);
+            });
+
+            it('should set tripId cookie', () => {
+                //taking just the tripId part of the cookie. stripping the other cookie details.
+                let responseCookie = response.res.headers['set-cookie'][0];
+                responseCookie = responseCookie.split(';')[0];
+                expect(responseCookie).toBe(`tripId=${testTripId}`); 
+            })
+
+            it('should return array', () => {
+                expect(Array.isArray(response.body)).toBe(true);
+            });
         });
 
-        describe("test: app.delete('/deleteTrip')", () => {
-            //shold return 200 status
-            //should delete trip
-            //should return deleted trip??? doesn't seem to do this now, but we should add it
+        describe("test: app.delete('/trip/deleteTrip')", () => {
+
+            let response;
+            let dbResponse;
+            beforeAll(async () => {
+                response = await request(server).delete(`/trip/deleteTrip?tripId=${testTripId}`);
+
+                const values = [testTripId];
+                const queryString = `
+                SELECT * FROM trips WHERE tripId = $1
+                `;
+                dbResponse = await db.query(queryString, values);
+            });
+
+            it('should return 200 status code', () => {
+                expect(response.statusCode).toBe(200);
+            });
+
+            it('should delete trip from db', () => {
+                expect(dbResponse.rows.length).toBe(0);
+            });
+
+            //TODO: should return deleted trip??? doesn't seem to do this now, but we should add it
 
         });
 
