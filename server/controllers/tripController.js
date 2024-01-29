@@ -4,16 +4,18 @@ const tripController = {};
 
 // functionality to get all user trips from database
 tripController.getTrips = (req, res, next) => {
+  //removed camel casing from startdate and enddate
+  //testing uses userid returned from this query to confirm only trips for the correct user are returned. if this code changes, testing will need to 
+  //be adjusted to accomodate that change
   const tripQuery = `
-    SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE userId = $1
+    SELECT userId, tripId, startdate, enddate, city, brand, description, idea, status FROM trips WHERE userId = $1
   `
   // to update value functionality to access current user (through cookies/ sessions)
   const value = [req.cookies.userid];
-  console.log(value);
   try {
     db.query(tripQuery, value)
       .then(data => {
-        // console.log('data from tripController ',data.rows);
+        // console.log('trips retrieved from db in tripController ', data.rows);
         res.locals.trips = data.rows;
         return next();
       })

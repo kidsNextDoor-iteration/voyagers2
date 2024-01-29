@@ -209,7 +209,7 @@ describe('Server Route Testing via Supertest', () => {
 
         let response;
         beforeAll(async () => {
-            response = await request(server).post('/trip/addTrip').send(validTrip);
+            response = await request(server).post('/trip/addTrip').set('Cookie', [`userid=${goodDbResult.rows[0].userid}`]).send(validTrip);
         });
 
         let deleteResponse;
@@ -219,6 +219,7 @@ describe('Server Route Testing via Supertest', () => {
             const queryString = `
             DELETE FROM trips WHERE tripid = $1
             `;
+            //TODO: confirm this is deleting the right trip
             deleteResponse = await db.query(queryString, values);
         });
 
@@ -242,11 +243,10 @@ describe('Server Route Testing via Supertest', () => {
                     enddate: validTrip.endDate,
                     idea: validTrip.idea
                 };
-                console.log('testing: ', expect.objectContaining(validInput));
                 expect(validResponse).toEqual(expect.objectContaining(validInput));
             });
 
-            it('should only return one added trip', () => {
+            it('should only return array with one added trip', () => {
                 expect(response.body.length).toBe(1);
             });
             
@@ -255,6 +255,32 @@ describe('Server Route Testing via Supertest', () => {
 
         describe("test: app.get('/getTrips')", () => {
 
+            let response;
+            let dbResponse;
+            beforeAll(async () => {
+                const values = [goodDbResult.rows[0].userid];
+                const queryString = `
+                SELECT userid, tripId, startdate, enddate, city, brand, description, idea, status FROM trips WHERE userId = $1
+                `;
+                dbResponse = await db.query(queryString, values);
+
+                response = await request(server).get('/trip/getTrips').set('Cookie', [`userid=${goodDbResult.rows[0].userid}`]);
+            });
+
+            it('should return 200 status code', () => {
+                expect(response.statusCode).toBe(200);
+            });
+
+            it('should only return trips for that user', () => {
+                //if at some point userid is no longer returned with the /trip/getTrips request, this test will need to be adjusted
+                response.body.forEach((trip => {
+                    expect(trip.userid).toEqual(goodDbResult.rows[0].userid);
+                }));
+            });
+
+            it('should return array', () => {
+                expect(Array.isArray(response.body)).toBe(true);
+            });
 
         });
 
