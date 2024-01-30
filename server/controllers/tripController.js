@@ -4,9 +4,12 @@ const tripController = {};
 
 // functionality to get all user trips from database
 tripController.getTrips = (req, res, next) => {
+  // const tripQuery = `
+  //   SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE userId = $1
+  // `
   const tripQuery = `
-    SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE userId = $1
-  `
+    SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips
+    LEFT JOIN`
   // to update value functionality to access current user (through cookies/ sessions)
   const value = [req.cookies.userid];
   console.log(value);
