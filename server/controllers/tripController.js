@@ -141,5 +141,32 @@ tripController.getTripDetails = (req, res, next) => {
     }
   }
 
+  // Add additional user to trip
+  tripController.addUser = async (req, res, next) => {
+    const email = req.body.email;
+    const tripId = req.body.tripId;
+    const emailQuery = `
+    SELECT userId
+    FROM users
+    WHERE email = $1
+    `;
+    const emailValue = [email]
+    const userData = await db.query(emailQuery, emailValue);
+    console.log('User Data => ', userData);
+    if (userData.rowCount) {
+      const userId = userData.rows[0].userid;
+      const tripInsert = `
+      INSERT INTO users_trips
+      (userId, tripId)
+      VALUES
+      ($1, $2)
+      `;
+      const tripValues = [userId, tripId];
+      const insertData = db.query(tripInsert, tripValues);
+      return next();
+    } else {
+      res.redirect('/trip/sendInvite');
+    };
+  }
 
 module.exports = tripController;
