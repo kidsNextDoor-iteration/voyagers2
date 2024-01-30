@@ -10,6 +10,7 @@ const internalRouter = require('./routes/internalRouter');
 const tripRouter = require('./routes/tripRoute');
 const imgAPiRouter = require('./routes/imgApiRoute');
 const googleRouter = require('./routes/googleRouter')
+const passkeyRouter = require('./routes/passkeyRouter')
 
 const userController = require('./controllers/userController.js');
 // const imageController = require('./controllers/imageController.js');
@@ -99,6 +100,7 @@ app.get('/collaborations', userController.verifyAuth, (req, res) => {
 //--------------- OAUTH ROUTING -------------//
 
 app.use('/google', googleRouter)
+app.use('/passkey', passkeyRouter)
 
 
 

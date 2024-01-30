@@ -12,6 +12,7 @@ import UnderConstruction from "./UnderConstruction.jsx";
 import '../Styles/AddTripPage.scss'
 import "../stylesheets/styles.scss"
 import ProtectedRoute from "../Components/Utilities/ProtectedRoute.jsx"
+import SigninPasskey from "./SigninPasskey.jsx"
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
 
         <Route path="/internal/signup" element={<Signup />} />
         <Route path="/internal/signin" element={<Signin />} />
+        <Route path="/internal/signin/passkey" element={<SigninPasskey />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/imageDemo" element={<ImageUpload />} />
         <Route path="/trips" element={<Trips />} />
