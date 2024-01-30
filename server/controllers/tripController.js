@@ -4,9 +4,14 @@ const tripController = {};
 
 // functionality to get all user trips from database
 tripController.getTrips = (req, res, next) => {
+  // const tripQuery = `
+  //   SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE userId = $1
+  // `
   const tripQuery = `
-    SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE userId = $1
-  `
+    SELECT trips.tripId, startDate, endDate, city, brand, description, idea, status FROM trips
+    LEFT JOIN users_trips
+    ON trips.tripId = users_trips.tripId
+    WHERE users_trips.userId = $1`
   // to update value functionality to access current user (through cookies/ sessions)
   const value = [req.cookies.userid];
   console.log(value);
@@ -80,19 +85,32 @@ tripController.getTripDetails = (req, res, next) => {
 
   tripController.addTrip = (req, res, next) => {
     try{
+      // Add the trip data to the trips table, returning the tripid
       const userid = req.cookies.userid;
       const { title, city, brand, description, startDate, endDate, idea} = req.body;
-      const value = [userid, city, brand, description, startDate, endDate, idea];
-      const addQuery = 
+      const valuesOne = [city, brand, description, startDate, endDate, idea];
+      const queryOne = 
       `INSERT INTO trips
-      (userid, city, brand, description, startdate, enddate, idea)
+      (city, brand, description, startdate, enddate, idea)
       VALUES 
-      ($1, $2, $3, $4, $5, $6, $7)`;
+      ($1, $2, $3, $4, $5, $6)
+      RETURNING
+      tripid`;
       
-      db.query(addQuery, value)
-      .then(data => {
-        return next();
-      })
+      db.query(queryOne, valuesOne)
+        .then(data => {
+          // Insert the tripid and userid to the joining table
+          const valuesThree = [userid, data.rows[0].tripid];
+          const queryThree =  `
+          INSERT INTO users_trips
+          (userid, tripid)
+          VALUES
+          ($1, $2)`;
+          db.query(queryThree, valuesThree)
+          .then(finished => {
+            return next();
+          });
+        });
     }
     catch(error){
       return next({
@@ -123,5 +141,32 @@ tripController.getTripDetails = (req, res, next) => {
     }
   }
 
+  // Add additional user to trip
+  tripController.addUser = async (req, res, next) => {
+    const email = req.body.email;
+    const tripId = req.body.tripId;
+    const emailQuery = `
+    SELECT userId
+    FROM users
+    WHERE email = $1
+    `;
+    const emailValue = [email]
+    const userData = await db.query(emailQuery, emailValue);
+    console.log('User Data => ', userData);
+    if (userData.rowCount) {
+      const userId = userData.rows[0].userid;
+      const tripInsert = `
+      INSERT INTO users_trips
+      (userId, tripId)
+      VALUES
+      ($1, $2)
+      `;
+      const tripValues = [userId, tripId];
+      const insertData = db.query(tripInsert, tripValues);
+      return next();
+    } else {
+      res.redirect('/trip/sendInvite');
+    };
+  }
 
 module.exports = tripController;
