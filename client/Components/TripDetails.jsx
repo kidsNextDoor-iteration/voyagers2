@@ -11,9 +11,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
   const [editedTrip, setEditedTrip] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [travelerEmail, setTravelerEmail] = useState('');
-  const [submissionResponse, setSubmissionResponse] = useState('Submission Response');
-
-  console.log("trip iddddd: ", tripId)
+  const [submissionResponse, setSubmissionResponse] = useState('');
 
 
   // fetch trip details when refreshed
