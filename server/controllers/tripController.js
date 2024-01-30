@@ -8,8 +8,10 @@ tripController.getTrips = (req, res, next) => {
   //   SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips WHERE userId = $1
   // `
   const tripQuery = `
-    SELECT tripId, startDate, endDate, city, brand, description, idea, status FROM trips
-    LEFT JOIN`
+    SELECT trips.tripId, startDate, endDate, city, brand, description, idea, status FROM trips
+    LEFT JOIN users_trips
+    ON trips.tripId = users_trips.tripId
+    WHERE users_trips.userId = $1`
   // to update value functionality to access current user (through cookies/ sessions)
   const value = [req.cookies.userid];
   console.log(value);
