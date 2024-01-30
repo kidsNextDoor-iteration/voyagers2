@@ -13,7 +13,7 @@ const Trips = () => {
   // set state for button popup status
   const [buttonPopup, setButtonPopup] = useState(false);
   const [trips, setTrips] = useState(null);
-  // const [tripImages, setTripImages] = useState([]);
+  const [tripImages, setTripImages] = useState([]);
   const [tripPopup, setTripPopup] = useState(false);
   const [selectedTrip, setSelectedTrip] = useState('');
 
@@ -92,7 +92,7 @@ const Trips = () => {
             <div className="overlay"></div>
             <div className="popup-content">
               <div className="addTrip-container">
-                <AddTripPage togglePop={togglePop} fetchImages={fetchImages} fetchTrips={fetchTrips} />
+                <AddTripPage togglePop={togglePop} fetchTrips={fetchTrips} />
               </div>
               <button className="buttonClose" onClick={togglePop}>
                 X
