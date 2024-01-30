@@ -102,6 +102,20 @@ app.use('/google', googleRouter)
 
 
 
+//--------- CHECK COOKIE ---------//
+
+app.get('/checkCookie', (req, res) => {
+  const cookie = req.cookies.userid;
+  console.log("cookie data: ", cookie);
+  if (cookie) {
+    res.status(200).json(true)
+  } else {
+    res.status(500).json(false)
+  }
+
+})
+
+
 
 
 
