@@ -10,6 +10,49 @@ body {
     margin: 0px;
 }
 
+.addTravelersDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    background-color: black;
+
+    color: white;
+
+    input {
+        height: 20px;
+        width: 200px;
+        font-size: 20px;
+        padding: 10px;
+    }
+
+    button {
+        width: 100px;
+        height: 40px;
+        border-radius: 50px;
+        border: none;
+        font-size: 20;
+        border-radius: 3rem;
+        // padding: 1rem 2rem;
+        font-size: 1rem;
+        transition: color 0.3s, transform 0.2s, background-color 0.5s;
+        cursor: pointer;
+
+        &:hover {
+            color: black;
+            background-color: white;
+            transform: scale(1.1);
+        }
+    }
+}
+
+#response {
+    padding: 10px;
+
+}
+
 #home {
     background-image: url('./images/background-1.jpg');
     background-size: cover;
