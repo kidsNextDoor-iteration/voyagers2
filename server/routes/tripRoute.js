@@ -43,4 +43,12 @@ router.delete('/deleteTrip', tripController.deleteTrip,
   }
 );
 
+router.post('/addTraveler', tripController.addUser,
+(req,res) => res.status(200).json('Traveler Added')
+);
+
+router.get('/sendInvite',
+(req, res) => res.status(200).json('Invite Sent')
+);
+
 module.exports = router;
