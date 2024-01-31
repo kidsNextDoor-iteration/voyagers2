@@ -24,7 +24,7 @@ router.get('/login', passport.authenticate('facebook'));
 //   }
 // );
 
-router.get('/oauth/redirect', testMiddleware, passport.authenticate('facebook', {session: false}), userController.userCookie,
+router.get('/oauth/redirect', testMiddleware, passport.authenticate('facebook', {session: false, failureRedirect: '/'}), userController.facebookAdapter, userController.userCookie,
   (req, res) => {
   console.log('am i hitting');
   res.redirect('http://localhost:8080/trips')
