@@ -1,7 +1,7 @@
 const express = require('express');
 const googleController = require('../controllers/googleController');
 const userController = require('../controllers/userController');
-const config = require('config')
+const config = require('config');
 
 
 const router = express.Router();
