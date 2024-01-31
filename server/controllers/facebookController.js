@@ -1,5 +1,5 @@
 const passport = require('passport');
-const FacebookStrategy = require('passport-facebook').Strategy;
+const FacebookStrategy = require('passport-facebook')
 const db = require('../model.js');
 
 require('dotenv').config();
@@ -51,22 +51,21 @@ async function(accessToken, refreshToken, profile, cb) {
     profile.email = 'im.darren93@gmail.com';
     const returned = await db.query(`SELECT * FROM users WHERE email = '${profile.email}'`)
 
-
     let queryValues;
     let queryText;
-    let insertedUserId;
+    let user;
     if (returned.rows.length > 0) {
-        await db.query(`UPDATE users SET facebook = true WHERE email = '${profile.email}'`);
+        user = await db.query(`UPDATE users SET facebook = true WHERE email = '${profile.email}' RETURNING userid`);
     } else {
         queryValues = [profile.displayName, profile.displayName, profile.email, true];
         queryText = 'INSERT INTO users (firstname, lastname, email, facebook) VALUES ($1, $2, $3, $4) RETURNING userid';
-        insertedUserId = await db.query(queryText, queryValues);
-        console.log("inserteduserid", insertedUserId);
+        user = await db.query(queryText, queryValues);
+        console.log("inserteduserid or updateduserid", user);
     }
     // const userid = await db.query(`SELECT userid FROM users WHERE email = '${profile.email}'`);
     // console.log("userid: ", userid.rows[0].userid);
     // res.locals.userid = userid.rows[0].userid;
-    cb(null, insertedUserId.rows[0].userid);
+    cb(null, user.rows[0].userid);
 }))
 
 // module.exports = facebookController;

@@ -55,7 +55,7 @@ app.use('/api', imgAPiRouter);
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
-  console.log('reroute to dist')
+  console.log('reroute to dist 123')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
@@ -82,7 +82,7 @@ app.get('/imageDemo', (req, res) => {
 
 
 app.get('/trips', userController.verifyAuth, (req, res) => {
-  console.log('reroute to dist')
+  console.log('reroute to distroy')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
