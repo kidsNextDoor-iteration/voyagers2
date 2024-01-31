@@ -26,7 +26,7 @@ userController.email = async (req, res, next) => {
 
     console.log('params: ', email, tripid)
 
-    const url = 'http://localhost:8080/internal/signin'
+    const url = 'http://localhost:8080/'
 
     const info = await transporter.sendMail({
       from: '"Voyagers" <voyagers2@fastmail.com>', // sender address
