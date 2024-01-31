@@ -7,6 +7,10 @@ const router = express();
 const userController = require('../controllers/userController');
 const passkeyController = require('../controllers/passkeyController');
 
-router.get('/', passkeyController.auth, (req, res) => res.status(200).json('passkey auth success'))
+router.get('/', passkeyController.auth, passkeyController.storeUser, userController.userCookie,
+  (req, res) => {
+    console.log('passkey auth success');
+    res.redirect('/trips')
+  });
 
 module.exports = router;
