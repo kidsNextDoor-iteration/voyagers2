@@ -59,6 +59,32 @@ tripController.getTripDetails = (req, res, next) => {
   }
 }
 
+tripController.getCompanions = async (req, res, next) => {
+
+  try {
+
+    const tripId = req.query.tripId;
+    const results = await db.query(`SELECT users.firstname FROM users_trips INNER JOIN users ON users.userid = users_trips.userid WHERE users_trips.tripid = ${tripId}`)
+    const trip = res.locals.trip[0];
+
+    const nameArray = results.rows.map(obj => obj.firstname)
+    const output = [{ ...trip, companions: nameArray }]
+
+    res.locals.trip = output;
+    // console.log('output ', output)
+    return next()
+
+  } catch (error) {
+
+    return next(error)
+  }
+
+
+
+
+
+}
+
 tripController.editTrip = (req, res, next) => {
   const editQuery = `
       UPDATE trips

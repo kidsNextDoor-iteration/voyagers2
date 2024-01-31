@@ -19,6 +19,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
     fetch(`/trip/getTripDetails?tripId=${tripId}`)
       .then(res => res.json())
       .then(data => {
+        console.log('returned data: ', data)
         setFetchedTrip(data[0]);
         setEditedTrip(data[0]);
         console.log('fetched trip ', fetchedTrip)
@@ -136,12 +137,19 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
     setEditMode(false);
   }
 
+
+
+
   // if fetchedTrip is not falsey (only when a trip image is clicked on and trip fetched, would something be rendered)
   if (!fetchedTrip) {
     return null
   }
 
   else {
+
+    // const nameArray = fetchedTrip
+    // console.log('name array: ', fetchedTrip)
+
     return (
       // <div className="trip-container">
       //   <div className="overlay" onClick={closePopup} ></div>
@@ -288,9 +296,12 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
 
             <div className='td-top-container'>
               <h1 className='trip-details-text-header'>Trip Details</h1>
-              <hr className='trip-details-hr' />
+              {/* <hr className='trip-details-hr' /> */}
+              <div id='companions'>
+                <h3><span>Companions:   </span><span>{"  " + fetchedTrip.companions.join(", ")}</span></h3>
+              </div>
               <div className="tripDetails-container">
-                Dates: {fetchedTrip.startdate && new Date(fetchedTrip.startdate).toLocaleDateString('en-US', {
+                <b>Dates: </b>{fetchedTrip.startdate && new Date(fetchedTrip.startdate).toLocaleDateString('en-US', {
                   day: '2-digit',
                   month: 'short',
                   year: 'numeric',
@@ -298,11 +309,11 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
                   day: '2-digit',
                   month: 'short',
                   year: 'numeric',
-                })} <br /><br />
-                City: {fetchedTrip.city} <br /><br />
-                Brand: {fetchedTrip.brand} <br /><br />
-                Description: {fetchedTrip.description} <br /><br />
-                Idea: {fetchedTrip.idea} <br /><br />
+                })}
+                <span><b>City: </b>{fetchedTrip.city}</span>
+                <span><b>Brand: </b>{fetchedTrip.brand}</span>
+                <span><b>Description: </b>{fetchedTrip.description}</span>
+                <span><b>Idea: </b>{fetchedTrip.idea}</span>
 
                 { }
                 {/* Status: {fetchedTrip.status} */}
@@ -334,7 +345,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
             <div className='right-top-text-container'>
               <h1 className='image-upload-text-header'>Mood Board</h1>
               <div className='addTravelersDiv'>
-                <label htmlFor="travelers">Invite Travelers</label><br />
+                <label htmlFor="travelers"><h3>Invite Travelers</h3></label><br />
                 <input type="text" value={travelerEmail} onChange={handleEmailChange} id="travelers" /><br />
                 <button onClick={submitTraveler}>Submit</button>
               </div>
@@ -350,7 +361,7 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
 
 
 
-      </div>
+      </div >
 
     )
   }
