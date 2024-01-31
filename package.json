@@ -6,7 +6,8 @@
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open --hot --progress --color\" \"nodemon ./server/server.js\"",
-    "test": "jest --verbose --detectOpenHandles"
+    "test": "jest --verbose --detectOpenHandles",
+    "dev2": "nodemon ./server/server.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.490.0",
@@ -28,6 +29,8 @@
     "mongoose": "^6.12.3",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.2",
+    "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0",
     "pg": "^8.5.1",
     "qs": "^6.11.2",
     "react": "^18.2.0",

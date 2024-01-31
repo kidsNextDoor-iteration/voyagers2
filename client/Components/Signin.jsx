@@ -48,6 +48,11 @@ const Signin = () => {
                             <div>Login with Google</div>
                         </a>
                         </div>
+                        <div className="OAuthButton"><a href={'http://localhost:8080/facebook/login'}>
+                            <img src={googleImg}></img>
+                            <div>Login with Facebook</div>
+                        </a>
+                        </div>
 
                         {/* <a href={googleAuthLink()}>Login with Google</a> */}
                     </form>
