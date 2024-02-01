@@ -37,8 +37,8 @@ const s3 = new S3Client({
 // --------- UPLOAD IMAGE ----------- //
 imageController.uploadSingleImg = async (req, res, next) => {
   try {
-    const buffer = await sharp(req.file.buffer).resize({height: 800, width: 800, fit: "cover"}).toBuffer()
-  
+    const buffer = await sharp(req.file.buffer).resize({ height: 800, width: 800, fit: "cover" }).toBuffer()
+
     const imgName = randomImageName();
 
     const params = {
@@ -49,9 +49,9 @@ imageController.uploadSingleImg = async (req, res, next) => {
     }
 
     const command = new PutObjectCommand(params)
-  
+
     await s3.send(command)
-  
+
     console.log('what is my cookie: ', req.cookies.tripId)
     const tripID = await req.cookies.tripId;
 
@@ -66,7 +66,7 @@ imageController.uploadSingleImg = async (req, res, next) => {
     const querySTR = `INSERT INTO images (imageName, imageUrl, tripid) VALUES ('${req.body.caption}', '${imgURL}', '${tripID}');`
 
     await db.query(querySTR);
-  
+
     return next();
   } catch (err) {
     console.log('error in imageController.uploadSingleImg', err);
@@ -76,7 +76,7 @@ imageController.uploadSingleImg = async (req, res, next) => {
 
 // -------------- GET IMAGES ------------- //
 imageController.getImages = async (req, res, next) => {
-  try{
+  try {
     // console.log('res.locals.tripId: ', res.locals.tripId)
     console.log('req.body: ', req.body)
     console.log('trip cookie: ', req.cookies.tripId)
@@ -97,9 +97,49 @@ imageController.getImages = async (req, res, next) => {
   }
 }
 
+
+imageController.getCoverImage = async (req, res, next) => {
+  try {
+
+    const tripArray = res.locals.trips;
+
+    const outputArr = [];
+
+    for (let trip of tripArray) {
+      const response = await db.query(`SELECT imageurl FROM images WHERE tripid = ${trip.tripid}`)
+      outputArr.push({ ...trip, coverImage: response.rows[0] })
+    }
+
+    // const returnedArr = outputArr.map(trip => {
+    //   return { ...trip, coverImage: coverImage.imageurl ? coverImage.url : 'none' }
+    // })
+
+    console.log('output arr: ', outputArr)
+
+    res.locals.trips = outputArr;
+
+
+
+
+
+
+
+
+
+
+
+
+
+    return next()
+  } catch (error) {
+    return next(error)
+  }
+}
+
+
 // ---------------- DELETE IMAGES --------------- //
 imageController.deleteImage = async (req, res, next) => {
-  try{
+  try {
     console.log(req.body.imgSrc)
     const imgURL = req.body.imgSrc;
     const querySTR = `DELETE FROM images WHERE imageUrl = '${imgURL}';`

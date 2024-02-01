@@ -14,7 +14,7 @@ import '@passageidentity/passage-elements/passage-auth'
 import facebookImg from '../Images/facebook.png'
 
 const Signin = () => {
-let navigate = useNavigate();
+    let navigate = useNavigate();
     const handleSubmit = async event => {
         event.preventDefault();
         const email = event.target.email.value;
@@ -39,7 +39,7 @@ let navigate = useNavigate();
     return (
         <div id="signin">
             <nav>
-                <a href="/" className="logo">Voyager</a>
+                <a href="/" className="logo">Voyager<a id='capitalS'>S</a></a>
             </nav>
             <div className="content">
 
