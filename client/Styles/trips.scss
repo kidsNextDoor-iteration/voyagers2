@@ -15,9 +15,13 @@ h1 {
 
 // display trips as tiles
 .tileRow {
-  margin: 20px 5px 0 20px;
-  display: flex;
-  flex-wrap: wrap;
+  // margin: 20px 5px 0 20px;
+  // display: flex;
+  // flex-wrap: wrap;
+  display: grid;
+  // background-color: pink;
+  padding: 30px;
+  grid-template-columns: [left] 25% [leftCenter] 25% [center] 25% [rightCenter] 25% [right];
 }
 
 .tileCol {
@@ -38,6 +42,7 @@ h1 {
   transition: .5s ease;
   backface-visibility: hidden;
   object-fit: cover;
+  filter: drop-shadow(5px 5px 5px rgb(35, 49, 66, 20%));
 }
 
 .tripImage:hover {
