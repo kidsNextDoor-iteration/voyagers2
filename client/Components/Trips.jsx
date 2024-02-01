@@ -138,7 +138,7 @@ const Trips = () => {
                   year: 'numeric',
                 })}
                 <br />
-                <b>{tile.city}</b>
+                <h3 id='tileCity'>{tile.city}</h3>
               </div>
             </Col>
           ))}

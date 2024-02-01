@@ -13,7 +13,7 @@ import '@passageidentity/passage-elements/passage-auth'
 <script src="https://psg.so/web.js"></script>
 
 const Signin = () => {
-let navigate = useNavigate();
+    let navigate = useNavigate();
     const handleSubmit = async event => {
         event.preventDefault();
         const email = event.target.email.value;
@@ -38,7 +38,7 @@ let navigate = useNavigate();
     return (
         <div id="signin">
             <nav>
-                <a href="/" className="logo">Voyager</a>
+                <a href="/" className="logo">Voyager<a id='capitalS'>S</a></a>
             </nav>
             <div className="content">
 
@@ -55,11 +55,11 @@ let navigate = useNavigate();
                         </a>
                         </div>
 
-        <div className="OAuthButton"><Link to="/internal/signin/passkey">
-            <img src={passkeyImg} width="40" height="40"></img>
-            <div>Login with Passkey</div>
-            </Link>
-        </div>
+                        <div className="OAuthButton"><Link to="/internal/signin/passkey">
+                            <img src={passkeyImg} width="40" height="40"></img>
+                            <div>Login with Passkey</div>
+                        </Link>
+                        </div>
 
 
                         {/* <a href={googleAuthLink()}>Login with Google</a> */}

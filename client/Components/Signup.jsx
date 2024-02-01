@@ -35,7 +35,7 @@ const Signup = () => {
     return (
         <div id="signup">
             <nav>
-                <a href="/" className="logo">Voyager</a>
+                <a href="/" className="logo">Voyager<a id='capitalS'>S</a></a>
             </nav>
             <div className="content">
                 <div className="image">
