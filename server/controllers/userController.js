@@ -125,6 +125,7 @@ userController.userCookie = (req, res, next) => {
   return next();
 }
 
+//only being called from /trips
 userController.verifyAuth = (req, res, next) => {
   try {
     if (req.cookies.userid) {

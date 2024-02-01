@@ -1,16 +1,6 @@
 import React from 'react';
 
-
-// import dotenv from 'dotenv'
-
-// dotenv.config();
-
-
-
 export default function getGoogleOAuthURL() {
-
-
-
 
     const rootURL = 'https://accounts.google.com/o/oauth2/v2/auth';
 
@@ -23,19 +13,8 @@ export default function getGoogleOAuthURL() {
         scope: 'https://www.googleapis.com/auth/userinfo.profile' + ' ' + 'https://www.googleapis.com/auth/userinfo.email'
     }
 
-    console.log('Google URL Options: ', options)
-
     const queryString = new URLSearchParams(options)
 
-    console.log('Google URL Query String: ', queryString)
-
     return `${rootURL}?${queryString.toString()}`
-
-
-
-
-
-
-
 
 }

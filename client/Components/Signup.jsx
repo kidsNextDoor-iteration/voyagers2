@@ -20,14 +20,21 @@ const Signup = () => {
                 },
                 body: JSON.stringify({ firstname, lastname, email, password })
             });
-            if (response.redirected) {
-                navigate('/internal/signin')
-            } else {
-                const data = await response.json();
-                if (data.err) {
-                    alert(data.err)
-                }
-            }
+            
+            //data will be userid upon success or an object with err key if not successful
+            const data = await response.json();
+            if (data.err) alert(data.err);
+            else navigate('/internal/signin');
+
+            //TODO: old code probably can be removed
+            // if (response.redirected) {
+            //     navigate('/internal/signin')
+            // } else {
+            //     const data = await response.json();
+            //     if (data.err) {
+            //         alert(data.err)
+            //     }
+            // }
         } catch {
             alert('Signup failed due to unknown error')
         }
