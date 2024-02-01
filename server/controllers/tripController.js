@@ -14,7 +14,7 @@ tripController.getTrips = (req, res, next) => {
     WHERE users_trips.userId = $1`
   // to update value functionality to access current user (through cookies/ sessions)
   const value = [req.cookies.userid];
-  console.log(value);
+  // console.log(value);
   try {
     db.query(tripQuery, value)
       .then(data => {
