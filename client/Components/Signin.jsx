@@ -5,6 +5,7 @@ import image2 from '../Images/pexels-cottonbro-studio-2773494.jpg';
 import image3 from '../Images/couple-img3.png';
 import googleAuthLink from './Utilities/getGoogleOAuthURL.jsx'
 import googleImg from '../Images/google.png'
+import facebookImg from '../Images/facebook.png'
 
 const Signin = () => {
     let navigate = useNavigate();
@@ -48,9 +49,8 @@ const Signin = () => {
                             <div>Login with Google</div>
                         </a>
                         </div>
-                        <div className="OAuthButton"><a href={'http://localhost:8080/facebook/login'}>
-                            <img src={googleImg}></img>
-                            <div>Login with Facebook</div>
+                        <div className="FBOAuthButton"><a href={'http://localhost:8080/facebook/login'}>
+                            <img src={facebookImg}></img>
                         </a>
                         </div>
 
