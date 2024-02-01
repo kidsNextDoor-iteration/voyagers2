@@ -15,10 +15,10 @@ h1 {
 
 // display trips as tiles
 .tileRow {
-    margin: 20px 5px 0 20px;
-    display: flex;
-    flex-wrap: wrap;
- }
+  margin: 20px 5px 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .tileCol {
   flex: 0 0 33.33%;
@@ -28,16 +28,16 @@ h1 {
 }
 
 .tripImage {
-  width: 100%; 
+  width: 100%;
   height: auto;
   max-width: 100%;
-  max-height: 300px;
+  max-height: 100%;
   cursor: pointer;
   opacity: 1;
   display: block;
   transition: .5s ease;
   backface-visibility: hidden;
-  object-fit:cover;
+  object-fit: cover;
 }
 
 .tripImage:hover {
@@ -73,7 +73,7 @@ h1 {
 //     background-color: rgba(255, 255, 255, 0.8); // Adjust background color as needed
 //     border-radius: 5px;
 //   }
-  
+
 //   &:hover .middle {
 //     opacity: 1;
 //   }
@@ -97,17 +97,17 @@ h1 {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
- }
+}
 
- .tileDetails .tripImage {
+.tileDetails .tripImage {
   // position: absolute;
   top: 50%;
-  left: 50%; 
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 
- // button to add trip
- .buttonAddTrip {
+// button to add trip
+.buttonAddTrip {
   margin: 3rem 5px 5px 30px;
   background-color: black;
   color: white;
@@ -117,20 +117,24 @@ h1 {
   font-size: 1rem;
   transition: color 0.3s, transform 0.2s, background-color 0.5s;
   cursor: pointer;
-  &:hover {
-      color: black;
-      background-color: #E1eef2;
-      transform:scale(1.1);
-  }
-  font-family: 'Archivo', sans-serif;
- }
 
- // CSS for popup
-  body.active-popup {
-    overflow-y: hidden;
+  &:hover {
+    color: black;
+    background-color: #E1eef2;
+    transform: scale(1.1);
   }
- 
- .popup-container, .overlay {
+
+  font-family: 'Archivo',
+  sans-serif;
+}
+
+// CSS for popup
+body.active-popup {
+  overflow-y: hidden;
+}
+
+.popup-container,
+.overlay {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -141,7 +145,7 @@ h1 {
 }
 
 .overlay {
-  background: rgba(49,49,49,0.8);
+  background: rgba(49, 49, 49, 0.8);
 }
 
 .popup-content {
@@ -157,11 +161,11 @@ h1 {
   min-width: 300px;
   max-height: 420px;
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   outline: 2px solid #D8D0C8;
   background-color: #F7F4F2;
-  border-radius: 3px; 
+  border-radius: 3px;
 }
 
 .popup-container {
@@ -177,7 +181,8 @@ h1 {
   height: 100%;
 }
 
-.trip-container, .overlay {
+.trip-container,
+.overlay {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -273,11 +278,11 @@ h1 {
   max-height: 95vh;
   min-height: 75vh;
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   outline: 2px solid #D8D0C8;
-  background-color:#F7F4F2;
-  border-radius: 3px; 
+  background-color: #F7F4F2;
+  border-radius: 3px;
   // overflow:scroll;
 }
 
@@ -344,12 +349,15 @@ h1 {
   font-size: 1rem;
   transition: color 0.3s, transform 0.2s, background-color 0.5s;
   cursor: pointer;
+
   &:hover {
-      color: black;
-      background-color: #E1eef2;
-      transform:scale(1.1);
+    color: black;
+    background-color: #E1eef2;
+    transform: scale(1.1);
   }
-  font-family: 'Archivo', sans-serif;
+
+  font-family: 'Archivo',
+  sans-serif;
 }
 
 .buttonDeleteTrip {
@@ -363,12 +371,15 @@ h1 {
   font-size: 1rem;
   transition: color 0.3s, transform 0.2s, background-color 0.5s;
   cursor: pointer;
+
   &:hover {
-      color: black;
-      background-color: #E1eef2;
-      transform:scale(1.1);
+    color: black;
+    background-color: #E1eef2;
+    transform: scale(1.1);
   }
-  font-family: 'Archivo', sans-serif;
+
+  font-family: 'Archivo',
+  sans-serif;
 }
 
 #moodboard-container {
@@ -480,12 +491,15 @@ h1 {
   font-size: 1rem;
   transition: color 0.3s, transform 0.2s, background-color 0.5s;
   cursor: pointer;
+
   &:hover {
-      color: black;
-      background-color: #E1eef2;
-      transform:scale(1.1);
+    color: black;
+    background-color: #E1eef2;
+    transform: scale(1.1);
   }
-  font-family: 'Archivo', sans-serif;
+
+  font-family: 'Archivo',
+  sans-serif;
 }
 
 input[type="file" i] {

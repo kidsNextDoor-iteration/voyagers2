@@ -55,9 +55,9 @@ const Trips = () => {
   //       setTripImages(data);
   //       console.log(tripImages);
   //     })
-    // .catch(err => {
-    //   console.log('error in fetching /getImages in Trips.jsx')
-    // })
+  // .catch(err => {
+  //   console.log('error in fetching /getImages in Trips.jsx')
+  // })
   // }
 
   // render default image if no trip image is selected
@@ -80,6 +80,8 @@ const Trips = () => {
   const closePopup = () => {
     setTripPopup(false)
   }
+
+  console.log("tripstripstrips", trips)
 
   return (
     <div>
@@ -114,7 +116,7 @@ const Trips = () => {
               <div name={tile.tripid}>
                 <img
                   className="tripImage"
-                  src=""
+                  src={tile.coverImage ? tile.coverImage.imageurl : ""}
                   alt=""
                   onError={addDefaultImg}
                   onClick={() => handleImageClick(tile.tripid)}
