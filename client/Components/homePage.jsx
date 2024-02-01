@@ -5,14 +5,14 @@ import Image from "../stylesheets/images/background-1.jpg";
 import image2 from '../Images/landingImg2.png';
 
 
-const HomePage = (props)=>{
+const HomePage = (props) => {
   let navigate = useNavigate();
-    return(
+  return (
     <main>
       <div id="home">
         <div className="navbar">
           <nav>
-            <a href="/" className="logo">Voyager</a>
+            <a href="/" className="logo">Voyager<a id='capitalS'>S</a></a>
             <div className="menu">
               <a href="#about">ABOUT</a>
               <Link to="/internal/signin">LOGIN</Link>
@@ -21,8 +21,8 @@ const HomePage = (props)=>{
         </div>
         <div className="hero">
           <div className="content">
-            <h1>Welcome to Voyager</h1>
-            <p>Travel planning made easy</p>
+            <h1>Welcome to Voyager<a id='capitalS'>S</a></h1>
+            <p>Travel planning made eas<a id='capitalS'>ier</a></p>
             <button onClick={() => navigate('/internal/signup')}>Get Started</button>
           </div>
         </div>
@@ -37,7 +37,7 @@ const HomePage = (props)=>{
         </div>
       </div>
     </main>
-   )
+  )
 }
 
 export default HomePage;
