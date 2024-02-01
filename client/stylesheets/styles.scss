@@ -10,14 +10,26 @@ body {
     margin: 0px;
 }
 
+#companions {
+    height: 40px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 15px;
+}
+
 .addTravelersDiv {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    height: 100px;
+    height: 40px;
     width: 100%;
     background-color: black;
+    padding: 15px;
 
     color: white;
 
@@ -425,4 +437,27 @@ body {
             }
         }
     }
+}
+
+.tripDetails-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 240px;
+    width: 100%;
+    // background-color: pink;
+    align-items: flex-start;
+    padding: 15px;
+    border: 3px solid black;
+    margin-top: 15px;
+    // font-size: 10px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
 }

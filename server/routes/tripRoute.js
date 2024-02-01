@@ -32,6 +32,7 @@ router.get('/getTripDetails',
   // create a cookie with the tripId
   cookieController.setTripCookie,
   tripController.getTripDetails,
+  tripController.getCompanions,
   (req, res) => {
     // console.log('in /getTripDetails ', res.locals.tripId);
     res.status(200).json(res.locals.trip)
