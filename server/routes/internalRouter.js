@@ -6,10 +6,14 @@ const router = express.Router();
 
 router.post('/signin', userController.verifyUser, userController.userCookie,
   // add middleware here,
-  (req, res) => {
-    res.redirect('/trips')
-  }
-)
+  // (req, res) => {
+  //   res.redirect('/trips')
+  // }
+
+  //sending back user id, but not using it yet on front
+  (req, res) => res.status(200).json(res.locals.userid)
+);
+
 router.post('/signup', userController.addUser, userController.userCookie,
   // add middleware here,
   (req, res) => {
