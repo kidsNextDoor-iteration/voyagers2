@@ -19,11 +19,8 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
     fetch(`/trip/getTripDetails?tripId=${tripId}`)
       .then(res => res.json())
       .then(data => {
-        console.log('returned data: ', data)
         setFetchedTrip(data[0]);
         setEditedTrip(data[0]);
-        console.log('fetched trip ', fetchedTrip)
-        console.log('edited trip ', editedTrip)
         setEditMode(false);
       }).catch(err => {
         console.log('error in fetching /getTripDetails in TripDetails.jsx')

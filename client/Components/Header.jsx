@@ -1,21 +1,31 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import '../Styles/header.scss'
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  function onClick(){
+    fetch('/internal/signout')
+      .then((data) => data.json())
+      .then((data) => console.log('response: ', data))
+      .then(() => navigate('/home'))
+      .catch(err => alert(err));
+  }
 
   return (
     <div className="header">
       <nav>
-        <a href="/trips" className="logo">
+        <a style={{cursor: "pointer"}} onClick={() => navigate('/')} className="logo">
           Voyager<a id='capitalS'>S</a>
         </a>
         <div className="menu">
           {/* <Link to="/trips">TRIPS</Link>
           <Link to="/moodboard">MOOD BOARDS</Link>
           <Link to="/collaborations">COLLABORATIONS</Link> */}
-          <a href="/internal/signout" >SIGNOUT</a>
+          {/* <a href="/internal/signout" >SIGNOUT</a> */}
+          <a style={{cursor: "pointer"}} onClick={onClick} >SIGNOUT</a>
         </div>
       </nav>
     </div>
