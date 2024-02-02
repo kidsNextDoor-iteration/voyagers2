@@ -11,6 +11,7 @@ import passkeyImg from '../Images/passkey.png'
 
 import '@passageidentity/passage-elements/passage-auth'
 <script src="https://psg.so/web.js"></script>
+import facebookImg from '../Images/facebook.png'
 
 const Signin = () => {
     let navigate = useNavigate();
@@ -58,6 +59,10 @@ const Signin = () => {
                             <img src={passkeyImg} width="40" height="40"></img>
                             <div>Login with Passkey</div>
                         </Link>
+                        </div>
+                        <div className="FBOAuthButton"><a href={'http://localhost:8080/facebook/login'}>
+                            <img src={facebookImg}></img>
+                        </a>
                         </div>
                     </form>
                 </div>

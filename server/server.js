@@ -11,6 +11,8 @@ const tripRouter = require('./routes/tripRoute');
 const imgAPiRouter = require('./routes/imgApiRoute');
 const googleRouter = require('./routes/googleRouter')
 const passkeyRouter = require('./routes/passkeyRouter')
+const facebookRouter = require('./routes/facebookRouter')
+
 const userController = require('./controllers/userController.js');
 
 const multer = require('multer')
@@ -105,7 +107,8 @@ app.get('/trips', userController.verifyAuth, (req, res) => {
 
 //--------------- OAUTH ROUTING -------------//
 
-app.use('/google', googleRouter)
+app.use('/google', googleRouter);
+app.use('/facebook', facebookRouter);
 app.use('/passkey', passkeyRouter)
 
 

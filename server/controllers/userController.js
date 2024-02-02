@@ -125,6 +125,16 @@ userController.userCookie = (req, res, next) => {
   return next();
 }
 
+userController.facebookAdapter = (req, res, next) => {
+  res.locals.userid = req.user
+  return next();
+}
+
+userController.facebookAdapter = (req, res, next) => {
+  res.locals.userid = req.user
+  return next();
+}
+
 //only being called from /trips
 userController.verifyAuth = (req, res, next) => {
   try {
