@@ -26,11 +26,13 @@ const Signin = () => {
                 },
                 body: JSON.stringify({ email, password })
             });
-            if (response.redirected) {
-                navigate('/trips')
-            } else {
-                if (!response.ok) alert('Invalid login credentials');
-            }
+            // if (response.redirected) {
+            //     navigate('/trips')
+            // } else {
+            //     if (!response.ok) alert('Invalid login credentials');
+            // }
+            if (!response.ok) alert('Invalid login credentials');
+            else navigate('/trips');
         } catch {
             alert('Signin failed due to unknown error')
         }

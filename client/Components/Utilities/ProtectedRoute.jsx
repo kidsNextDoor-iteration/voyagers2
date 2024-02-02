@@ -6,13 +6,20 @@ export default function ProtectedRoute({ children }) {
 
     const navigate = useNavigate();
 
+
     fetch('/checkCookie')
         .then(response => response.json())
         .then(data => {
             if (!data) {
-                navigate('/home')
+                return navigate('/home')
+            } else {
+                return children;
             }
-        })
 
-    return children;
+        }
+        )
+
+    // return children;
+
+
 }

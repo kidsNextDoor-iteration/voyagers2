@@ -48,8 +48,8 @@ app.use('/api', imgAPiRouter);
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 
-//was being called from redirect in internalRouter.js (not anymore). 
-//Still being called from userController.js, which calls it from userController.verifyAuth, which is only called in get '/trips' in server.js
+//Being called from userController.verifyAuth, which is only called in get '/trips' in server.js
+//was being called from: redirect in internalRouter.js 
 app.get('/home', (req, res) => {
   console.log('/home called')
   console.log('reroute to dist')
@@ -82,7 +82,8 @@ app.get('/home', (req, res) => {
 //   res.sendFile(path.join(__dirname, '../dist/index.html'))
 // })
 
-//being called from: Header.jsx, redirect in googleRouter.js, redirect in internalRouter.js, passkeyRouter.js
+//being called from: edirect in googleRouter.js, passkeyRouter.js
+//was being called from: Header.jsx, redirect in internalRouter.js
 app.get('/trips', userController.verifyAuth, (req, res) => {
   console.log('/trips called')
   console.log('reroute to dist')

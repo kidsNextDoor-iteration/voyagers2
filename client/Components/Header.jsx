@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <div className="header">
       <nav>
-        <a href="/trips" className="logo">
+        <a style={{cursor: "pointer"}} onClick={() => navigate('/trips')} className="logo">
           Voyager<a id='capitalS'>S</a>
         </a>
         <div className="menu">
