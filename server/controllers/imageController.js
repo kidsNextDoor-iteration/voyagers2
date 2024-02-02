@@ -81,13 +81,16 @@ imageController.getImages = async (req, res, next) => {
     console.log('req.body: ', req.body)
     console.log('trip cookie: ', req.cookies.tripId)
     const tripID = await req.cookies.tripId;
+    if (req.cookies.tripId === undefined) {
+      
+    } else {
     const querySTR = `SELECT * FROM images WHERE tripid = '${tripID}';`
 
     const imageQueryResults = await db.query(querySTR);
     res.locals.imageQueryResults = imageQueryResults.rows;
 
 
-    return next();
+    return next()};
   } catch (err) {
     console.log('error in imageController.getImages: ', err)
     return next();

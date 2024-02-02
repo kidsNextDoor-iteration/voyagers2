@@ -327,6 +327,45 @@ body {
             }
         }
 
+        .FBOAuthButton {
+            margin-top: 20px;
+            width: 250px;
+            height: 40px;
+            a {
+                display: flex;
+                flex-direction: flex-start;
+                flex-direction: row;
+                width: 100%;
+                height: 100%;
+
+                &:hover,
+                &:focus,
+                &:active {
+                    text-decoration: none;
+                }
+
+
+                // padding: 10px;
+
+
+                img {
+                    height: 100%;
+                    // width: 60px;
+
+                }
+
+                div {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+
+
+                    &:hover {}
+
+                }
+            }
+        }
 
         .image {
             flex: 1;

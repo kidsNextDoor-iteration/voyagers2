@@ -125,6 +125,11 @@ userController.userCookie = (req, res, next) => {
   return next();
 }
 
+userController.facebookAdapter = (req, res, next) => {
+  res.locals.userid = req.user
+  return next();
+}
+
 userController.verifyAuth = (req, res, next) => {
   try {
     if (req.cookies.userid) {

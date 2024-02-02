@@ -11,6 +11,7 @@ const tripRouter = require('./routes/tripRoute');
 const imgAPiRouter = require('./routes/imgApiRoute');
 const googleRouter = require('./routes/googleRouter')
 const passkeyRouter = require('./routes/passkeyRouter')
+const facebookRouter = require('./routes/facebookRouter')
 
 const userController = require('./controllers/userController.js');
 // const imageController = require('./controllers/imageController.js');
@@ -55,7 +56,7 @@ app.use('/api', imgAPiRouter);
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
 app.get('/home', (req, res) => {
-  console.log('reroute to dist')
+  console.log('reroute to dist 123')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
@@ -82,7 +83,7 @@ app.get('/imageDemo', (req, res) => {
 
 
 app.get('/trips', userController.verifyAuth, (req, res) => {
-  console.log('reroute to dist')
+  console.log('reroute to distroy')
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
@@ -99,7 +100,8 @@ app.get('/collaborations', userController.verifyAuth, (req, res) => {
 
 //--------------- OAUTH ROUTING -------------//
 
-app.use('/google', googleRouter)
+app.use('/google', googleRouter);
+app.use('/facebook', facebookRouter);
 app.use('/passkey', passkeyRouter)
 
 
