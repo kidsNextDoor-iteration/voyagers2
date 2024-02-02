@@ -15,6 +15,7 @@ async function(accessToken, refreshToken, profile, cb) {
     let email = profile.emails[0].value;
     const returned = await db.query(`SELECT * FROM users WHERE email = '${email}'`)
 
+    
     let queryValues;
     let queryText;
     let user;
