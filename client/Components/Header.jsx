@@ -7,9 +7,10 @@ const Header = () => {
   const navigate = useNavigate();
 
   function onClick(){
+    //response is not always a json. 
     fetch('/internal/signout')
-      .then((data) => data.json())
-      .then((data) => console.log('response: ', data))
+      // .then((data) => data.json())
+      // .then((data) => console.log('response: ', data))
       .then(() => navigate('/home'))
       .catch(err => alert(err));
   }

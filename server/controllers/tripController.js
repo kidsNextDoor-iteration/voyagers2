@@ -87,16 +87,18 @@ tripController.getCompanions = async (req, res, next) => {
 
 tripController.editTrip = (req, res, next) => {
   const editQuery = `
-      UPDATE trips
-      SET startDate = $2, endDate = $3, city = $4, brand = $5, description = $6, idea = $7, status = $8
-      WHERE tripId = $1
+    UPDATE trips
+    SET startDate = $2, endDate = $3, city = $4, brand = $5, description = $6, idea = $7, status = $8
+    WHERE tripId = $1
+    RETURNING tripid, userid, city, brand, description, startDate, endDate, idea, status;
     `
+
   const value = [req.query.tripId, req.body.startDate, req.body.endDate, req.body.city, req.body.brand, req.body.description, req.body.idea, req.body.status];
-  console.log('editTrip ', value);
+  // console.log('editTrip ', value);
   try {
     db.query(editQuery, value)
       .then(data => {
-        console.log("editTrip data.rows ", data.rows);
+        // console.log("editTrip data.rows ", data.rows);
         res.locals.trip = data.rows;
         return next();
       })
@@ -128,6 +130,8 @@ tripController.addTrip = (req, res, next) => {
 
     db.query(queryOne, valuesOne)
       .then(data => {
+        //add tripid to res.locals to return to front end
+        res.locals.tripid = { tripid: data.rows[0].tripid};
         // Insert the tripid and userid to the joining table
         const valuesThree = [userid, data.rows[0].tripid];
         const queryThree = `
