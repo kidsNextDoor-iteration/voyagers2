@@ -49,6 +49,9 @@ app.use('/trip', tripRouter);
 app.use('/api', imgAPiRouter);
 
 // ------------- CLIENT ROUTING FOR REACT ROUTER -------------- //
+// ------------- THESE ROUTES ARE USED IN CONJUNCTION WITH REACT ROUTER -------------- //
+// ------------- THESE ROUTES SHOULD MATCH THOSE IN REACT ROUTER -------------- //
+// ------------- WITHOUT THESE ROUTES, IF THE USER ENTERS THE URL DIRECTLY INTO THE BROWSER, IT WON'T WORK -------------- //
 
 //Being called from userController.verifyAuth, which is only called in get '/trips' in server.js
 //was being called from: redirect in internalRouter.js 
@@ -58,14 +61,14 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'))
 });
 
-//was only being called from redirect in internalRouter.js. not anymore
+//was being called from redirect in internalRouter.js. not anymore.
 // app.get('/signin', (req, res) => {
 //   console.log('/signin called')
 //   console.log('reroute to dist')
 //   res.sendFile(path.join(__dirname, '../dist/index.html'))
 // });
 
-//only being called in Login.jsx. Login component is never actually used in the app
+//being called in Login.jsx. Login component is never actually used in the app
 // app.get('/signup', (req, res) => {
 //   console.log('/signup called')
 //   console.log('reroute to dist')
@@ -78,7 +81,7 @@ app.get('/home', (req, res) => {
 //   res.sendFile(path.join(__dirname, '../dist/index.html'))
 // });
 
-//this route is never being called
+//we don't want a direct route to imageDemo. we want the user to navigate there from front end routing
 // app.get('/imageDemo', (req, res) => {
 //   console.log('reroute to dist')
 //   res.sendFile(path.join(__dirname, '../dist/index.html'))
