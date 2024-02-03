@@ -316,10 +316,11 @@ const TripDetails = ({ tripId, closePopup, fetchTrips }) => {
                 {/* Status: {fetchedTrip.status} */}
 
                 <div className="button-container">
-                  <form onSubmit={handleFormSubmit}>
-                    <button className="buttonEditTrip" type="submit" name="action" value="update">Edit Trip</button>
-                    <button className="buttonDeleteTrip" type="submit" name="action" value="delete">Delete Trip</button>
-                  </form>
+                  {/* <form onSubmit={handleFormSubmit}> */}
+                  {/* <form> */}
+                  <button className="buttonEditTrip" type="submit" name="action" value="update">Edit Trip</button>
+                  <button className="buttonDeleteTrip" type="submit" name="action" value="delete">Delete Trip</button>
+                  {/* </form> */}
                 </div>
               </div>
             </div>

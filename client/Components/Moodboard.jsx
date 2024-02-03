@@ -15,18 +15,18 @@ function Moodboard({ fetchedTripId }) {
   const [poppedImage, setPoppedImage] = useState()
 
   const fetchImages = async () => {
-    try{
+    try {
       // need to send fetchedTripId in body,
       console.log('fetching tripid in fetch images: ', fetchedTripId)
       const response = await fetch('/api/getImages')
       const data = await response.json();
-      console.log('from data: ',data)
-   
+      console.log('from data: ', data)
+
       const formatPhotoData = [];
       data.forEach(el => {
         const elkey = el.imageid;
         const elurl = el.imageurl;
-        formatPhotoData.push({src: elurl})
+        formatPhotoData.push({ src: elurl })
       })
 
       await setPhotos(formatPhotoData)
@@ -39,10 +39,10 @@ function Moodboard({ fetchedTripId }) {
 
 
   useEffect(() => {
-    if(!imageReady){
+    if (!imageReady) {
       fetchImages();
     }
-  },[]);
+  }, []);
 
 
   console.log('photos: ', photos)
@@ -52,23 +52,23 @@ function Moodboard({ fetchedTripId }) {
 
   const submit = async event => {
     event.preventDefault();
-  
+
     const formData = new FormData();
     formData.append("image", file);
     formData.append("caption", caption);
     formData.append("tripID", fetchedTripId)
     setCaption('')
-  
+
     try {
       const response = await fetch("/api/uploadimage", {
         method: "POST",
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const responseData = await response.json();
       console.log("Upload successful:", responseData);
       window.location.reload();
@@ -76,8 +76,8 @@ function Moodboard({ fetchedTripId }) {
       console.error("Error uploading image:", error);
     }
   };
-  
-  const handleClick = (e, { src } ) => {
+
+  const handleClick = (e, { src }) => {
     setPoppedImage(src)
     setPopUp(true)
   };
@@ -87,32 +87,43 @@ function Moodboard({ fetchedTripId }) {
   };
 
   const deleteImgFunc = async () => {
-    try{
+    try {
       const imgSrc = poppedImage;
       await fetch('/api/deleteImage', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ imgSrc }),
-    })
-    window.location.reload();
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imgSrc }),
+      })
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }
   }
 
+  const photoArr = photos.map(photo => {
+    return (
+      <div>
+        <img src={photo.url}></img>
+      </div>
+    )
 
+  })
 
   return (
     <>
-       
- 
 
-        <div id='moodboard-container' style={{ height: '90%'}}>
-          <Gallery images={photos} rowHeight={228} margin={9} onClick={handleClick}/>
-        </div>
-    
+      {/* <img src='https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_lg_2x/f_auto/primary/b2unl1gppjiic0fld0em'></img> */}
+      <Gallery images={photos} rowHeight={228} margin={9} onClick={handleClick} />
+      {/* <div id='moodboard-container' style={{ height: '90%' }}> */}
+      {/* <Gallery images={photos} rowHeight={228} margin={9} onClick={handleClick}/> */}
+      {console.log('photos: ', photos)}
+
+      {photoArr}
+      {/* {photos.map(photo => { <img src={photo.src}></img> })} */}
+      {/* </div> */}
+
       {popUp && (
         <div className='pop-up'>
           <div className='pop-up-overlay' onClick={closeModal}></div>
