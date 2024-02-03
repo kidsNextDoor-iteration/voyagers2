@@ -69,6 +69,7 @@ describe('Server Route Testing via Supertest', () => {
     let testLastName;
     beforeAll(async () => {
         goodResponse = await request(server).post('/internal/signup').send(passingBody);
+        console.log('goodResponse looking for set cookie:', goodResponse)
 
         testEmail = passingBody.email;
         testFirstName = passingBody.firstname;
