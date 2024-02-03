@@ -206,7 +206,8 @@ describe('Server Route Testing via Supertest', () => {
         let testTripId;
         beforeAll(async () => {
             response = await request(server).post('/trip/addTrip').set('Cookie', [`userid=${goodDbResult.rows[0].userid}`]).send(validTrip);
-            testTripId = response.body[0].tripid;
+            console.log('response body:', response.body)
+            testTripId = response.body.tripid;
         });
 
         //deleting the added test trip where we test the delete trip route below
@@ -219,25 +220,25 @@ describe('Server Route Testing via Supertest', () => {
 
             //after refactor, not returning trip anymore
             it('should return added trip', () => {
-                //date comes back from db as Z strings, so convert back to same format as input. this will maintain the actual date for valid comparison
-                // const responseStartDate = new Date(response.body[0].startdate);
-                // const responseEndDate = new Date(response.body[0].enddate);
-                // const validResponse = {...response.body[0], startdate: responseStartDate.toLocaleDateString(), enddate: responseEndDate.toLocaleDateString()};
-                // //passing in startDate and endDate in camel case, but db returns without camel case. removing camel case from input keys to match db structure.
-                // const validInput = {
-                //     city: validTrip.city,
-                //     brand: validTrip.brand,
-                //     description: validTrip.description,
-                //     startdate: validTrip.startDate,
-                //     enddate: validTrip.endDate,
-                //     idea: validTrip.idea
-                // };
-                // expect(validResponse).toEqual(expect.objectContaining(validInput));
+                // date comes back from db as Z strings, so convert back to same format as input. this will maintain the actual date for valid comparison
+                const responseStartDate = new Date(response.body[0].startdate);
+                const responseEndDate = new Date(response.body[0].enddate);
+                const validResponse = {...response.body[0], startdate: responseStartDate.toLocaleDateString(), enddate: responseEndDate.toLocaleDateString()};
+                //passing in startDate and endDate in camel case, but db returns without camel case. removing camel case from input keys to match db structure.
+                const validInput = {
+                    city: validTrip.city,
+                    brand: validTrip.brand,
+                    description: validTrip.description,
+                    startdate: validTrip.startDate,
+                    enddate: validTrip.endDate,
+                    idea: validTrip.idea
+                };
+                expect(validResponse).toEqual(expect.objectContaining(validInput));
             });
 
-            it('should return message that trip was added', () => {
-                expect(response.text).toBe('Trip added!');
-            });
+            // it('should return tripid', () => {
+            //     expect(response.body[0]).toBe('Trip added!');
+            // });
 
             //after refactor, not returning trip anymore
             it('should only return array with one added trip', () => {

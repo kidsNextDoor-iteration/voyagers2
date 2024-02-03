@@ -128,6 +128,8 @@ tripController.addTrip = (req, res, next) => {
 
     db.query(queryOne, valuesOne)
       .then(data => {
+        //add tripid to res.locals to return to front end
+        res.locals.tripid = { tripid: data.rows[0].tripid};
         // Insert the tripid and userid to the joining table
         const valuesThree = [userid, data.rows[0].tripid];
         const queryThree = `

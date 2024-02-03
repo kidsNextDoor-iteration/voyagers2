@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/addTrip',
   tripController.addTrip,
   (req, res) => {
-    res.status(200).send('Trip added!')
+    res.status(200).json(res.locals.tripid)
   }
 );
 
@@ -26,6 +26,7 @@ router.get('/getTrips',
 );
 
 //route for editing trip details
+//don't think we are enabling edit mode yet
 router.patch('/editTrip', tripController.editTrip, (req, res) => {
   res.status(200).json(res.locals.trip)
 });
