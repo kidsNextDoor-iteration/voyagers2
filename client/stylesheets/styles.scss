@@ -273,6 +273,13 @@ body {
             }
         }
 
+        .OAuthButtonSection {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
         .OAuthButton {
             margin-top: 20px;
             width: 250px;
@@ -331,6 +338,7 @@ body {
             margin-top: 20px;
             width: 250px;
             height: 40px;
+
             a {
                 display: flex;
                 flex-direction: flex-start;

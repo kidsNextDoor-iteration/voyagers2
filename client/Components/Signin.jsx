@@ -11,7 +11,8 @@ import passkeyImg from '../Images/passkey.png'
 
 import '@passageidentity/passage-elements/passage-auth'
 <script src="https://psg.so/web.js"></script>
-import facebookImg from '../Images/facebook.png'
+// import facebookImg from '../Images/facebook.png'
+import facebookImg from '../Images/facebooklogo.png'
 
 const Signin = () => {
     let navigate = useNavigate();
@@ -50,20 +51,37 @@ const Signin = () => {
                         <input name="password" type="password" placeholder="Password"></input>
                         <input type="submit" value="Login"></input>
                         <Link to="/internal/signup">Register Now</Link>
-                        <div className="OAuthButton"><a href={googleAuthLink()}>
-                            <img src={googleImg}></img>
-                            <div>Login with Google</div>
-                        </a>
+
+
+                        <div className='OAuthButtonSection'>
+                            <div className="OAuthButton"><a href={googleAuthLink()}>
+                                <img src={googleImg}></img>
+                                <div>Login with Google</div>
+                            </a>
+                            </div>
+                            <div className="OAuthButton"><a href={'http://localhost:8080/facebook/login'}>
+                                <img src={facebookImg}></img>
+                                <div>Login with Facebook</div>
+                            </a>
+                            </div>
+
+                            <div className="OAuthButton"><Link to="/internal/signin/passkey">
+                                <img src={passkeyImg} width="40" height="40"></img>
+                                <div>Login with Passkey</div>
+                            </Link>
+                            </div>
                         </div>
-                        <div className="OAuthButton"><Link to="/internal/signin/passkey">
-                            <img src={passkeyImg} width="40" height="40"></img>
-                            <div>Login with Passkey</div>
-                        </Link>
-                        </div>
-                        <div className="FBOAuthButton"><a href={'http://localhost:8080/facebook/login'}>
+
+
+
+
+
+
+
+                        {/* <div className="FBOAuthButton"><a href={'http://localhost:8080/facebook/login'}>
                             <img src={facebookImg}></img>
                         </a>
-                        </div>
+                        </div> */}
                     </form>
                 </div>
                 <div className="image">
