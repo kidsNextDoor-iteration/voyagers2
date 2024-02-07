@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 //import components
@@ -25,13 +25,13 @@ const Trips = () => {
   // prevent scrolling of page while popup is active
   if (buttonPopup) {
     document.body.classList.add('active-popup');
-  }  else {
-      document.body.classList.remove('active-popup');
+  } else {
+    document.body.classList.remove('active-popup');
   }
 
   // fetch trips from database when refreshed
   const fetchTrips = () => {
-    fetch('/getTrips')
+    fetch('/trip/getTrips')
       .then(res => res.json())
       .then(data => {
         setTrips(data);
@@ -43,21 +43,22 @@ const Trips = () => {
 
   useEffect(() => {
     fetchTrips();
-    fetchImages()
+    // fetchImages()
   }, [])
 
+  //WE SHOULDN'T BE FETCHING IMAGES HERE. WE'RE NOT USING IT HERE AND IT'S CAUSING AN ERROR
   // fetch trip images from database when refreshed
-  const fetchImages = () => {
-    fetch('/getImages')
-      .then(res => res.json())
-      .then(data => {
-        setTripImages(data);
-        console.log(tripImages);
-      })
-      // .catch(err => {
-      //   console.log('error in fetching /getImages in Trips.jsx')
-      // })
-  }
+  // const fetchImages = () => {
+  //   fetch('/api/getImages')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setTripImages(data);
+  //       console.log(tripImages);
+  //     })
+  // .catch(err => {
+  //   console.log('error in fetching /getImages in Trips.jsx')
+  // })
+  // }
 
   // render default image if no trip image is selected
   const addDefaultImg = (e) => {
@@ -80,71 +81,73 @@ const Trips = () => {
     setTripPopup(false)
   }
 
+  console.log("tripstripstrips", trips)
+
   return (
     <div>
       <Header />
 
       <div>
         <button className="buttonAddTrip" onClick={togglePop}>Add Trip</button>
-        {buttonPopup ? 
+        {buttonPopup ?
           <div className="popup-container">
             <div className="overlay"></div>
             <div className="popup-content">
               <div className="addTrip-container">
-                <AddTripPage togglePop={togglePop} fetchImages={fetchImages} fetchTrips={fetchTrips} />
+                <AddTripPage togglePop={togglePop} fetchTrips={fetchTrips} />
               </div>
               <button className="buttonClose" onClick={togglePop}>
                 X
               </button>
             </div>
           </div>
-        : null}
+          : null}
 
       </div>
-      <br/>
+      <br />
       {trips === null ? (
-      <div> <br/> <h1> Loading...</h1></div>
+        <div> <br /> <h1> Loading...</h1></div>
       ) : trips.length === 0 ? (
-        <div className='no-trips-title-container'><br/><h1 className='no-trips-title'>No Upcoming Trips. Plan One Now!</h1></div>
+        <div className='no-trips-title-container'><br /><h1 className='no-trips-title'>No Upcoming Trips. Plan One Now!</h1></div>
       ) : (
-      <Row className="tileRow">
-      {trips.map((tile, index) => (
-        <Col md={4} key={index} className="tileCol">
-          <div name={tile.tripid}>
-            <img
-              className="tripImage" 
-              src=""
-              alt=""
-              onError={addDefaultImg}
-              onClick={() => handleImageClick(tile.tripid)}
-            />
-            {/* <div className="middle">
+        <Row className="tileRow">
+          {trips.map((tile, index) => (
+            <Col md={4} key={index} className="tileCol">
+              <div name={tile.tripid}>
+                <img
+                  className="tripImage"
+                  src={tile.coverImage ? tile.coverImage.imageurl : ""}
+                  alt=""
+                  onError={addDefaultImg}
+                  onClick={() => handleImageClick(tile.tripid)}
+                />
+                {/* <div className="middle">
               <div className="caption">
                 {tile.city}
               </div>
             </div> */}
-          </div>
-          <div className="tileDetails">
-            {tile.startdate && new Date(tile.startdate).toLocaleDateString('en-US', {
-              day: '2-digit',
-              month: 'short',
-              year: 'numeric',
-            })} - {tile.enddate && new Date(tile.enddate).toLocaleDateString('en-US', {
-              day: '2-digit',
-              month: 'short',
-              year: 'numeric',
-            })}
-            <br />
-            {tile.city}
-          </div>
-        </Col>
-        ))}
+              </div>
+              <div className="tileDetails">
+                {tile.startdate && new Date(tile.startdate).toLocaleDateString('en-US', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric',
+                })} - {tile.enddate && new Date(tile.enddate).toLocaleDateString('en-US', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric',
+                })}
+                <br />
+                <h3 id='tileCity'>{tile.city}</h3>
+              </div>
+            </Col>
+          ))}
         </Row>
-        )}
-      
-        {tripPopup && (
-          <TripDetails tripId={selectedTrip} setTrip={setSelectedTrip} closePopup={closePopup} fetchTrips={fetchTrips} />
-        )}
+      )}
+
+      {tripPopup && (
+        <TripDetails tripId={selectedTrip} setTrip={setSelectedTrip} closePopup={closePopup} fetchTrips={fetchTrips} />
+      )}
     </div>
   )
 }
